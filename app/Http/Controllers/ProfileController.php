@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -22,6 +23,24 @@ class ProfileController extends Controller
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);
+    }
+
+    public function updateAvatar(Request $request)
+    {
+      
+        $request->validate([
+            'avatar' => [
+                'required'
+            ]
+        ]);
+
+
+        if ($oldAvatar = $request->user()->avatar) {
+            Storage::disk('public')->delete($oldAvatar);
+        }
+        $avatarImg = Storage::disk('public')->put('avatar', $request->file('avatar')[0]);
+        $request->user()->update(['avatar' => $avatarImg]);
+        return back()->with(['message' => 'Avatar is Change']);
     }
 
     /**

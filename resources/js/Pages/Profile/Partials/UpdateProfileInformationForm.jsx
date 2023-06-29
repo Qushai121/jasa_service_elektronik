@@ -13,6 +13,8 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         email: user.email,
     });
 
+    
+
     const submit = (e) => {
         e.preventDefault();
 
