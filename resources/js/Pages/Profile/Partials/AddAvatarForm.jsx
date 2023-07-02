@@ -26,7 +26,7 @@ const AddAvatarForm = ({className = ''}) => {
                 </p>
             </header>
             <div className='mt-4'>
-              <img className='w-52 h-44 rounded-lg object-cover' src={`storage/${user.avatar}`} alt={user.avatar.split('/')[1]} />
+              <img className='w-52 h-44 rounded-lg object-cover' src={`/storage/${user.avatar}`} alt={user.avatar?.split('/')[1]} />
             </div>
             <form onSubmit={submit} className="mt-6 space-y-6" encType='multipart/form-data'>
                 <div>

@@ -23,6 +23,6 @@ class SocialiteController extends Controller
         "password" => 'password',
       ]);
       Auth::login($user);
-      return redirect("/dashboard");
+      return redirect(route('dashboard'));
     }
 }

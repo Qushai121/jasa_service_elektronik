@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Umum\HomeController;
@@ -28,15 +29,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('admin/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified','isadmin'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix("/admin")->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('barangservice',BarangServiceController::class);
 });
 
 // Route::get('/auth/redirect', function () {

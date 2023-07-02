@@ -1,9 +1,9 @@
 import React from 'react'
-
+import GuestLayout from '@/Layouts/GuestLayout'
 const Index = () => {
   return (
     <>
-        <div className='bg-red-100' >
+        <div className='' >
             Ini Dari Render
         </div>
     </>
