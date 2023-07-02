@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class CheckRole
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,12 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
-        // if(auth()->user()->roles_id != 2 ){
-        //     abort(401);
-        // };
+        $roles = [
+            2,3,4
+        ];
+        if(!in_array(auth()->user()->roles_id,$roles)){
+            abort(401);
+        };
         return $next($request);
     }
 }

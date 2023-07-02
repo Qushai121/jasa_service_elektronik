@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import NavbarAdmin from "./NavbarAdmin";
 import SidebarAdminMenu from "./Partials/SidebarAdminMenu";
 
 export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-
+        // console.log(usePage().props.auth.user);
     const [getsidebar, setSidebar] = useState(true);
 
     const openSidebar = () => {

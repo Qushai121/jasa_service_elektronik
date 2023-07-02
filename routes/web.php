@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BarangServiceController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Umum\HomeController;
@@ -31,15 +32,16 @@ Route::get('/', function () {
 
 Route::get('admin/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified','isadmin'])->name('dashboard');
+})->middleware(['auth', 'verified','CheckRole'])->name('dashboard');
 
-Route::middleware('auth')->prefix("/admin")->group(function () {
+Route::middleware(['auth','CheckRole'])->prefix("/admin")->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('barangservice',BarangServiceController::class);
+    Route::resource('customer',CustomerController::class);
 });
 
 // Route::get('/auth/redirect', function () {

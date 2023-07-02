@@ -4,15 +4,18 @@ import Header from "./Partials/Header";
 import AddBarangService from "./Partials/AddBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
 import DetailCustomer from "./Partials/DetailCostumer";
+import DetailBarangService from "./Partials/DetailBarangService";
+import PaginateAdmin from "@/Components/PaginateAdmin";
 
-const IndexBarangService = () => {
+const IndexBarangService = ({barangServices}) => {
+    console.log(barangServices);
     return (
         <AuthenticatedLayout>
             <Header />
             <AddBarangService />
 
-            <div class="overflow-x-auto w-[100vw] lg:w-full ">
-                <table class="table">
+            <div className="overflow-x-auto w-[100vw] lg:w-full ">
+                <table className="table">
                     <thead>
                         <tr className="text-gray-100">
                             <th>No</th>
@@ -26,30 +29,31 @@ const IndexBarangService = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-gray-100">
+                    {barangServices.data.map((data, i)=>(
+                        <tr key={i} className="text-gray-100">
                             <th>1</th>
                             <th>
                                 <div className="flex flex-col ">
-                                    <DetailCustomer/>
+                                    <DetailCustomer />
                                     <p className="badge ">Mamang</p>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex flex-col gap-2 w-fit">
-                                    <PrimaryButton className="btn btn-sm w-fit whitespace-nowrap">
-                                        Detail Barang
-                                    </PrimaryButton>
-                                    <p className="badge">Nama Barang</p>
+                                <DetailBarangService barangServices={data} />
+                                    <p className="badge">{data.nama_barang}</p>
                                 </div>
                             </th>
                             <th>
                                 <div className="flex flex-col gap-2">
                                     <PrimaryButton>Detail</PrimaryButton>
                                     {/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
-                                    {/* <p className="badge badge-error whitespace-nowrap" >Belum Di Proses</p> */}
-                                    <p className="badge badge-info whitespace-nowrap">
-                                        Di Proses
+                                    <p className="badge badge-error whitespace-nowrap">
+                                        Belum Di Proses
                                     </p>
+                                    {/* <p className="badge badge-info whitespace-nowrap">
+                                        Di Proses
+                                    </p> */}
                                     {/* <p className="badge badge-warning whitespace-nowrap" >Perlu Bantuan</p> */}
                                     {/* <p className="badge badge-success whitespace-nowrap" >Selesai</p> */}
                                 </div>
@@ -68,9 +72,12 @@ const IndexBarangService = () => {
                                 <PrimaryButton>Selesai</PrimaryButton>
                             </th>
                         </tr>
+                    ))}
+                       
                     </tbody>
                 </table>
             </div>
+            <PaginateAdmin data={barangServices} />
         </AuthenticatedLayout>
     );
 };

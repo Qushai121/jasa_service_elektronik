@@ -8,6 +8,10 @@ const menus = [
         keterangan: "Profile",
     },
     {
+        link: "customer.index",
+        keterangan: "List Customer",
+    },
+    {
         link: "barangservice.index",
         keterangan: "List Barang Service",
     },

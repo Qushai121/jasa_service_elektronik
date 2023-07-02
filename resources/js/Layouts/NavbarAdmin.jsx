@@ -5,7 +5,7 @@ import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
 
-const NavbarAdmin = ({openSidebar}) => {
+const NavbarAdmin = ({ openSidebar }) => {
     const user = usePage().props.auth.user;
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
@@ -17,11 +17,22 @@ const NavbarAdmin = ({openSidebar}) => {
                     <div className="flex">
                         <div className="shrink-0 flex gap-2 items-center">
                             <label
-                            htmlFor="my-drawer-2"
-                            className="btn lg:hidden"
+                                htmlFor="my-drawer-2"
+                                className="btn lg:hidden"
                             >
-                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-    
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    className="inline-block w-5 h-5 stroke-current"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M4 6h16M4 12h16M4 18h16"
+                                    ></path>
+                                </svg>
                             </label>
                             <Link href="/">
                                 <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
@@ -57,6 +68,18 @@ const NavbarAdmin = ({openSidebar}) => {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
+                                    <div className="mx-4 lg:hidden">
+                                        <div className="avatar">
+                                            <div className="w-12 rounded">
+                                                <img
+                                                    src={
+                                                        "/storage/" +
+                                                        user.avatar
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <Dropdown.Link href={route("profile.edit")}>
                                         Profile
                                     </Dropdown.Link>
@@ -70,8 +93,14 @@ const NavbarAdmin = ({openSidebar}) => {
                                 </Dropdown.Content>
                             </Dropdown>
                         </div>
+                        <div className="avatar">
+                            <div className="w-12 rounded">
+                                <img src={"/storage/" + user.avatar} />
+                            </div>
+                        </div>
                     </div>
-
+                    
+                        
                     <div className="-mr-2 flex items-center sm:hidden">
                         <button
                             onClick={() =>

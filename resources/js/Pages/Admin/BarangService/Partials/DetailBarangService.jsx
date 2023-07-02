@@ -1,38 +1,28 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { useForm } from "@inertiajs/react";
+import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function AddBarangService({ children }) {
+export default function DetailBarangService({ barangServices, children }) {
     const [tutup, setTutup] = useState(false);
-    // console.log(tutup);
+    // console.log(barangServices);
 
-    const { data, setData, post, processing, errors ,reset } = useForm({
-        nama_barang: "",
-        gambar_barang: "",
-        keluhan_barang: "",
-    });
+    const { data, setData, post, processing, errors } = useForm({});
 
-    // console.log(errors);
-
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("barangservice.store"),{
-            preserveScroll: true,
-            onSuccess:()=>{
-                reset('gambar_barang','keluhan_barang','nama_barang')
-            }
-        });
-    };
+    // console.log(data);
 
     return (
         <>
-            <button className="btn btn-sm m-2" onClick={() => setTutup(!tutup)}>
-                Tambah Barang
-            </button>
+            <PrimaryButton
+                className="btn btn-sm m-2"
+                onClick={() => setTutup(!tutup)}
+            >
+                Detail Barang
+            </PrimaryButton>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <button
@@ -56,32 +46,9 @@ export default function AddBarangService({ children }) {
                     </button>
                     <div className="px-6 py-6 lg:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                            Tambah Barang Masuk
+                            Detail Barang
                         </h3>
-                        <form
-                            onSubmit={submit}
-                            className="space-y-6"
-                            encType="multipart/form-data"
-                        >
-                            {/* <div>
-                                <InputLabel htmlFor="nama_customer" value="Nama Customer" />
-                                <TextInput
-                                    id="nama_customer"
-                                    type="text"
-                                    name="nama_customer"
-                                    // value={data.nama_customer}
-                                    className="mt-1 block w-full"
-                                    autoComplete="username"
-                                    isFocused={true}
-                                    // onChange={(e) =>
-                                    //     setData("nama_customer", e.target.value)
-                                    // }
-                                />
-                                <InputError
-                                    // message={errors.nama_customer}
-                                    className="mt-2"
-                                />
-                            </div> */}
+                        <form className="space-y-6">
                             <div>
                                 <InputLabel
                                     htmlFor="nama_barang"
@@ -91,20 +58,47 @@ export default function AddBarangService({ children }) {
                                     id="nama_barang"
                                     type="text"
                                     name="nama_barang"
-                                    // value={data.nama_barang}
+                                    defaultValue={barangServices.nama_barang}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
-                                    onChange={(e) =>
-                                        setData("nama_barang", e.target.value)
-                                    }
+                                    // onChange={(e) =>
+                                    //     setData("nama_barang", e.target.value)
+                                    // }
                                 />
                                 <InputError
-                                    message={errors.nama_barang}
+                                    // message={errors.nama_barang}
                                     className="mt-2"
                                 />
                             </div>
                             <div>
+                                <InputLabel
+                                    htmlFor="keluhan_barang"
+                                    value="Keluhan Barang"
+                                />
+                                <TextInput
+                                    id="keluhan_barang"
+                                    type="text"
+                                    name="keluhan_barang"
+                                    defaultValue={barangServices.keluhan_barang}
+                                    className="mt-1 block w-full"
+                                    autoComplete="username"
+                                    isFocused={true}
+                                    // onChange={(e) =>
+                                    //     setData("keluhan_barang", e.target.value)
+                                    // }
+                                />
+                                <InputError
+                                    // message={errors.keluhan_barang}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <div>
+                                <div className="avatar">
+                                    <div className="w-24 rounded">
+                                        <img src={"/storage/"+barangServices.gambar_barang} />
+                                    </div>
+                                </div>
                                 <InputLabel
                                     htmlFor="gambar_barang"
                                     value="Gambar Barang"
@@ -117,41 +111,17 @@ export default function AddBarangService({ children }) {
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
-                                    onChange={(e) =>
-                                        setData("gambar_barang", e.target.files[0])
-                                    }
+                                    // onChange={(e) =>
+                                    //     setData("gambar_barang", e.target.files[0])
+                                    // }
                                 />
                                 <InputError
-                                    message={errors.gambar_barang}
+                                    // message={errors.gambar_barang}
                                     className="mt-2"
                                 />
                             </div>
-                            <div>
-                                <InputLabel
-                                    htmlFor="keluhan_barang"
-                                    value="keluhan Barang"
-                                />
-                                <TextInput
-                                    id="keluhan_barang"
-                                    type="text"
-                                    name="keluhan_barang"
-                                    value={data.keluhan_barang}
-                                    className="mt-1 block w-full"
-                                    autoComplete="username"
-                                    isFocused={true}
-                                    onChange={(e) =>
-                                        setData(
-                                            "keluhan_barang",
-                                            e.target.value
-                                        )
-                                    }
-                                />
-                                <InputError
-                                    message={errors.keluhan_barang}
-                                    className="mt-2"
-                                />
-                            </div>
-                            <button className="btn">Tambah</button>
+
+                            <button className="btn">Edit</button>
                         </form>
                     </div>
                 </div>
