@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBarangServiceRequest;
 use App\Http\Requests\UpdateBarangServiceRequest;
 use App\Models\BarangService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
@@ -14,12 +15,11 @@ class BarangServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : Response
+    public function index(): Response
     {
         // WADUH INI MAH 
         $barangServices = BarangService::paginate(3);
-        // dd($barangServices);
-        return inertia('Admin/BarangService/IndexBarangService',compact('barangServices'));
+        return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BarangServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(BarangService $barangService)
+    public function show(BarangService $barangservice)
     {
         //
     }
@@ -56,7 +56,7 @@ class BarangServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(BarangService $barangService)
+    public function edit(BarangService $barangservice)
     {
         //
     }
@@ -64,15 +64,22 @@ class BarangServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBarangServiceRequest $request, BarangService $barangService)
+    public function update(UpdateBarangServiceRequest $request, BarangService $barangservice)
     {
-        //
+        $barangservice->update($request->except('gambar_barang'));
+        if ($request->file('gambar_barang')) {
+            Storage::disk('public')->delete($barangservice['gambar_barang']);
+            $gambar = Storage::disk('public')->put('gambar_barang', $request->file('gambar_barang'));
+            $barangservice->update(['gambar_barang' => $gambar]);
+        };
+
+        return redirect(route('barangservice.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(BarangService $barangService)
+    public function destroy(BarangService $barangservice)
     {
         //
     }

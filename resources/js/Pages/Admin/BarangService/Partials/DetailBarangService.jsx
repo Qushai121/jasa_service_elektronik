@@ -4,16 +4,42 @@ import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
-import { useForm } from "@inertiajs/react";
+import { router, useForm } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function DetailBarangService({ barangServices, children }) {
     const [tutup, setTutup] = useState(false);
-    // console.log(barangServices);
 
-    const { data, setData, post, processing, errors } = useForm({});
-
-    // console.log(data);
+    // Gambar nya harus di bikin state sendiri 🗿
+    const [gambar,setGambar ] = useState('');
+    
+    const { data, setData, post, processing, errors } = useForm({
+        nama_barang: barangServices.nama_barang,
+        keluhan_barang: barangServices.keluhan_barang,
+    });
+    
+    const submit = (e) => {
+        e.preventDefault()
+        router.post(route("barangservice.update", barangServices.id),{
+            // ini juga lebih baik pake router.post terus di kasih method spoofing kaya di blade biasa
+            _method: 'put',
+            // JANGAN GEGABAH cuy
+            ...data,
+            gambar_barang: gambar,
+            // lalu taruh dah disini state gambar nya 
+            // nyoba dari jam 11 💀
+        });
+    };
+    // const submit = (e) => {
+    //     e.preventDefault()
+    //     router.post(route("barangservice.update", barangServices.id),{
+    //         _method: 'put',
+    //         preserveScroll: true,
+    //         forceFormData: true,
+    //         ...data,
+    //         gambar_barang: gambar,
+    //     });
+    // };
 
     return (
         <>
@@ -48,7 +74,11 @@ export default function DetailBarangService({ barangServices, children }) {
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                             Detail Barang
                         </h3>
-                        <form className="space-y-6">
+                        <form
+                            onSubmit={submit}
+                            className="space-y-6"
+                            encType="multipart/form-data"
+                        >
                             <div>
                                 <InputLabel
                                     htmlFor="nama_barang"
@@ -62,12 +92,12 @@ export default function DetailBarangService({ barangServices, children }) {
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
-                                    // onChange={(e) =>
-                                    //     setData("nama_barang", e.target.value)
-                                    // }
+                                    onChange={(e) =>
+                                        setData("nama_barang", e.target.value)
+                                    }
                                 />
                                 <InputError
-                                    // message={errors.nama_barang}
+                                    message={errors.nama_barang}
                                     className="mt-2"
                                 />
                             </div>
@@ -84,19 +114,27 @@ export default function DetailBarangService({ barangServices, children }) {
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
-                                    // onChange={(e) =>
-                                    //     setData("keluhan_barang", e.target.value)
-                                    // }
+                                    onChange={(e) =>
+                                        setData(
+                                            "keluhan_barang",
+                                            e.target.value
+                                        )
+                                    }
                                 />
                                 <InputError
-                                    // message={errors.keluhan_barang}
+                                    message={errors.keluhan_barang}
                                     className="mt-2"
                                 />
                             </div>
                             <div>
                                 <div className="avatar">
                                     <div className="w-24 rounded">
-                                        <img src={"/storage/"+barangServices.gambar_barang} />
+                                        <img
+                                            src={
+                                                "/storage/" +
+                                                barangServices.gambar_barang
+                                            }
+                                        />
                                     </div>
                                 </div>
                                 <InputLabel
@@ -111,17 +149,19 @@ export default function DetailBarangService({ barangServices, children }) {
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
-                                    // onChange={(e) =>
-                                    //     setData("gambar_barang", e.target.files[0])
-                                    // }
+                                    onChange={(e) =>
+                                        setGambar(
+                                            e.target.files[0]
+                                        )
+                                    }
                                 />
                                 <InputError
-                                    // message={errors.gambar_barang}
+                                    message={errors.gambar_barang}
                                     className="mt-2"
                                 />
                             </div>
 
-                            <button className="btn">Edit</button>
+                            <button type="submit" className="btn">Edit</button>
                         </form>
                     </div>
                 </div>

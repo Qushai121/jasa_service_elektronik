@@ -26,8 +26,7 @@ const SidebarAdminMenu = () => {
                         <NavLink
                             href={route(menu.link)}
                             active={route().current(menu.link)}
-                        >
-                            {menu.keterangan}
+                        >{menu.keterangan}
                         </NavLink>
                     </li>
                 );
