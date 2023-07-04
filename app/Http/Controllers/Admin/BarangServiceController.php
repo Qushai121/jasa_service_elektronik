@@ -15,10 +15,12 @@ class BarangServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(BarangService $barangService): Response
     {
         // WADUH INI MAH 
-        $barangServices = BarangService::paginate(3);
+        // dd($barangService->with('customer')->paginate(3));
+        $barangServices = BarangService::with('customer')->paginate(3);
+
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
 
@@ -84,6 +86,7 @@ class BarangServiceController extends Controller
      */
     public function destroy(BarangService $barangservice)
     {
+        Storage::disk('public')->delete($barangservice->gambar_barang);
         $barangservice->delete();
     }
 }

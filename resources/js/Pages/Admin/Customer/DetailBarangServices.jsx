@@ -10,7 +10,7 @@ const DetailBarangServices = ({ customers,auth }) => {
     // console.log(barangServices);
     return (
         <AuthenticatedLayout>
-         {auth.user.role_id == 2 && <AddBarangService customers={customers} />}
+         {auth.user.role_id != 4 && <AddBarangService customers={customers} />}
             <div className="text-white modal-box bg-gray-500 ">
                 <div className="px-4">
                     <h3 class="font-bold text-lg">Pemilik Barang</h3>
@@ -75,7 +75,7 @@ const DetailBarangServices = ({ customers,auth }) => {
                                 </th>
 
                                 <th className="flex gap-3">
-                                    <PrimaryButton
+                                <PrimaryButton
                                         onClick={() => deleteBarang(data.id)}
                                     >
                                         <svg

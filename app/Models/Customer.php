@@ -10,6 +10,14 @@ class Customer extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'nama',
+        'nomor_kontak',
+        'email',
+    ];
+
     public function barangservices () :HasMany
     {
         return $this->hasMany(BarangService::class);

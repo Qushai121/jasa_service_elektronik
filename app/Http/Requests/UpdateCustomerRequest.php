@@ -11,7 +11,7 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama' => ['sometimes','required', 'string', 'max:255'],
+            'nomor_kontak' => ['sometimes', 'required', 'integer'],
+            'email' => ['sometimes','required','email'],
         ];
     }
 }

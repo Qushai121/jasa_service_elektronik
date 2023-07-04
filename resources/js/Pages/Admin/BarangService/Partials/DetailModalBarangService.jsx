@@ -18,7 +18,7 @@ export default function DetailModalBarangService({ barangServices, children }) {
         keluhan_barang: barangServices.keluhan_barang,
     });
 
-    const userInfo = usePage().props.auth.user;
+    const user = usePage().props.auth.user;
 
     const submit = (e) => {
         e.preventDefault();
@@ -138,7 +138,7 @@ export default function DetailModalBarangService({ barangServices, children }) {
                                 <a  href={ "/storage/" + barangServices.gambar_barang} className="btn btn-sm" >Lihat Gambar</a>
                                 </div>
                                 </div>
-                                {userInfo.role_id == 2 && (
+                                {user.role_id == 2 && (
                                     <>
                                         <TextInput
                                             id="gambar_barang"
@@ -159,11 +159,12 @@ export default function DetailModalBarangService({ barangServices, children }) {
                                     </>
                                 )}
                             </div>
-                            {userInfo.role_id == 2 && (
+                            {user.role_id == 2 || user.role_id == 3    ?
                                 <button type="submit" className="btn">
                                     Edit
                                 </button>
-                            )}
+                                :<></>
+                            }
                         </form>
                     </div>
                 </div>

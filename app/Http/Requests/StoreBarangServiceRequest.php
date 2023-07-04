@@ -11,7 +11,7 @@ class StoreBarangServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->role_id == 2;
+        return auth()->user()->role_id == 2 || auth()->user()->role_id == 3;
     }
 
     /**

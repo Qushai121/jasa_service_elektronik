@@ -10,11 +10,12 @@ import { useForm } from "@inertiajs/react";
 
 const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
-    console.log(barangServices);
+    // console.log(barangServices);
 
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
     }
+
     return (
         <AuthenticatedLayout>
             <Header />
@@ -37,8 +38,8 @@ const IndexBarangService = ({ barangServices, auth }) => {
                             <tr key={i} className="text-gray-100">
                                 <th>
                                     <div className="flex flex-col ">
-                                        <DetailCustomer />
-                                        <p className="badge ">Mamang</p>
+                                        <DetailCustomer customer={data.customer} />
+                                        <p className="badge ">{data?.customer?.nama || 'pemilik tidak '}</p>
                                     </div>
                                 </th>
                                 <th>

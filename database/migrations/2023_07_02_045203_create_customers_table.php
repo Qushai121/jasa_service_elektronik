@@ -20,7 +20,7 @@ return new class extends Migration
         
         Schema::table('barang_services',function (Blueprint $table) {
             $table->bigInteger('customer_id')->unsigned()->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

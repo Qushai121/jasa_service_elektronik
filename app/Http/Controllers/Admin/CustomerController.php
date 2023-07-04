@@ -32,7 +32,7 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        //
+        Customer::insert($request->validated());
     }
 
     /**
@@ -61,7 +61,7 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update($request->post());
     }
 
     /**
