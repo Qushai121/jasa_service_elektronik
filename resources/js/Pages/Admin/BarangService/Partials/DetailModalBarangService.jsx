@@ -4,42 +4,34 @@ import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
-import { router, useForm } from "@inertiajs/react";
+import { Link, router, useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
+import ModalImage from "@/Components/ModalImage";
 
-export default function DetailBarangService({ barangServices, children }) {
+export default function DetailModalBarangService({ barangServices, children }) {
     const [tutup, setTutup] = useState(false);
 
     // Gambar nya harus di bikin state sendiri 🗿
-    const [gambar,setGambar ] = useState('');
-    
+    const [gambar, setGambar] = useState("");
     const { data, setData, post, processing, errors } = useForm({
         nama_barang: barangServices.nama_barang,
         keluhan_barang: barangServices.keluhan_barang,
     });
-    
+
+    const userInfo = usePage().props.auth.user;
+
     const submit = (e) => {
-        e.preventDefault()
-        router.post(route("barangservice.update", barangServices.id),{
+        e.preventDefault();
+        router.post(route("barangservice.update", barangServices.id), {
             // ini juga lebih baik pake router.post terus di kasih method spoofing kaya di blade biasa
-            _method: 'put',
+            _method: "put",
             // JANGAN GEGABAH cuy
             ...data,
             gambar_barang: gambar,
-            // lalu taruh dah disini state gambar nya 
+            // lalu taruh dah disini state gambar nya
             // nyoba dari jam 11 💀
         });
     };
-    // const submit = (e) => {
-    //     e.preventDefault()
-    //     router.post(route("barangservice.update", barangServices.id),{
-    //         _method: 'put',
-    //         preserveScroll: true,
-    //         forceFormData: true,
-    //         ...data,
-    //         gambar_barang: gambar,
-    //     });
-    // };
 
     return (
         <>
@@ -127,6 +119,11 @@ export default function DetailBarangService({ barangServices, children }) {
                                 />
                             </div>
                             <div>
+                                <InputLabel
+                                    htmlFor="gambar_barang"
+                                    value="Gambar Barang"
+                                />
+                                <div className="flex " >         
                                 <div className="avatar">
                                     <div className="w-24 rounded">
                                         <img
@@ -137,31 +134,36 @@ export default function DetailBarangService({ barangServices, children }) {
                                         />
                                     </div>
                                 </div>
-                                <InputLabel
-                                    htmlFor="gambar_barang"
-                                    value="Gambar Barang"
-                                />
-                                <TextInput
-                                    id="gambar_barang"
-                                    type="file"
-                                    name="gambar_barang"
-                                    // value={data.gambar_barang}
-                                    className="mt-1 block w-full"
-                                    autoComplete="username"
-                                    isFocused={true}
-                                    onChange={(e) =>
-                                        setGambar(
-                                            e.target.files[0]
-                                        )
-                                    }
-                                />
-                                <InputError
-                                    message={errors.gambar_barang}
-                                    className="mt-2"
-                                />
+                                <div className="flex items-center mx-2">
+                                <a  href={ "/storage/" + barangServices.gambar_barang} className="btn btn-sm" >Lihat Gambar</a>
+                                </div>
+                                </div>
+                                {userInfo.role_id == 2 && (
+                                    <>
+                                        <TextInput
+                                            id="gambar_barang"
+                                            type="file"
+                                            name="gambar_barang"
+                                            // value={data.gambar_barang}
+                                            className="mt-1 block w-full"
+                                            autoComplete="username"
+                                            isFocused={true}
+                                            onChange={(e) =>
+                                                setGambar(e.target.files[0])
+                                            }
+                                        />
+                                        <InputError
+                                            message={errors.gambar_barang}
+                                            className="mt-2"
+                                        />
+                                    </>
+                                )}
                             </div>
-
-                            <button type="submit" className="btn">Edit</button>
+                            {userInfo.role_id == 2 && (
+                                <button type="submit" className="btn">
+                                    Edit
+                                </button>
+                            )}
                         </form>
                     </div>
                 </div>

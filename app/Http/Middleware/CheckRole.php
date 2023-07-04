@@ -16,9 +16,9 @@ class CheckRole
     public function handle(Request $request, Closure $next): Response
     {
         $roles = [
-            2,3,4
+            2, 3, 4
         ];
-        if(!in_array(auth()->user()->roles_id,$roles)){
+        if (!in_array(auth()->user()->role_id, $roles)) {
             abort(401);
         };
         return $next($request);

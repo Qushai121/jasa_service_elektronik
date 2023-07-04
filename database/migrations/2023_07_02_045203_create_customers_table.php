@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
             $table->string('nomor_kontak');
             $table->string('email');
         });
         
         Schema::table('barang_services',function (Blueprint $table) {
-            $table->bigInteger('customers_id')->unsigned()->nullable();
-            $table->foreign('customers_id')->references('id')->on('customers');
+            $table->bigInteger('customer_id')->unsigned()->nullable();
+            $table->foreign('customer_id')->references('id')->on('customers');
         });
     }
 

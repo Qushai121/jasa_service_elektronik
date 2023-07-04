@@ -4,27 +4,26 @@ import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
-export default function AddBarangService({ children }) {
+export default function AddBarangService({ children,customers }) {
     const [tutup, setTutup] = useState(false);
-    // console.log(tutup);
-
-    const { data, setData, post, processing, errors ,reset } = useForm({
+    // console.log(customers.id);
+    const { data, setData, post, processing, errors, reset } = useForm({
         nama_barang: "",
         gambar_barang: "",
         keluhan_barang: "",
+        customer_id: customers.id
     });
 
-    // console.log(errors);
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("barangservice.store"),{
+        post(route("barangservice.store"), {
             preserveScroll: true,
-            onSuccess:()=>{
-                reset('gambar_barang','keluhan_barang','nama_barang')
-            }
+            onSuccess: () => {
+                reset("gambar_barang", "keluhan_barang", "nama_barang");
+            },
         });
     };
 
@@ -118,7 +117,10 @@ export default function AddBarangService({ children }) {
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("gambar_barang", e.target.files[0])
+                                        setData(
+                                            "gambar_barang",
+                                            e.target.files[0]
+                                        )
                                     }
                                 />
                                 <InputError

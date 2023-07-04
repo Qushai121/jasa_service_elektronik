@@ -30,18 +30,22 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('admin/dashboard', function () {
+Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified','CheckRole'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth','CheckRole'])->prefix("/admin")->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    Route::resource('barangservice',BarangServiceController::class);
-    Route::resource('customer',CustomerController::class);
+
+Route::middleware(['auth', 'CheckRole'])->prefix("/admin")->group(function () {
+
+    Route::resource('barangservice', BarangServiceController::class);
+    Route::resource('customer', CustomerController::class);
 });
 
 // Route::get('/auth/redirect', function () {
@@ -53,8 +57,8 @@ Route::middleware(['auth','CheckRole'])->prefix("/admin")->group(function () {
 //     dd($user);
 // });
 
-Route::get('/auth/{provider}/redirect',[SocialiteController::class,'redirect']);
-Route::get('/auth/{provider}/callback',[SocialiteController::class,'callback']);
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
 
 Route::get('home', [HomeController::class, 'index']);
 

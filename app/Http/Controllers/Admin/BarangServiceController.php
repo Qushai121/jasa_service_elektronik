@@ -35,6 +35,9 @@ class BarangServiceController extends Controller
      */
     public function store(StoreBarangServiceRequest $request)
     {
+        if(!$request->post('customer_id')){
+            abort(401);
+        }
         $data = BarangService::create($request->validated());
 
         if ($request->file('gambar_barang')) {
@@ -42,7 +45,7 @@ class BarangServiceController extends Controller
             $data->update(['gambar_barang' => $gambar_barang]);
         }
 
-        return redirect(route('barangservice.index'));
+        return redirect(route('customer.show',$request->post('customer_id')));
     }
 
     /**
@@ -81,6 +84,6 @@ class BarangServiceController extends Controller
      */
     public function destroy(BarangService $barangservice)
     {
-        //
+        $barangservice->delete();
     }
 }

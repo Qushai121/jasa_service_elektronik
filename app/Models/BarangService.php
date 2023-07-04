@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BarangService extends Model
 {
@@ -15,4 +16,9 @@ class BarangService extends Model
         'keluhan_barang',
         'customer_id',
     ];
+
+    public function customer() :BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }

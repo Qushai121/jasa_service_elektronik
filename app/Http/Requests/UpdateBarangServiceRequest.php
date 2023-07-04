@@ -11,7 +11,7 @@ class UpdateBarangServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->role_id == 2;
     }
 
     /**
@@ -23,7 +23,6 @@ class UpdateBarangServiceRequest extends FormRequest
     {
         return [
             'nama_barang' => ['sometimes', 'required', 'string', 'max:255'],
-            // 'status' => ['string',Rule::in(array_column(TicketStatus::cases(), 'value'))] ,
             'keluhan_barang' => ['sometimes', 'required', 'string'],
         ];
     }

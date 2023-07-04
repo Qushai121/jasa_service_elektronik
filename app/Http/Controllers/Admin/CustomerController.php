@@ -15,7 +15,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admin/Customer/IndexCustomer');
+        $customers = Customer::paginate(3);
+        return Inertia::render('Admin/Customer/IndexCustomer', compact('customers'));
     }
 
     /**
@@ -39,7 +40,12 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        // $customers = $customer->find()->with('barangservices')->get();
+        $customers = $customer;
+        $customer->barangservices;
+        // ini kenapa harus di define dulu sambungannya g bisa langsung 🤔
+
+        return Inertia::render('Admin/Customer/DetailBarangServices', compact('customers'));
     }
 
     /**

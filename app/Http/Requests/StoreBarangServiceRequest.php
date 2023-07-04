@@ -11,7 +11,7 @@ class StoreBarangServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->roles_id == 2;
+        return auth()->user()->role_id == 2;
     }
 
     /**
@@ -22,10 +22,10 @@ class StoreBarangServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_barang' => ['sometimes','required', 'string', 'max:255'],
-            // 'status' => ['string',Rule::in(array_column(TicketStatus::cases(), 'value'))] ,
-            'gambar_barang' => ['sometimes','required', 'mimes:png,jpg,webp,jpeg,pdf'],
-            'keluhan_barang' => ['sometimes','required', 'string'],
+            'nama_barang' => ['sometimes', 'required', 'string', 'max:255'],
+            'gambar_barang' => ['sometimes', 'required', 'mimes:png,jpg,webp,jpeg,pdf'],
+            'keluhan_barang' => ['sometimes', 'required', 'string'],
+            'customer_id' => ['required'],
         ];
     }
 }

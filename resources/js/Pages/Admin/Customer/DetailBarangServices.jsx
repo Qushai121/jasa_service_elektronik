@@ -1,29 +1,41 @@
-import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import Header from "./Partials/Header";
-import AddBarangService from "./Partials/AddBarangService";
+import React from "react";
+import DetailBarangService from "../BarangService/Partials/DetailModalBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
-import DetailCustomer from "./Partials/DetailCostumer";
-import DetailBarangService from "./Partials/DetailModalBarangService";
-import PaginateAdmin from "@/Components/PaginateAdmin";
-import { useForm } from "@inertiajs/react";
+import DetailCustomer from "../BarangService/Partials/DetailCostumer";
+import AddBarangService from "../BarangService/Partials/AddBarangService";
 
-const IndexBarangService = ({ barangServices, auth }) => {
-    const { data, setData, delete: destroy, processing, errors } = useForm({});
-    console.log(barangServices);
-
-    function deleteBarang(id) {
-        destroy(route("barangservice.destroy", id));
-    }
+const DetailBarangServices = ({ customers,auth }) => {
+    console.log(customers);
+    // console.log(barangServices);
     return (
         <AuthenticatedLayout>
-            <Header />
-           
+         {auth.user.role_id == 2 && <AddBarangService customers={customers} />}
+            <div className="text-white modal-box bg-gray-500 ">
+                <div className="px-4">
+                    <h3 class="font-bold text-lg">Pemilik Barang</h3>
+                    <div className="px-2 pb-1">{customers.nama}</div>
+                    <div class="flex flex-col">
+                        <div class="bg-red-100 w-full my-1 h-[1px]"></div>
+                        <h3 class="font-bold text-lg">Kontak</h3>
+                        <div className="px-2 pb-1">
+                            <p>{customers.email}</p>
+                            <p>{customers.nomor_kontak}</p>
+                        </div>
+                        <div class="bg-red-100 w-full my-1 h-[1px]"></div>
+                        <h3 class="font-bold text-lg">
+                            Jumlah Barang Diservice
+                        </h3>
+                        <div className="px-2 pb-1">
+                            <p>{customers.barangservices.length}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="overflow-x-auto w-[100vw] lg:w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
-                            <th>Nama Customer</th>
                             <th>Detail Barang</th>
                             {/* <th>Di Kerjakan Oleh</th>
                                 <th>Harga Reparasi</th>
@@ -33,14 +45,8 @@ const IndexBarangService = ({ barangServices, auth }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {barangServices.data.map((data, i) => (
+                        {customers.barangservices.map((data, i) => (
                             <tr key={i} className="text-gray-100">
-                                <th>
-                                    <div className="flex flex-col ">
-                                        <DetailCustomer />
-                                        <p className="badge ">Mamang</p>
-                                    </div>
-                                </th>
                                 <th>
                                     <div className="flex flex-col gap-2 w-fit">
                                         <DetailBarangService
@@ -87,9 +93,8 @@ const IndexBarangService = ({ barangServices, auth }) => {
                     </tbody>
                 </table>
             </div>
-            <PaginateAdmin data={barangServices} />
         </AuthenticatedLayout>
     );
 };
 
-export default IndexBarangService;
+export default DetailBarangServices;
