@@ -4,10 +4,12 @@ import DetailBarangService from "../BarangService/Partials/DetailModalBarangServ
 import PrimaryButton from "@/Components/PrimaryButton";
 import DetailCustomer from "../BarangService/Partials/DetailCostumer";
 import AddBarangService from "../BarangService/Partials/AddBarangService";
+import { router } from "@inertiajs/react";
 
 const DetailBarangServices = ({ customers,auth }) => {
-    console.log(customers);
-    // console.log(barangServices);
+    function deleteBarang(id) {
+        router.delete(route("barangservice.destroy", id));
+    }
     return (
         <AuthenticatedLayout>
          {auth.user.role_id != 4 && <AddBarangService customers={customers} />}

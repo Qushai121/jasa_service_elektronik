@@ -42,20 +42,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'CheckRole'])->prefix("/admin")->group(function () {
-
+Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(function () {
     Route::resource('barangservice', BarangServiceController::class);
-    Route::resource('customer', CustomerController::class);
+    Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry');
 });
 
-// Route::get('/auth/redirect', function () {
-//     return Socialite::driver('github')->redirect();
-// })->name('login.github');
-
-// Route::get('/auth/callback', function () {
-//     $user = Socialite::driver('github')->user();
-//     dd($user);
-// });
 
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);

@@ -11,7 +11,7 @@ class StoreCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->role_id == 2 || auth()->user()->role_id == 3;
     }
 
     /**

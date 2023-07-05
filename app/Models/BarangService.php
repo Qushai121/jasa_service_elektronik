@@ -10,11 +10,14 @@ class BarangService extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'nama_barang',
         'gambar_barang',
         'keluhan_barang',
         'customer_id',
+        'data_entry_id'
     ];
 
     public function customer() :BelongsTo

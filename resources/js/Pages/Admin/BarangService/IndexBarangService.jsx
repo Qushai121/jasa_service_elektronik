@@ -6,11 +6,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import DetailCustomer from "./Partials/DetailCostumer";
 import DetailBarangService from "./Partials/DetailModalBarangService";
 import PaginateAdmin from "@/Components/PaginateAdmin";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
 const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
-    // console.log(barangServices);
+ 
 
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
@@ -38,7 +38,7 @@ const IndexBarangService = ({ barangServices, auth }) => {
                             <tr key={i} className="text-gray-100">
                                 <th>
                                     <div className="flex flex-col ">
-                                        <DetailCustomer customer={data.customer} />
+                                        <DetailCustomer customer={data.customer} barangServices={data} />
                                         <p className="badge ">{data?.customer?.nama || 'pemilik tidak '}</p>
                                     </div>
                                 </th>

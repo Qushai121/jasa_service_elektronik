@@ -6,10 +6,11 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import NavLink from "@/Components/NavLink";
 import AddCustomer from "./Partials/AddCustomer";
 import DetailCustomer from "../BarangService/Partials/DetailCostumer";
+import { router } from "@inertiajs/react";
 
 const IndexCustomer = ({ customers }) => {
-    function deleteBarang(id) {
-        destroy(route("barangservice.destroy", id));
+    function deleteCustomer(id) {
+        router.delete(route("customer.destroy", id));
     }
     return (
         <AuthenticatedLayout>
@@ -57,12 +58,12 @@ const IndexCustomer = ({ customers }) => {
                                     </div>
                                 </th>
 
-                                <th className="flex gap-3">
-                                    <div>
+                                <th>
+                                    <div className="flex items-center"  >
                                         <PrimaryButton
-                                            className="btn btn-sm"
+                                            className="btn btn-sm "
                                             onClick={() =>
-                                                deleteBarang(data.id)
+                                                deleteCustomer(data.id)
                                             }
                                         >
                                             <svg

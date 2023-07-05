@@ -18,8 +18,7 @@ class BarangServiceController extends Controller
     public function index(BarangService $barangService): Response
     {
         // WADUH INI MAH 
-        // dd($barangService->with('customer')->paginate(3));
-        $barangServices = BarangService::with('customer')->paginate(3);
+        $barangServices = BarangService::with('customer')->paginate(10);
 
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
@@ -40,7 +39,13 @@ class BarangServiceController extends Controller
         if(!$request->post('customer_id')){
             abort(401);
         }
-        $data = BarangService::create($request->validated());
+        
+        $MergeRequestWithId = array_merge(
+            $request->validated(),
+            ['data_entry_id' => auth()->user()->id]
+        );
+
+        $data = BarangService::create($MergeRequestWithId);
 
         if ($request->file('gambar_barang')) {
             $gambar_barang = Storage::disk('public')->put('gambar_barang', $request->file('gambar_barang'));
@@ -71,6 +76,7 @@ class BarangServiceController extends Controller
      */
     public function update(UpdateBarangServiceRequest $request, BarangService $barangservice)
     {
+        $this->authorize('view', $barangservice);
         $barangservice->update($request->except('gambar_barang'));
         if ($request->file('gambar_barang')) {
             Storage::disk('public')->delete($barangservice['gambar_barang']);
@@ -78,7 +84,7 @@ class BarangServiceController extends Controller
             $barangservice->update(['gambar_barang' => $gambar]);
         };
 
-        return redirect(route('barangservice.index'));
+        return redirect()->route('barangservice.index');
     }
 
     /**
@@ -86,6 +92,7 @@ class BarangServiceController extends Controller
      */
     public function destroy(BarangService $barangservice)
     {
+        $this->authorize('view', $barangservice);
         Storage::disk('public')->delete($barangservice->gambar_barang);
         $barangservice->delete();
     }

@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\User;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
     {
-        $customers = Customer::paginate(3);
+        // Yang Ditampilkan Disini Hanya Customer Yang admin,data_entry Sudah Input
+        // di pisah pisah karena pengimput yang bertanggung jawab atas yang dia upload 
+        $customers = $user->WhereMyCustomers();
         return Inertia::render('Admin/Customer/IndexCustomer', compact('customers'));
     }
 
@@ -32,7 +37,13 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        Customer::insert($request->validated());
+        $MergeRequestWithId = array_merge(
+            $request->validated(),
+            ['data_entry_id' => auth()->user()->id]
+        );
+
+        $id =  Customer::insertGetId($MergeRequestWithId);
+        return redirect()->back()->with('message', $id);
     }
 
     /**
@@ -40,7 +51,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        // $customers = $customer->find()->with('barangservices')->get();
+        // ini bisa pakai policy
+        $this->authorize('view', $customer);
         $customers = $customer;
         $customer->barangservices;
         // ini kenapa harus di define dulu sambungannya g bisa langsung 🤔
@@ -61,7 +73,13 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $customer->update($request->post());
+        // ini itu buat mastiin kalo data yang mau di ubah benran data orang yang login ini
+        // mirip kaya di ci4 tapi ci 4 langsung di dalem querynya  
+        $this->authorize('view', $customer);
+        // kalo ini cuman di controller nya karena di paramsnya udah dicariin datanya jadi g bisa query lagi keknya
+
+        $customer->update($request->validated());
+        return  redirect()->back();
     }
 
     /**
@@ -69,6 +87,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $this->authorize('view', $customer);
+        $customer->delete();
     }
 }
