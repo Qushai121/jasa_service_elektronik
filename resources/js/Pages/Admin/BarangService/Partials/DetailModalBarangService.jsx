@@ -10,7 +10,6 @@ import ModalImage from "@/Components/ModalImage";
 
 export default function DetailModalBarangService({ barangServices, children }) {
     const [tutup, setTutup] = useState(false);
-
     // Gambar nya harus di bikin state sendiri 🗿
     const [gambar, setGambar] = useState("");
     const { data, setData, post, processing, errors } = useForm({

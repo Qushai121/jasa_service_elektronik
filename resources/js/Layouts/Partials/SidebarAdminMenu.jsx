@@ -15,6 +15,10 @@ const menus = [
         link: "barangservice.index",
         keterangan: "List Barang Service",
     },
+    {
+        link: "userbarangservice.index",
+        keterangan: "List Pekerjaan Saya" ,
+    },
 ];
 
 const SidebarAdminMenu = () => {

@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\StatusProsesController;
+use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Umum\HomeController;
+use App\Models\UserBarangService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,8 +46,9 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(function () {
-    Route::resource('barangservice', BarangServiceController::class);
     Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry');
+    Route::resource('barangservice', BarangServiceController::class);
+    Route::resource('userbarangservice', UserBarangServiceController::class);
 });
 
 

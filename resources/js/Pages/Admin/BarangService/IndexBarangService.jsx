@@ -3,14 +3,13 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Header from "./Partials/Header";
 import AddBarangService from "./Partials/AddBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
-import DetailCustomer from "./Partials/DetailCostumer";
-import DetailBarangService from "./Partials/DetailModalBarangService";
+import DetailCustomer from "../Customer/Partials/DetailCostumer";
 import PaginateAdmin from "@/Components/PaginateAdmin";
 import { useForm, usePage } from "@inertiajs/react";
+import DetailModalBarangService from "./Partials/DetailModalBarangService";
 
 const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
- 
 
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
@@ -19,7 +18,6 @@ const IndexBarangService = ({ barangServices, auth }) => {
     return (
         <AuthenticatedLayout>
             <Header />
-           
             <div className="overflow-x-auto w-[100vw] lg:w-full ">
                 <table className="table">
                     <thead>
@@ -38,13 +36,19 @@ const IndexBarangService = ({ barangServices, auth }) => {
                             <tr key={i} className="text-gray-100">
                                 <th>
                                     <div className="flex flex-col ">
-                                        <DetailCustomer customer={data.customer} barangServices={data} />
-                                        <p className="badge ">{data?.customer?.nama || 'pemilik tidak '}</p>
+                                        <DetailCustomer
+                                            customer={data.customer}
+                                            barangServices={data}
+                                        />
+                                        <p className="badge ">
+                                            {data?.customer?.nama ||
+                                                "pemilik tidak "}
+                                        </p>
                                     </div>
                                 </th>
                                 <th>
                                     <div className="flex flex-col gap-2 w-fit">
-                                        <DetailBarangService
+                                        <DetailModalBarangService
                                             barangServices={data}
                                         />
                                         <p className="badge">

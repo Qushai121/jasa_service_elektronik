@@ -17,15 +17,15 @@ class Customer extends Model
         'nama',
         'nomor_kontak',
         'email',
-        'data_entry_id'
+        'user_id'
     ];
 
-    public function users () :BelongsTo
+    public function users(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    
-    public function barangservices () :HasMany
+
+    public function barangservices(): HasMany
     {
         return $this->hasMany(BarangService::class);
     }

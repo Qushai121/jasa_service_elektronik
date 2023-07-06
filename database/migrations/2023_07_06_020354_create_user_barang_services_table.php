@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('status_proses', function (Blueprint $table) {
+        Schema::create('user_barang_services', function (Blueprint $table) {
             $table->id();
             $table->string('status');
-            $table->unsignedBigInteger('pekerja_id');
-            $table->foreign('pekerja_id')->references('id')->on('users');
-            $table->unsignedBigInteger('barang_services_id');
-            $table->foreign('barang_services_id')->references('id')->on('barang_services')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('barang_service_id')->constrained();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status_proses');
+        Schema::dropIfExists('user_barang_services');
     }
 };

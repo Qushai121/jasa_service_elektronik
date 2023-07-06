@@ -6,16 +6,15 @@ import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { useForm, usePage } from "@inertiajs/react";
 
-export default function AddBarangService({ children,customers }) {
+export default function AddBarangService({ children, customers }) {
     const [tutup, setTutup] = useState(false);
     // console.log(customers.id);
     const { data, setData, post, processing, errors, reset } = useForm({
         nama_barang: "",
         gambar_barang: "",
         keluhan_barang: "",
-        customer_id: customers.id
+        customer_id: customers.id,
     });
-
 
     const submit = (e) => {
         e.preventDefault();

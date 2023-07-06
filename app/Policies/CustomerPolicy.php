@@ -11,7 +11,7 @@ class CustomerPolicy
 
     // public function crud(Customer $customer): bool
     // {
-    //     return $customer->data_entry_id == auth()->user()->id;
+    //     return $customer->user_id == auth()->user()->id;
     // }
 
     // /**
@@ -28,7 +28,7 @@ class CustomerPolicy
     public function view(User $user, Customer $customer): bool
     {
         // dd();
-        return $customer->data_entry_id == $user->id;
+        return $customer->user_id == $user->id;
     }
 
     // /**

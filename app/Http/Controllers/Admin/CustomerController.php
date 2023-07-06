@@ -39,7 +39,7 @@ class CustomerController extends Controller
     {
         $MergeRequestWithId = array_merge(
             $request->validated(),
-            ['data_entry_id' => auth()->user()->id]
+            ['user_Id' => auth()->user()->id]
         );
 
         $id =  Customer::insertGetId($MergeRequestWithId);
@@ -52,7 +52,7 @@ class CustomerController extends Controller
     public function show(Customer $customer)
     {
         // ini bisa pakai policy
-        $this->authorize('view', $customer);
+        // $this->authorize('view', $customer);
         $customers = $customer;
         $customer->barangservices;
         // ini kenapa harus di define dulu sambungannya g bisa langsung 🤔

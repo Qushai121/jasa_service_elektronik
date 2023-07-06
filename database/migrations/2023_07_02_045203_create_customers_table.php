@@ -19,16 +19,12 @@ return new class extends Migration
             // ini sambungan biar satu akun role data_entry punya tanggung jawab dengan data yang dia masuki
             // dan juga pastinya berfungsi sebagai pemisah tanggung jawab setiap data yang di masukan
             // mungkin nanti ada fitur oper operan penanggung jawab data_entry 🙏
-            $table->bigInteger('data_entry_id')->unsigned();
-            $table->foreign('data_entry_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constarined();
         });
-        
-        Schema::table('barang_services',function (Blueprint $table) {
-            $table->bigInteger('customer_id')->unsigned()->nullable();
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            
-            $table->bigInteger('data_entry_id')->unsigned();
-            $table->foreign('data_entry_id')->references('id')->on('users')->onDelete('cascade');
+
+        Schema::table('barang_services', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('customer_id')->constrained();
         });
     }
 

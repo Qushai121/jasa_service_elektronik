@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBarangServiceRequest;
 use App\Http\Requests\UpdateBarangServiceRequest;
 use App\Models\BarangService;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
@@ -36,13 +37,19 @@ class BarangServiceController extends Controller
      */
     public function store(StoreBarangServiceRequest $request)
     {
-        if(!$request->post('customer_id')){
-            abort(401);
+        if (!$request->post('customer_id')) {
+            abort(403);
         }
+
+        $userIdWhoUploadCustomer = Customer::where('id', $request->post('customer_id'))->first('user_id');
         
+        // Mastiin hanya yang upload customer di awal yang boleh tambahin lagi
+        abort_if($userIdWhoUploadCustomer->user_id != auth()->user()->id, 403);
+
+
         $MergeRequestWithId = array_merge(
             $request->validated(),
-            ['data_entry_id' => auth()->user()->id]
+            ['user_id' => auth()->user()->id]
         );
 
         $data = BarangService::create($MergeRequestWithId);
@@ -52,7 +59,7 @@ class BarangServiceController extends Controller
             $data->update(['gambar_barang' => $gambar_barang]);
         }
 
-        return redirect(route('customer.show',$request->post('customer_id')));
+        return redirect(route('customer.show', $request->post('customer_id')));
     }
 
     /**

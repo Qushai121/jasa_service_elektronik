@@ -21,7 +21,7 @@ class BarangServicePolicy
      */
     public function view(User $user, BarangService $barangService): bool
     {
-        return $barangService->data_entry_id == $user->id;
+        return $barangService->user_id == $user->id;
     }
 
     // /**

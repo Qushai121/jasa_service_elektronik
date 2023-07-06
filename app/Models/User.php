@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,6 +15,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+
+    public $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -46,8 +49,23 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function WhereMyCustomers () 
+
+
+    public function WhereMyCustomers()
     {
-      return DB::table('customers')->where('data_entry_id','=',auth()->user()->id)->paginate(10);
+        return DB::table('customers')->where('user_id', '=', auth()->user()->id)->paginate(10);
     }
+
+    public function barangservices(): BelongsToMany
+    {
+        return $this->belongsToMany(BarangService::class, 'user_barang_services')
+               ->withPivot('status');
+    }
+
+    // BACKUP
+    // public function barangservices(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(BarangService::class, 'user_barang_services')
+    //            ->withPivot('status');
+    // }
 }
