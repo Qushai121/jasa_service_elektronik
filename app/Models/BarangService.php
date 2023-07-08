@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class BarangService extends Model
+class BarangService extends Pivot
 {
     use HasFactory;
 
@@ -22,13 +23,34 @@ class BarangService extends Model
         'user_id'
     ];
 
-    public function customer(): BelongsTo
+    
+    public function userbarangservices(){
+        return $this->hasMany(UserBarangService::class);
+    }
+
+    public function customers(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class,'customer_id');
+    }
+
+    public function customersBelongToMany(): BelongsToMany
+    {
+        // Isian parameternya itu 
+        // 1. masukin sibling table yang di gabungin sama kita di many to many table
+        // 2. masukin nama table many to many nya
+        // 3. masukin table pivot user yang tersimpan di many to many table, kalo lu bikin ini methodnya nya di barangservice Model
+        // berarti masukin barang_service_id dan ganti parameter ke 1 jadi User::class [model]
+        // 4. masukin pivot sibling table 
+        return $this->belongsToMany(User::class,'user_barang_services','barang_service_id','user_id')->withPivot('status');
     }
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'user_barang_services');
+        return $this->belongsToMany(User::class,'user_barang_services')->withPivot('status');
+    }
+
+    public function usersBelongTo(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
     }
 }

@@ -19,8 +19,8 @@ class BarangServiceController extends Controller
     public function index(BarangService $barangService): Response
     {
         // WADUH INI MAH 
-        $barangServices = BarangService::with('customer')->paginate(10);
-
+        $barangServices = BarangService::with(['customersBelongToMany','customers'])->paginate(10);
+        
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
 
@@ -43,7 +43,7 @@ class BarangServiceController extends Controller
 
         $userIdWhoUploadCustomer = Customer::where('id', $request->post('customer_id'))->first('user_id');
         
-        // Mastiin hanya yang upload customer di awal yang boleh tambahin lagi
+        // Mastiin hanya yang upload customer di awal yang boleh tambahin 
         abort_if($userIdWhoUploadCustomer->user_id != auth()->user()->id, 403);
 
 

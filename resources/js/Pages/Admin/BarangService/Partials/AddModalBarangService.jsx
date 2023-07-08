@@ -6,7 +6,7 @@ import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { useForm, usePage } from "@inertiajs/react";
 
-export default function AddBarangService({ children, customers }) {
+export default function AddModalBarangService({ children, customers }) {
     const [tutup, setTutup] = useState(false);
     // console.log(customers.id);
     const { data, setData, post, processing, errors, reset } = useForm({

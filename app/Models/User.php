@@ -56,16 +56,18 @@ class User extends Authenticatable
         return DB::table('customers')->where('user_id', '=', auth()->user()->id)->paginate(10);
     }
 
+
+
+    
     public function barangservices(): BelongsToMany
     {
-        return $this->belongsToMany(BarangService::class, 'user_barang_services')
-               ->withPivot('status');
+        // Isian parameternya itu 
+        // 1. masukin sibling table yang di gabungin sama kita di many to many table
+        // 2. masukin nama table many to many nya
+        // 3. masukin table pivot user yang tersimpan di many to many table, kalo lu bikin ini methodnya nya di barangservice Model
+        // berarti masukin barang_service_id dan ganti parameter ke 1 jadi User::class [model]
+        // 4. masukin pivot sibling table 
+        return $this->belongsToMany(BarangService::class, 'user_barang_services','user_id','barang_service_id')
+               ->withPivot('status','id');
     }
-
-    // BACKUP
-    // public function barangservices(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(BarangService::class, 'user_barang_services')
-    //            ->withPivot('status');
-    // }
 }

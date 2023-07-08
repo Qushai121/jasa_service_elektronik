@@ -2,10 +2,12 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
 import DetailBarangService from "../BarangService/Partials/DetailModalBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
-import AddBarangService from "../BarangService/Partials/AddBarangService";
 import { router } from "@inertiajs/react";
+import AddModalBarangService from "../BarangService/Partials/AddModalBarangService";
+import { CustomerCard } from "@/Components/CustomerCard";
 
-const DetailBarangServices = ({ customers, auth }) => {
+export default function DetailBarangServiceCustomer ({ customers, auth })  {
+    console.log(customers);
     const [authorized, setAuthorized] = useState(false);
     useEffect(() => {
         if (customers.user_id == auth.user.id && auth.user.role_id != 4) {
@@ -18,27 +20,9 @@ const DetailBarangServices = ({ customers, auth }) => {
     }
     return (
         <AuthenticatedLayout>
-            {authorized && <AddBarangService customers={customers} />}
+            {authorized && <AddModalBarangService customers={customers} />}
             <div className="text-white modal-box bg-gray-500 ">
-                <div className="px-4">
-                    <h3 class="font-bold text-lg">Pemilik Barang</h3>
-                    <div className="px-2 pb-1">{customers.nama}</div>
-                    <div class="flex flex-col">
-                        <div class="bg-red-100 w-full my-1 h-[1px]"></div>
-                        <h3 class="font-bold text-lg">Kontak</h3>
-                        <div className="px-2 pb-1">
-                            <p>{customers.email}</p>
-                            <p>{customers.nomor_kontak}</p>
-                        </div>
-                        <div class="bg-red-100 w-full my-1 h-[1px]"></div>
-                        <h3 class="font-bold text-lg">
-                            Jumlah Barang Diservice
-                        </h3>
-                        <div className="px-2 pb-1">
-                            <p>{customers.barangservices.length}</p>
-                        </div>
-                    </div>
-                </div>
+                <CustomerCard customers={customers} />
             </div>
             <div className="overflow-x-auto w-[100vw] lg:w-full ">
                 <table className="table">
@@ -109,4 +93,4 @@ const DetailBarangServices = ({ customers, auth }) => {
     );
 };
 
-export default DetailBarangServices;
+

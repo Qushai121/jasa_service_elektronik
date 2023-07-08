@@ -7,7 +7,9 @@ use App\Models\UserBarangService;
 use App\Http\Requests\StoreUserBarangServiceRequest;
 use App\Http\Requests\UpdateUserBarangServiceRequest;
 use App\Models\BarangService;
+use App\Models\Customer;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
 
 class UserBarangServiceController extends Controller
@@ -17,12 +19,17 @@ class UserBarangServiceController extends Controller
      */
     public function index(): Response
     {
-        // dd(BarangService::with('users')->get());
-        // $userBarangService = BarangService::with('users')->get();
-        $userBarangService = User::where('id',auth()->user()->id)->with('barangservices')->first();
-        // $userBarangService = UserBarangService::with('throughCustomer')->get();
-      
-        return inertia('Admin/UserBarangService/IndexuserBarangService',compact("userBarangService"));
+        // BANYAK JALAN MENUJU QUERY 
+        // Mamah aku takut
+        $userBarangService = auth()->user()->barangservices()->paginate(10);
+
+        // with berguna untuk manggil method yang udah di buat di [Model]
+        // Kalo g mau merah pake yang dibawah 👇 
+        // tapi yang bawah kaga bisa make paginate harus di apus dulu compoenet < PaginateAdmin />
+        // dan ubah sedikit cara ambil datanya
+        // $userBarangService = User::where('id', auth()->user()->id)->with('barangservices')->first();
+
+        return inertia('Admin/UserBarangService/IndexuserBarangService', compact("userBarangService"));
     }
 
     /**
@@ -44,9 +51,15 @@ class UserBarangServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserBarangService $userBarangService)
+    public function show($userbarangservice)
     {
-        //
+        $userBarangServices = UserBarangService::where('id', $userbarangservice)->with(['users', 'barangservices' =>  function ($q) {
+            // Mantap Bang Gpt 💡
+            $q->with('customers');
+        }])->first();
+        // $userBarangServices = UserBarangService::where('id',$userbarangservice)->with(['users','barangservices'])->get();
+
+        return inertia('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices"));
     }
 
     /**
@@ -60,7 +73,7 @@ class UserBarangServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserBarangServiceRequest $request, UserBarangService $userBarangService)
+    public function update(UpdateUserBarangServiceRequest $request, UserBarangService $userbarangservice)
     {
         //
     }

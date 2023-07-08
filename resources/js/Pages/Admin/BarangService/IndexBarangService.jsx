@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Header from "./Partials/Header";
-import AddBarangService from "./Partials/AddBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
-import DetailCustomer from "../Customer/Partials/DetailCostumer";
 import PaginateAdmin from "@/Components/PaginateAdmin";
 import { useForm, usePage } from "@inertiajs/react";
 import DetailModalBarangService from "./Partials/DetailModalBarangService";
+import DetailModalCustomer from "../Customer/Partials/DetailModalCostumer";
 
 const IndexBarangService = ({ barangServices, auth }) => {
+    console.log(barangServices);
     const { data, setData, delete: destroy, processing, errors } = useForm({});
-
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
     }
@@ -24,9 +23,6 @@ const IndexBarangService = ({ barangServices, auth }) => {
                         <tr className="text-gray-100">
                             <th>Nama Customer</th>
                             <th>Detail Barang</th>
-                            {/* <th>Di Kerjakan Oleh</th>
-                                <th>Harga Reparasi</th>
-                                <th>Tanggal Barang Masuk</th>*/}
                             <th>Status Proses</th>
                             <th>Aksi</th>
                         </tr>
@@ -36,13 +32,13 @@ const IndexBarangService = ({ barangServices, auth }) => {
                             <tr key={i} className="text-gray-100">
                                 <th>
                                     <div className="flex flex-col ">
-                                        <DetailCustomer
+                                        <DetailModalCustomer
                                             customer={data.customer}
                                             barangServices={data}
                                         />
                                         <p className="badge ">
                                             {data?.customer?.nama ||
-                                                "pemilik tidak "}
+                                                "pemilik tidak Ada"}
                                         </p>
                                     </div>
                                 </th>

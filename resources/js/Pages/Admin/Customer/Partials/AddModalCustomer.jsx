@@ -4,74 +4,32 @@ import Modal from "@/Components/Modal";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
-import { router, useForm, usePage } from "@inertiajs/react";
-import PrimaryButton from "@/Components/PrimaryButton";
+import { useForm, usePage } from "@inertiajs/react";
 
-export default function DetailCustomer({ customer, children, barangServices }) {
+export default function AddModalCustomer({  }) {
     const [tutup, setTutup] = useState(false);
-    const user = usePage().props?.auth?.user;
+    // console.log(customers.id);
+    const { data, setData, post, processing, errors, reset } = useForm({
+        nama: "",
+        nomor_kontak: "",
+        email: "",
+    });
 
-    const { data, setData, put, processing, errors, reset } = useForm({});
 
-    const idDariCustomer = usePage().props.flash.message;
-
-    function submit(e) {
+    const submit = (e) => {
         e.preventDefault();
-        // jaga jaga kalo g sengaja apus user_id di db
-        if (!customer) {
-            try {
-                post(
-                    route("customer.store"),
-                    {
-                        ...data,
-                    },
-                    {
-                        onSuccess: () => {
-                            reset("nomor_kontak", "email", "nama");
-                        },
-                    }
-                );
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        if (idDariCustomer) {
-            router.post(route("barangservice.update", barangServices.id), {
-                _method: "put",
-                customer_id: idDariCustomer,
-            });
-        }
-        // jaga jaga kalo g sengaja apus customer di db
-
-        put(route("customer.update", customer?.id), {
-            _method: "put",
-            ...data,
+        post(route("customer.store"), {
+            onSuccess: () => {
+                reset("nomor_kontak", "email", "nama");
+            },
         });
-    }
+    };
 
     return (
         <>
-            <PrimaryButton
-                className="btn btn-sm m-2 "
-                onClick={() => setTutup(!tutup)}
-            >
-                <div className="flex gap-1">
-                    <p>Detail</p>
-
-                    {user.role_id == 2 || user.role_id == 3 ? (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="1em"
-                            viewBox="0 0 512 512"
-                        >
-                            <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z" />
-                        </svg>
-                    ) : (
-                        <></>
-                    )}
-                </div>
-            </PrimaryButton>
+            <button className="btn btn-sm m-2" onClick={() => setTutup(!tutup)}>
+                Tambah Customer
+            </button>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <button
@@ -95,9 +53,13 @@ export default function DetailCustomer({ customer, children, barangServices }) {
                     </button>
                     <div className="px-6 py-6 lg:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                            Detail Customer
+                            Tambah Customer Masuk
                         </h3>
-                        <form onSubmit={submit} className="space-y-6">
+                        <form
+                            onSubmit={submit}
+                            className="space-y-6"
+                            encType="multipart/form-data"
+                        >
                             <div>
                                 <InputLabel
                                     htmlFor="nama"
@@ -107,7 +69,7 @@ export default function DetailCustomer({ customer, children, barangServices }) {
                                     id="nama"
                                     type="text"
                                     name="nama"
-                                    defaultValue={customer?.nama}
+                                    // value={data.nama}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
@@ -127,14 +89,17 @@ export default function DetailCustomer({ customer, children, barangServices }) {
                                 />
                                 <TextInput
                                     id="nomor_kontak"
-                                    type="text"
+                                    type="number"
                                     name="nomor_kontak"
-                                    defaultValue={customer?.nomor_kontak}
+                                    // value={data.nomor_kontak}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("nomor_kontak", e.target.value)
+                                        setData(
+                                            "nomor_kontak",
+                                            e.target.value
+                                        )
                                     }
                                 />
                                 <InputError
@@ -149,14 +114,17 @@ export default function DetailCustomer({ customer, children, barangServices }) {
                                 />
                                 <TextInput
                                     id="email"
-                                    type="text"
+                                    type="email"
                                     name="email"
-                                    defaultValue={customer?.email}
+                                    value={data.email}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("email", e.target.value)
+                                        setData(
+                                            "email",
+                                            e.target.value
+                                        )
                                     }
                                 />
                                 <InputError
@@ -164,13 +132,7 @@ export default function DetailCustomer({ customer, children, barangServices }) {
                                     className="mt-2"
                                 />
                             </div>
-                            {user.role_id == 2 || user.role_id == 3 ? (
-                                <button type="submit" className="btn">
-                                    Edit
-                                </button>
-                            ) : (
-                                <></>
-                            )}
+                            <button className="btn">Tambah</button>
                         </form>
                     </div>
                 </div>

@@ -7,17 +7,18 @@ const ModalImage = ({children}) => {
     const [tutupModalFoto, setTutupModalFoto] = useState(false);
     return (
         <>
+        
             <PrimaryButton
                 className="btn btn-sm m-2"
                 onClick={() => setTutupModalFoto(!tutupModalFoto)}
             >
-                Detail Gambar
+                Lihat Gambar
             </PrimaryButton>
             {
                 tutupModalFoto && <>
-                    <div>
+                    <Modal show={tutupModalFoto} onClose={() => setTutupModalFoto(!tutupModalFoto)}>
                         {children}
-                    </div>
+                    </Modal>
                 </>
             }
         </>
