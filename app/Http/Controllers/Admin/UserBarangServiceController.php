@@ -53,10 +53,20 @@ class UserBarangServiceController extends Controller
      */
     public function show($userbarangservice)
     {
-        $userBarangServices = UserBarangService::where('id', $userbarangservice)->with(['users', 'barangservices' =>  function ($q) {
-            // Mantap Bang Gpt 💡
-            $q->with('customers');
-        }])->first();
+        $userBarangServices = BarangService::where('id', $userbarangservice)->with(['customersBelongToMany' => function ($q) {
+            $q->with('role');
+        }, 'customers'])->first();
+        // dd($userBarangServices);
+
+        // ADA KESALAHAN DALAM QUERY AMBIL DATA 
+        // $userBarangServices = UserBarangService::where('id', $userbarangservice)->with([
+        //     'users' =>  function ($q) {
+        //         $q->with('role');
+        //     },
+        //     'barangservices' =>  function ($q) {
+        //         $q->with('customers');
+        //     }
+        // ])->first();
         // $userBarangServices = UserBarangService::where('id',$userbarangservice)->with(['users','barangservices'])->get();
 
         return inertia('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices"));

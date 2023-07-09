@@ -5,43 +5,64 @@ import TextInput from "@/Components/TextInput";
 import { Transition } from "@headlessui/react";
 import React from "react";
 
-export const PekerjaForm = () => {
+export const PekerjaForm = ({ pekerja }) => {
     function submit(params) {}
+    const { avatar, email, name, id, role,pivot } = pekerja;
+    console.log({pekerja: pekerja});
     return (
         <section>
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    Customer
+                    Pekerja
                 </h2>
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    Update your account's profile Picture
+                    Orang Yang Bertanggung Jawab Atas Barang Customer
                 </p>
             </header>
-            {/* <div className="mt-4">
+            <div className="mt-4">
                 <img
                     className="w-52 h-44 rounded-lg object-cover"
-                    src={`/storage/$}`}
+                    src={`/storage/${avatar}}`}
                 />
-            </div> */}
+            </div>
             <form
                 onSubmit={submit}
                 className="mt-6 space-y-6"
                 encType="multipart/form-data"
             >
+                <div className="text-white">
+                    Jabatan Penanggung Jawab :{" "}
+                    <span className="text-lg">{role.role_name}</span>
+                </div>
+                <div className="text-white">
+                    Status :{" "}
+                    <span className="text-lg">{pivot.status}</span>
+                </div>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         className="mt-1 block w-full"
-                        value={''}
+                        defaultValue={name}
                         onChange={(e) => setData("name", e.target.value)}
                         required
                         isFocused
                         autoComplete="name"
                     />
-
-                    <InputError className="mt-2" message={''} />
+                    <InputError className="mt-2" message={""} />
+                </div>
+                <div>
+                    <InputLabel htmlFor="email" value="email" />
+                    <TextInput
+                        id="email"
+                        className="mt-1 block w-full"
+                        defaultValue={email}
+                        onChange={(e) => setData("email", e.target.value)}
+                        required
+                        isFocused
+                        autoComplete="email"
+                    />
+                    <InputError className="mt-2" message={""} />
                 </div>
                 <div className="flex items-center gap-4">
                     <PrimaryButton disabled={false}>Save</PrimaryButton>

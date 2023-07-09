@@ -6,6 +6,7 @@ import PaginateAdmin from "@/Components/PaginateAdmin";
 import { useForm, usePage } from "@inertiajs/react";
 import DetailModalBarangService from "./Partials/DetailModalBarangService";
 import DetailModalCustomer from "../Customer/Partials/DetailModalCostumer";
+import NavLink from "@/Components/NavLink";
 
 const IndexBarangService = ({ barangServices, auth }) => {
     console.log(barangServices);
@@ -33,11 +34,11 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                 <th>
                                     <div className="flex flex-col ">
                                         <DetailModalCustomer
-                                            customer={data.customer}
+                                            customer={data.customers}
                                             barangServices={data}
                                         />
                                         <p className="badge ">
-                                            {data?.customer?.nama ||
+                                            {data?.customers?.nama ||
                                                 "pemilik tidak Ada"}
                                         </p>
                                     </div>
@@ -54,7 +55,15 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                 </th>
                                 <th>
                                     <div className="flex flex-col gap-2">
-                                        <PrimaryButton>Detail</PrimaryButton>
+                                    {data.customers_belong_to_many.length > 0 ?
+                                    <div >
+                                        <NavLink className="btn btn-sm" 
+                                        href={route('userbarangservice.show',data.id)}>Detail</NavLink>
+                                    </div>
+                                    :<PrimaryButton >Ambil Job</PrimaryButton>
+                                    }
+                                        {/* <NavLink className="btn btn-sm" 
+                                        href={route('userbarangservice.show',data.customers_belong_to_many[0].pivot.id)}>Detail</NavLink> */}
                                         {/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
                                         {/* <p className="badge badge-error whitespace-nowrap">
                                         Belum Di Proses
