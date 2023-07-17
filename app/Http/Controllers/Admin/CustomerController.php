@@ -55,7 +55,6 @@ class CustomerController extends Controller
         // $this->authorize('view', $customer);
         $customers = $customer;
         $customer->barangservices;
-        // ini kenapa harus di define dulu sambungannya g bisa langsung 🤔
 
         return Inertia::render('Admin/Customer/DetailBarangServiceCustomer', compact('customers'));
     }

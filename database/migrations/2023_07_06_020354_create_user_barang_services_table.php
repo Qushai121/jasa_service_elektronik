@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\BarangStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,10 @@ return new class extends Migration
     {
         Schema::create('user_barang_services', function (Blueprint $table) {
             $table->id();
-            $table->string('status');
+            $table->string('status')->default(BarangStatusEnum::BELUMDIPROSES->value);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('barang_service_id')->constrained();
-            
+            $table->boolean('askhelp');
         });
     }
 

@@ -6,6 +6,9 @@ import { Transition } from "@headlessui/react";
 import React from "react";
 
 export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
+    if (!pekerja) {
+        return <></>;
+    }
     function submit(params) {}
     const { avatar, email, name, id, role, pivot } = pekerja;
     return (

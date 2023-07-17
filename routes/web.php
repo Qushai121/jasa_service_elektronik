@@ -49,7 +49,7 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry');
     Route::resource('barangservice', BarangServiceController::class);
     Route::resource('userbarangservice', UserBarangServiceController::class);
-    Route::put('askhelp/{userbarangservice}', [UserBarangServiceController::class,'askhelp'])->name('askhelp');
+    Route::put('askhelp/{userBarangService}', [UserBarangServiceController::class,'askhelp'])->name('askhelp');
 });
 
 

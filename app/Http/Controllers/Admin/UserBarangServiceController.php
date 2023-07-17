@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\BarangStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\UserBarangService;
 use App\Http\Requests\StoreUserBarangServiceRequest;
@@ -40,14 +41,15 @@ class UserBarangServiceController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * METHOD INI MENGURUS AMBIL JOB 
      */
     public function store(StoreUserBarangServiceRequest $request)
     {
         $userBarangService =  UserBarangService::where('barang_service_id', $request->post('barang_service_id'))->first();
         $MergeRequestWithId = array_merge(
             $request->post(),
-            !$userBarangService ? ['status' => 'Di Proses'] : ['status' => 'Helper']
+            !$userBarangService ? ['status' => BarangStatusEnum::DIPROSES->value] : ['status' =>BarangStatusEnum::HELPER->value ],
+            ['askhelp' => 0 ]
         );
         userBarangService::create($MergeRequestWithId);
         return redirect()->to(route('barangservice.index'));

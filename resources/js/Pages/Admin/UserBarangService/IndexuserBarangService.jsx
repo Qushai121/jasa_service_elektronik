@@ -11,8 +11,8 @@ const IndexuserBarangService = ({ userBarangService }) => {
     console.log(userBarangService);
     return (
         <AuthenticatedLayout>
-            <div className="overflow-x-auto w-[100vw] lg:w-full ">
-                <table className="table">
+            <div className="overflow-x-auto ">
+                <table className="table overflow-x-hidden">
                     <thead>
                         <tr className="text-gray-100">
                             <th>Nama Barang</th>

@@ -28,9 +28,9 @@ export default function AddModalBarangService({ children, customers }) {
 
     return (
         <>
-            <button className="btn btn-sm m-2" onClick={() => setTutup(!tutup)}>
+            <PrimaryButton className="btn btn-sm m-2" onClick={() => setTutup(!tutup)}>
                 Tambah Barang
-            </button>
+            </PrimaryButton>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <button

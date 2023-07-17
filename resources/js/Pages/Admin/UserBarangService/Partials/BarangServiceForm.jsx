@@ -6,6 +6,9 @@ import { Transition } from "@headlessui/react";
 import React from "react";
 
 export const BarangServiceForm = ({ barangservices }) => {
+    if (!barangservices) {
+        return <></>;
+    }
     const { nama_barang, gambar_barang, keluhan_barang } = barangservices;
     function submit(params) {}
     console.log(barangservices);
