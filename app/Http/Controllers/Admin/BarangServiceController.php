@@ -7,7 +7,7 @@ use App\Http\Requests\StoreBarangServiceRequest;
 use App\Http\Requests\UpdateBarangServiceRequest;
 use App\Models\BarangService;
 use App\Models\Customer;
-use Illuminate\Support\Facades\Auth;
+use App\Models\UserBarangService;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
@@ -19,8 +19,9 @@ class BarangServiceController extends Controller
     public function index(BarangService $barangService): Response
     {
         // WADUH INI MAH 
-        $barangServices = BarangService::with(['customersBelongToMany','customers'])->paginate(10);
-        
+        $barangServices = BarangService::with(['customersBelongToMany', 'customers'])->paginate(10);
+
+
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
 
@@ -42,7 +43,7 @@ class BarangServiceController extends Controller
         }
 
         $userIdWhoUploadCustomer = Customer::where('id', $request->post('customer_id'))->first('user_id');
-        
+
         // Mastiin hanya yang upload customer di awal yang boleh tambahin 
         abort_if($userIdWhoUploadCustomer->user_id != auth()->user()->id, 403);
 
@@ -52,11 +53,11 @@ class BarangServiceController extends Controller
             ['user_id' => auth()->user()->id]
         );
 
-        $data = BarangService::create($MergeRequestWithId);
-
+        // insertGetId ini kita bakal dapet return id yang baru diinput
+        $data = BarangService::insertGetId($MergeRequestWithId);
         if ($request->file('gambar_barang')) {
             $gambar_barang = Storage::disk('public')->put('gambar_barang', $request->file('gambar_barang'));
-            $data->update(['gambar_barang' => $gambar_barang]);
+            BarangService::find($data)->update(['gambar_barang' => $gambar_barang]);
         }
 
         return redirect(route('customer.show', $request->post('customer_id')));

@@ -37,7 +37,6 @@ class UserBarangServiceController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -45,7 +44,13 @@ class UserBarangServiceController extends Controller
      */
     public function store(StoreUserBarangServiceRequest $request)
     {
-        //
+        $userBarangService =  UserBarangService::where('barang_service_id', $request->post('barang_service_id'))->first();
+        $MergeRequestWithId = array_merge(
+            $request->post(),
+            !$userBarangService ? ['status' => 'Di Proses'] : ['status' => 'Helper']
+        );
+        userBarangService::create($MergeRequestWithId);
+        return redirect()->to(route('barangservice.index'));
     }
 
     /**
@@ -94,5 +99,10 @@ class UserBarangServiceController extends Controller
     public function destroy(UserBarangService $userBarangService)
     {
         //
+    }
+
+    public function askhelp(UserBarangService $userBarangService)
+    {
+        dd($userBarangService);
     }
 }

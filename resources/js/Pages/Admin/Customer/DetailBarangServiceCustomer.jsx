@@ -6,11 +6,15 @@ import { router } from "@inertiajs/react";
 import AddModalBarangService from "../BarangService/Partials/AddModalBarangService";
 import { CustomerCard } from "@/Components/CustomerCard";
 
-export default function DetailBarangServiceCustomer ({ customers, auth })  {
-    console.log(customers);
+export default function DetailBarangServiceCustomer({ customers, auth }) {
     const [authorized, setAuthorized] = useState(false);
+
     useEffect(() => {
-        if (customers.user_id == auth.user.id && auth.user.role_id != 4) {
+        if (
+            customers.user_id == auth.user.id &&
+            auth.user.role_id != 4 &&
+            auth.user.role_id != 1
+        ) {
             setAuthorized(true);
         }
     }, []);
@@ -91,6 +95,4 @@ export default function DetailBarangServiceCustomer ({ customers, auth })  {
             </div>
         </AuthenticatedLayout>
     );
-};
-
-
+}

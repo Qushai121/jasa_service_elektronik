@@ -7,10 +7,12 @@ import { useForm, usePage } from "@inertiajs/react";
 import DetailModalBarangService from "./Partials/DetailModalBarangService";
 import DetailModalCustomer from "../Customer/Partials/DetailModalCostumer";
 import NavLink from "@/Components/NavLink";
+import { AmbilJob } from "./Partials/AmbilJob";
 
 const IndexBarangService = ({ barangServices, auth }) => {
-    console.log(barangServices);
     const { data, setData, delete: destroy, processing, errors } = useForm({});
+
+    console.log(barangServices);
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
     }
@@ -55,25 +57,40 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                 </th>
                                 <th>
                                     <div className="flex flex-col gap-2">
-                                    {data.customers_belong_to_many.length > 0 ?
-                                    <div >
-                                        <NavLink className="btn btn-sm" 
-                                        href={route('userbarangservice.show',data.id)}>Detail</NavLink>
-                                    </div>
-                                    :<PrimaryButton >Ambil Job</PrimaryButton>
-                                    }
+                                        {data.customers_belong_to_many.length >
+                                        0 ? (<>
+
+                                            <div>
+                                                <NavLink
+                                                    className="btn btn-sm"
+                                                    href={route(
+                                                        "userbarangservice.show",
+                                                        data.id
+                                                    )}
+                                                >
+                                                    Detail
+                                                </NavLink>
+                                            </div>
+                                            <p className="badge badge-info whitespace-nowrap">
+                                            {data.customers_belong_to_many[0]?.pivot?.status}
+                                        </p>
+                                        </>
+                                        ) : (
+                                            <AmbilJob
+                                                auth={auth.user}
+                                                barangId={data.id}
+                                            />
+                                        )}
                                         {/* <NavLink className="btn btn-sm" 
                                         href={route('userbarangservice.show',data.customers_belong_to_many[0].pivot.id)}>Detail</NavLink> */}
                                         {/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
                                         {/* <p className="badge badge-error whitespace-nowrap">
                                         Belum Di Proses
                                     </p> */}
-                                        <p className="badge badge-info whitespace-nowrap">
-                                            Di Proses
-                                        </p>
-                                        <p className="badge badge-warning whitespace-nowrap">
+                                        
+                                        {/* <p className="badge badge-warning whitespace-nowrap">
                                             Perlu Bantuan
-                                        </p>
+                                        </p> */}
                                         {/* <p className="badge badge-success whitespace-nowrap" >Selesai</p> */}
                                     </div>
                                 </th>
