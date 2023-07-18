@@ -8,6 +8,7 @@ import DetailModalBarangService from "./Partials/DetailModalBarangService";
 import DetailModalCustomer from "../Customer/Partials/DetailModalCostumer";
 import NavLink from "@/Components/NavLink";
 import { AmbilJob } from "./Partials/AmbilJob";
+import { BadgeStatus } from "@/Components/BadgeStatus";
 
 const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
@@ -58,40 +59,37 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                 <th>
                                     <div className="flex flex-col gap-2">
                                         {data.customers_belong_to_many.length >
-                                        0 ? (<>
-
-                                            <div>
-                                                <NavLink
-                                                    className="btn btn-sm"
-                                                    href={route(
-                                                        "userbarangservice.show",
-                                                        data.id
-                                                    )}
-                                                >
-                                                    Detail
-                                                </NavLink>
-                                            </div>
-                                            <p className="badge badge-info whitespace-nowrap">
-                                            {data.customers_belong_to_many[0]?.pivot?.status}
-                                        </p>
-                                        </>
+                                        0 ? (
+                                            <>
+                                                <div>
+                                                    <NavLink
+                                                        className="btn btn-sm"
+                                                        href={route(
+                                                            "userbarangservice.show",
+                                                            data.id
+                                                        )}
+                                                    >
+                                                        Detail
+                                                    </NavLink>
+                                                </div>
+                                            </>
                                         ) : (
-                                            <AmbilJob
-                                                auth={auth.user}
-                                                barangId={data.id}
-                                            />
+                                            <>
+                                                <AmbilJob
+                                                    auth={auth.user}
+                                                    barangId={data.id}
+                                                />
+                                                <p className="badge badge-error whitespace-nowrap">
+                                                    Belum Di Proses
+                                                </p>
+                                            </>
                                         )}
-                                        {/* <NavLink className="btn btn-sm" 
-                                        href={route('userbarangservice.show',data.customers_belong_to_many[0].pivot.id)}>Detail</NavLink> */}
-                                        {/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
-                                        {/* <p className="badge badge-error whitespace-nowrap">
-                                        Belum Di Proses
-                                    </p> */}
+                                        {
+                                            data.customers_belong_to_many[0]?.pivot?.status && <BadgeStatus status={data.customers_belong_to_many[0]?.pivot?.status} />
+                                        }
+
+
                                         
-                                        {/* <p className="badge badge-warning whitespace-nowrap">
-                                            Perlu Bantuan
-                                        </p> */}
-                                        {/* <p className="badge badge-success whitespace-nowrap" >Selesai</p> */}
                                     </div>
                                 </th>
 

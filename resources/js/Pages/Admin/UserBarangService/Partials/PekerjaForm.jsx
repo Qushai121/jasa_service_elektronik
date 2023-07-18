@@ -9,6 +9,7 @@ export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
     if (!pekerja) {
         return <></>;
     }
+    // console.log(pekerja);
     function submit(params) {}
     const { avatar, email, name, id, role, pivot } = pekerja;
     return (
@@ -30,7 +31,7 @@ export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
             <div className="mt-4">
                 <img
                     className="w-52 h-44 rounded-lg object-cover"
-                    src={`/storage/${avatar}}`}
+                    src={"/storage/" + avatar}
                 />
             </div>
             <form

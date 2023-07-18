@@ -11,7 +11,6 @@ export const BarangServiceForm = ({ barangservices }) => {
     }
     const { nama_barang, gambar_barang, keluhan_barang } = barangservices;
     function submit(params) {}
-    console.log(barangservices);
     return (
         <section>
             <header>
@@ -19,12 +18,12 @@ export const BarangServiceForm = ({ barangservices }) => {
                     Barang Service
                 </h2>
             </header>
-            {/* <div className="mt-4">
-        <img
-            className="w-52 h-44 rounded-lg object-cover"
-            src={`/storage/${avatar}}`}
-        />
-    </div> */}
+            <div className="mt-4">
+                <img
+                    className="w-52 h-44 rounded-lg object-cover"
+                    src={"/storage/" + gambar_barang}
+                />
+            </div>
             <form
                 onSubmit={submit}
                 className="mt-6 space-y-6"

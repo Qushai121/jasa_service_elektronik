@@ -14,7 +14,7 @@ export default function AuthenticatedLayout({ user, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 xl:w-full ">
+        <div className="min-h-screen bg-gray-900 xl:w-full md:w-full w-fit ">
             <div className="drawer lg:drawer-open">
                 <input
                     id="my-drawer-2"
