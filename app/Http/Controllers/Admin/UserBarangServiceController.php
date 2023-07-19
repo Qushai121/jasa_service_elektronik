@@ -54,8 +54,8 @@ class UserBarangServiceController extends Controller
      */
     public function show($userbarangservice)
     {
-        $userBarangServices = BarangService::where('id', $userbarangservice)->with(['customersBelongToMany' => function ($q) {
-            $q->orderBy('created_at', 'ASC');
+        $userBarangServices = BarangService::where('id', $userbarangservice)->orderBy('updated_at','ASC')->with(['customersBelongToMany' => function ($q) {
+            // $q->orderBy('created_at', 'ASC');
             $q->with('role');
         }, 'customers'])->first();
         // dd($userBarangServices);
@@ -91,7 +91,7 @@ class UserBarangServiceController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Tinggalkan pekerjaan lalu oper pangkat ke 
      */
     public function destroy(UserBarangService $userBarangService)
     {

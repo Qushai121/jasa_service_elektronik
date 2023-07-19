@@ -26,9 +26,13 @@ export const BadgeStatus = ({ status }) => {
             return (
                 <p className="badge badge-success whitespace-nowrap">{status}</p>
             );
+        case "Helper":
+            return (
+                <p className="badge badge-info whitespace-nowrap">Di Gantiakan Helper</p>
+            );
         default:
             return (
-                <p className="badge badge-warning whitespace-nowrap">
+                <p className="badge badge-info whitespace-nowrap">
                     {status}
                 </p>
             );

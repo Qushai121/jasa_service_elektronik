@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('barang_service_id')->constrained();
             $table->boolean('askhelp');
+            $table->timestamps();
         });
     }
 

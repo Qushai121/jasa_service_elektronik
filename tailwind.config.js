@@ -16,11 +16,15 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+        'spin-slow': 'spin 50s linear infinite',
+      }
         },
     },
 
     plugins: [
         forms,
         require("daisyui"),
+        require('tailwind-scrollbar'),
     ],
 };

@@ -1,6 +1,7 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
+import PrimaryButton from "@/Components/PrimaryButton";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link, usePage } from "@inertiajs/react";
 import React, { useState } from "react";
@@ -12,13 +13,14 @@ const NavbarAdmin = ({ openSidebar }) => {
         useState(false);
     return (
         <nav className="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="px-9">
                 <div className="flex justify-between h-16">
                     <div className="flex">
                         <div className="shrink-0 flex gap-2 items-center">
-                            <label
+                            <PrimaryButton
+                                onClick={() => openSidebar()}
                                 htmlFor="my-drawer-2"
-                                className="btn lg:hidden"
+                                className="btn "
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -33,13 +35,13 @@ const NavbarAdmin = ({ openSidebar }) => {
                                         d="M4 6h16M4 12h16M4 18h16"
                                     ></path>
                                 </svg>
-                            </label>
-                            <Link href="/">
+                            </PrimaryButton>
+
+                            {/* <Link href={route('login')}>
                                 <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
-
                     <div className="hidden sm:flex sm:items-center sm:ml-6">
                         <div className="ml-3 relative">
                             <Dropdown>
@@ -99,8 +101,7 @@ const NavbarAdmin = ({ openSidebar }) => {
                             </div>
                         </div>
                     </div>
-                    
-                        
+
                     <div className="-mr-2 flex items-center sm:hidden">
                         <button
                             onClick={() =>

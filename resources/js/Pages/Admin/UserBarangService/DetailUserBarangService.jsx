@@ -13,9 +13,8 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
     const [pekerja, setPekerja] = useState(
         userBarangServices?.customers_belong_to_many
     );
-    console.log(pekerja[0].id == auth.user.id);
+    console.log(userBarangServices);
     const datas = pekerja[0];
-    // console.log(pekerja[0].pivot.status);
     const { data, setData, post, processing, errors, reset } = useForm({
         user_id: datas.id,
         barang_service: datas.pivot.barang_service_id,
@@ -89,9 +88,8 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                                     </div>
                                 </Modal>
                                 {pekerja.map((data, key) => {
-                                    
                                     return(
-                                    data.pivot.status == "Helper" &&
+                                    pekerja[0].pivot.status == "Perlu Bantuan" &&
                                     pekerja[0].id != auth.user.id && 
                                     data.pivot.user_id != auth.user.id ? (
                                         <AddHelperModal
@@ -103,7 +101,7 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                                     )
                                 )})}
 
-                                {/* {pekerja[0].pivot.status != "Helper" &&
+                                {/* {pekerja[0].pivot.status == "Perlu Bantuan" &&
                                 pekerja[0].id != auth.user.id ? (
                                     <AddHelperModal datas={datas} auth={auth} />
                                 ) : (
@@ -135,8 +133,6 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                         </div>
                     </div>
                     <div className="p-4 sm:p-8 bg-gray-800 shadow sm:rounded-lg">
-                        {/* jaga jaga kalo ada error di map [0] */}
-
                         <BarangServiceForm
                             barangservices={userBarangServices}
                         />

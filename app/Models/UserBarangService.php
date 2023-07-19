@@ -11,12 +11,14 @@ class UserBarangService extends Model
 {
     use HasFactory;
     protected $table = "user_barang_services";
-    public $timestamps = false;
+    
     protected $fillable = [
         'status',
         'user_id',
         'barang_service_id',
-        'askhelp'
+        'askhelp',
+        'created_at',
+        'updated_at',
     ];
 
 

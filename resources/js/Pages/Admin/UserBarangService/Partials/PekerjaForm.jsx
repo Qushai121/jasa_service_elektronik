@@ -34,11 +34,6 @@ export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
                     src={"/storage/" + avatar}
                 />
             </div>
-            <form
-                onSubmit={submit}
-                className="mt-6 space-y-6"
-                encType="multipart/form-data"
-            >
                 <div className="text-white">
                     Jabatan Penanggung Jawab :{" "}
                     <span className="text-lg">{role.role_name}</span>
@@ -49,12 +44,8 @@ export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
                         id="name"
                         className="mt-1 block w-full"
                         defaultValue={name}
-                        onChange={(e) => setData("name", e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
+                        disabled
                     />
-                    <InputError className="mt-2" message={""} />
                 </div>
                 <div>
                     <InputLabel htmlFor="email" value="email" />
@@ -62,28 +53,10 @@ export const PekerjaForm = ({ pekerja, pekerjaPertama }) => {
                         id="email"
                         className="mt-1 block w-full"
                         defaultValue={email}
-                        onChange={(e) => setData("email", e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="email"
+                        disabled
                     />
-                    <InputError className="mt-2" message={""} />
                 </div>
-                <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={false}>Save</PrimaryButton>
-
-                    <Transition
-                        show={true}
-                        enterFrom="opacity-0"
-                        leaveTo="opacity-0"
-                        className="transition ease-in-out"
-                    >
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                            Saved.
-                        </p>
-                    </Transition>
-                </div>
-            </form>
+              
         </section>
     );
 };

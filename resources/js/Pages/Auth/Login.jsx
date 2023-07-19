@@ -101,7 +101,15 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
-            <div className="flex flex-col items-center my-4">
+            <div className="flex justify-end mt-3">
+                <Link
+                    href={route("register")}
+                    className="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                >
+                    Register Here
+                </Link>
+            </div>
+            <div className="flex flex-col items-center mb-4">
                 <a
                     href="/auth/github/redirect"
                     className="bg-gray-200 p-2 rounded-lg "
@@ -109,14 +117,6 @@ export default function Login({ status, canResetPassword }) {
                     Login With Github
                 </a>
             </div>
-            {/* <div className="flex flex-col items-center my-4">
-                <a
-                    href="/auth/redirect"
-                    className="bg-gray-200 p-2 rounded-lg "
-                >
-                    Login With Github
-                </a>
-            </div> */}
         </GuestLayout>
     );
 }
