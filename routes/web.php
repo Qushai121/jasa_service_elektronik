@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\HelperController;
 use App\Http\Controllers\Admin\StatusProsesController;
 use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
@@ -25,7 +26,7 @@ use Laravel\Socialite\Facades\Socialite;
 */
 
 Route::get('/', function () {
-    return redirect()->to(Route::has('login'));
+    return redirect()->to(route('login'));
     // return Inertia::render('Welcome', [
     //     'canLogin' => Route::has('login'),
     //     'canRegister' => Route::has('register'),
@@ -35,7 +36,7 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard', function () {
-    if(auth()->user()->role_id <= 0){
+    if (auth()->user()->role_id <= 0) {
         return redirect()->to(route('profile.edit'));
     }
     return Inertia::render('Dashboard');
@@ -53,8 +54,10 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry');
     Route::resource('barangservice', BarangServiceController::class);
     Route::resource('userbarangservice', UserBarangServiceController::class);
-    Route::put('askhelp/{userBarangService}', [UserBarangServiceController::class, 'askHelp'])->name('askHelp');
-    Route::post('addhelper/{userBarangService}', [UserBarangServiceController::class, 'addHelper'])->name('addHelper');
+    Route::put('askhelp/{userBarangService}', [HelperController::class, 'askHelp'])->name('askHelp');
+    Route::post('addhelper/{userBarangService}', [HelperController::class, 'addHelper'])->name('addHelper');
+    Route::put('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
+    // Route::get('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
 });
 
 

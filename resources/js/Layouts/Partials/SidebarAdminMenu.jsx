@@ -28,12 +28,11 @@ const SidebarAdminMenu = () => {
                 return (
                     <a
                         className={` ${
-                            route().current(menu.link) &&
-                            " shadow-blue-800 shadow-2xl border-b-2 hover:shadow-none duration-300 border-blue-800 "
+                            route().current(menu.link) ?
+                            " shadow-blue-800 shadow-2xl border-b-2 hover:shadow-none duration-300 border-blue-800 " :''
                         } py-2 px-4 group hover:bg-blue-900 duration-100`}
                         key={i}
                         href={route(menu.link)}
-                        active={route().current(menu.link)}
                     >
                         <p className="text-gray-200  ">
                             {menu.keterangan}

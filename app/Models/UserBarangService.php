@@ -17,6 +17,7 @@ class UserBarangService extends Model
         'user_id',
         'barang_service_id',
         'askhelp',
+        'pekerja_utama',
         'created_at',
         'updated_at',
     ];

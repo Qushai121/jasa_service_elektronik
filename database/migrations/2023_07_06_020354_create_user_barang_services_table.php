@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('status')->default(BarangStatusEnum::BELUMDIPROSES->value);
             $table->foreignId('user_id')->constrained();
             $table->foreignId('barang_service_id')->constrained();
-            $table->boolean('askhelp');
+            $table->boolean('askhelp')->default(0);
+            $table->boolean('pekerja_utama')->default(0);
             $table->timestamps();
         });
     }

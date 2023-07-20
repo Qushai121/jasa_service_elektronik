@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PekerjaForm } from "./Partials/PekerjaForm";
 import { CustomerCard } from "@/Components/CustomerCard";
 import { BarangServiceForm } from "./Partials/BarangServiceForm";
@@ -7,22 +7,42 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import Modal from "@/Components/Modal";
 import { router, useForm } from "@inertiajs/react";
 import { AddHelperModal } from "./Partials/AddHelperModal";
+import GivePekerjaUtamaModal from "./Partials/GivePekerjaUtamaModal";
 
-const DetailUserBarangService = ({ userBarangServices, auth }) => {
+const DetailUserBarangService = ({
+    userBarangServices,
+    pekerjaUtama,
+    helper,
+    auth,
+}) => {
     const [tutup, setTutup] = useState(false);
-    const [pekerja, setPekerja] = useState(
-        userBarangServices?.customers_belong_to_many
-    );
-    console.log(userBarangServices);
-    const datas = pekerja[0];
+
+    // console.log(helper);
+    // console.log(pekerjaUtama);
+    const [oneHelperHelpOnlyOnce, setOneHelperHelpOnlyOnce] = useState();
+
+    function onlyOneHelp() {
+        for (let i = 0; i < helper.length; i++) {
+            const element = helper[i];
+            if (element.id == auth.user.id) {
+                setOneHelperHelpOnlyOnce(helper[i]);
+            }
+        }
+    }
+
+    useEffect(() => {
+        onlyOneHelp();
+    }, []);
+
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        user_id: datas.id,
-        barang_service: datas.pivot.barang_service_id,
+        user_id: pekerjaUtama.id,
+        barang_service: pekerjaUtama.pivot.barang_service_id,
         askhelp: 1,
     });
 
     function askHelp(e) {
-        router.post(route("askHelp", datas.pivot.id), {
+        router.post(route("askHelp", pekerjaUtama.pivot.id), {
             _method: "put",
             ...data,
         });
@@ -52,13 +72,16 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                                         }
                                     </p>
                                 </div>
-                                {pekerja[0].id == auth.user.id && (
-                                    <PrimaryButton
-                                        className="btn btn-sm m-2"
-                                        onClick={() => setTutup(!tutup)}
-                                    >
-                                        Minta Bantuan
-                                    </PrimaryButton>
+                                {pekerjaUtama.id == auth.user.id && (
+                                    <>
+                                        <PrimaryButton
+                                            className="btn btn-sm m-2"
+                                            onClick={() => setTutup(!tutup)}
+                                        >
+                                            Minta Bantuan
+                                        </PrimaryButton>
+                                        <GivePekerjaUtamaModal userBarangServices={userBarangServices} dataHelper={helper} dataPekerjaUtama={pekerjaUtama} />
+                                    </>
                                 )}
                                 <Modal
                                     show={tutup}
@@ -87,7 +110,24 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                                         </div>
                                     </div>
                                 </Modal>
-                                {pekerja.map((data, key) => {
+                                {helper.map((data, key) => {
+                                    return pekerjaUtama.pivot.pekerja_utama ==
+                                        1 &&
+                                        !oneHelperHelpOnlyOnce &&
+                                        pekerjaUtama.id != auth.user.id ? (
+                                        <>
+                                            <div key={key}>
+                                                <AddHelperModal
+                                                    datas={pekerjaUtama}
+                                                    auth={auth}
+                                                />
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <></>
+                                    );
+                                })}
+                                {/* {pekerja.map((data, key) => {
                                     return(
                                     pekerja[0].pivot.status == "Perlu Bantuan" &&
                                     pekerja[0].id != auth.user.id && 
@@ -99,7 +139,7 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                                     ) : (
                                         <></>
                                     )
-                                )})}
+                                )})} */}
 
                                 {/* {pekerja[0].pivot.status == "Perlu Bantuan" &&
                                 pekerja[0].id != auth.user.id ? (
@@ -115,12 +155,12 @@ const DetailUserBarangService = ({ userBarangServices, auth }) => {
                             <div className="w-full lg:w-fit">
                                 <div className="p-4 sm:p-8 bg-gray-800 h-fit gap-2 shadow w-full overflow-x-auto sm:rounded-lg ">
                                     <PekerjaForm
-                                        pekerja={pekerja[0]}
+                                        pekerja={pekerjaUtama}
                                         pekerjaPertama={true}
                                     />
                                 </div>
                             </div>
-                            {pekerja?.slice(1).map((pekerjaData, key) => (
+                            {helper?.map((pekerjaData, key) => (
                                 <div key={key} className="w-full lg:w-fit">
                                     <div className="p-4 sm:p-8 bg-gray-800 h-fit gap-2 shadow w-full overflow-x-auto sm:rounded-lg ">
                                         <PekerjaForm

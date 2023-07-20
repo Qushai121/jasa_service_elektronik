@@ -39,11 +39,15 @@ class UserBarangServiceController extends Controller
      */
     public function store(StoreUserBarangServiceRequest $request)
     {
+        // ini untuk mengamankan kalo saja buttonnya di formnya dimanipulasi...
+        // 👇
         $userBarangService =  UserBarangService::where('barang_service_id', $request->post('barang_service_id'))->first();
+        // disini benar benar mencari apakah barang ini udah ada pekerja utamanya agar tidak tersingkir 
+
         $MergeRequestWithId = array_merge(
             $request->post(),
             !$userBarangService ? ['status' => BarangStatusEnum::DIPROSES->value] : ['status' => BarangStatusEnum::HELPER->value],
-            ['askhelp' => 0]
+            !$userBarangService ? ['pekerja_utama' => 1] : ['pekerja_utama' => 0],
         );
         userBarangService::create($MergeRequestWithId);
         return redirect()->to(route('barangservice.index'));
@@ -54,24 +58,24 @@ class UserBarangServiceController extends Controller
      */
     public function show($userbarangservice)
     {
-        $userBarangServices = BarangService::where('id', $userbarangservice)->orderBy('updated_at','ASC')->with(['customersBelongToMany' => function ($q) {
-            // $q->orderBy('created_at', 'ASC');
+        $userBarangServices = BarangService::where('id', $userbarangservice)->orderBy('updated_at', 'ASC')->with(['customersBelongToMany' => function ($q) {
             $q->with('role');
         }, 'customers'])->first();
-        // dd($userBarangServices);
 
-        // ADA KESALAHAN DALAM QUERY AMBIL DATA 
-        // $userBarangServices = UserBarangService::where('id', $userbarangservice)->with([
-        //     'users' =>  function ($q) {
-        //         $q->with('role');
-        //     },
-        //     'barangservices' =>  function ($q) {
-        //         $q->with('customers');
-        //     }
-        // ])->first();
-        // $userBarangServices = UserBarangService::where('id',$userbarangservice)->with(['users','barangservices'])->get();
+        // Mencari Apakah ini pekerja utamanya
+        // terpaks ubah karena nambah fitur lempar pekerja utama ke helper
+        $pekerjaUtama = [];
+        $helper = [];
+        for ($i = 0; $i < count($userBarangServices->customersBelongToMany); $i++) {
+            $pekerjaUtamas = $userBarangServices->customersBelongToMany[$i];
+            if ($pekerjaUtamas->pivot->pekerja_utama) {
+                $pekerjaUtama = $pekerjaUtamas;
+            } else {
+                $helper[] = $pekerjaUtamas;
+            }
+        }
 
-        return inertia('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices"));
+        return inertia('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices", "pekerjaUtama", "helper"));
     }
 
     /**
@@ -98,39 +102,5 @@ class UserBarangServiceController extends Controller
         //
     }
 
-    public function askHelp(UserBarangService $userBarangService, Request $request)
-    {
-        $dataFromReq = $request->all();
-        // dd($dataFromReq['user_id']);
-        abort_if($userBarangService->user_id != $dataFromReq['user_id'], 403);
-        abort_if($userBarangService->barang_service_id != $dataFromReq['barang_service'], 403);
-        $userBarangService->update([
-            'askhelp' => $dataFromReq['askhelp'],
-            'status' => BarangStatusEnum::BANTUAN->value,
-        ]);
-        return redirect()->back();
-    }
 
-    public function addHelper(UserBarangService $userBarangService, Request $request)
-    {
-
-        $dataFromReq = $request->all();
-        $datas = UserBarangService::where($request->post())->first();
-        // dd(empty($datas));
-        // Kalo dah nge bantu g bisa bantui lagi / cegah spam
-        abort_if(!empty($datas),403);
-        // dd($userBarangService);
-        // dd($dataFromReq);
-        abort_if($userBarangService->barang_service_id != $dataFromReq['barang_service_id'], 403);
-
-        $MergeRequestWithId = array_merge(
-            $request->post(),
-            ['status' => BarangStatusEnum::HELPER->value],
-            ['askhelp' => 0]
-        );
-
-        // dd($MergeRequestWithId);
-         UserBarangService::create($MergeRequestWithId);
-        return redirect()->back();
-    }
 }

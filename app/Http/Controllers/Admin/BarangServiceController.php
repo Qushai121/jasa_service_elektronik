@@ -19,7 +19,11 @@ class BarangServiceController extends Controller
     public function index(BarangService $barangService): Response
     {
         // WADUH INI MAH 
-        $barangServices = BarangService::with(['customersBelongToMany', 'customers'])->paginate(10);
+        $barangServices = BarangService::with([
+            'customersBelongToMany' => function ($q) {
+                $q->where('pekerja_utama' ,1);
+            }, 'customers'
+        ])->paginate(10);
 
 
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));

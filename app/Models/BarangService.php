@@ -45,7 +45,7 @@ class BarangService extends Pivot
         // 3. masukin table pivot user yang tersimpan di many to many table, kalo lu bikin ini methodnya nya di barangservice Model
         // berarti masukin barang_service_id dan ganti parameter ke 1 jadi User::class [model]
         // 4. masukin pivot sibling table 
-        return $this->belongsToMany(User::class, 'user_barang_services', 'barang_service_id', 'user_id')->withPivot('status', 'id', 'askhelp');
+        return $this->belongsToMany(User::class, 'user_barang_services', 'barang_service_id', 'user_id')->withPivot('status', 'id', 'askhelp','pekerja_utama');
     }
 
     public function users(): BelongsToMany

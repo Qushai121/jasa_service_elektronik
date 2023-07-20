@@ -7,6 +7,7 @@ export const AddHelperModal = ({datas,auth}) => {
     // console.log(datas);
     if(auth.user.role_id == 1) return <></>
     const [tutup,setTutup] = useState(false)
+    
     const { data, setData, post, processing, errors, reset } = useForm({
         user_id: auth.user.id,
         barang_service_id: datas.pivot.barang_service_id,

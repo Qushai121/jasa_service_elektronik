@@ -8,7 +8,6 @@ export default function AuthenticatedLayout({ user, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
     const [getsidebar, setSidebar] = useState(false);
-    console.log(getsidebar);
     const openSidebar = () => {
         setSidebar(!getsidebar);
     };
