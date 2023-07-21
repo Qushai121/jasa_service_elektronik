@@ -3,9 +3,9 @@
 use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\HelperController;
-use App\Http\Controllers\Admin\StatusProsesController;
 use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\CustomerEmailInfoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Umum\HomeController;
 use App\Models\UserBarangService;
@@ -13,6 +13,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
+use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::get('/', function () {
     //     'phpVersion' => PHP_VERSION,
     // ]);
 });
+
+Route::get('send-info/{barangService}',[CustomerEmailInfoController::class,'index']);
 
 Route::get('dashboard', function () {
     if (auth()->user()->role_id <= 0) {
@@ -57,7 +60,7 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     Route::put('askhelp/{userBarangService}', [HelperController::class, 'askHelp'])->name('askHelp');
     Route::post('addhelper/{userBarangService}', [HelperController::class, 'addHelper'])->name('addHelper');
     Route::put('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
-    // Route::get('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
+    Route::post('leavejob/{userBarangService}', [HelperController::class, 'leaveJob'])->name('leaveJob');
 });
 
 

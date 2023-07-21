@@ -12,6 +12,7 @@ export default function DetailModalBarangService({ barangServices, children }) {
     const [tutup, setTutup] = useState(false);
     // Gambar nya harus di bikin state sendiri 🗿
     const [gambar, setGambar] = useState("");
+    
     const { data, setData, post, processing, errors } = useForm({
         nama_barang: barangServices.nama_barang,
         keluhan_barang: barangServices.keluhan_barang,
@@ -22,13 +23,9 @@ export default function DetailModalBarangService({ barangServices, children }) {
     const submit = (e) => {
         e.preventDefault();
         router.post(route("barangservice.update", barangServices.id), {
-            // ini juga lebih baik pake router.post terus di kasih method spoofing kaya di blade biasa
             _method: "put",
-            // JANGAN GEGABAH cuy
             ...data,
             gambar_barang: gambar,
-            // lalu taruh dah disini state gambar nya
-            // nyoba dari jam 11 💀
         });
     };
 

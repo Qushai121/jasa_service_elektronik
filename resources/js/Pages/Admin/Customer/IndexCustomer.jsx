@@ -8,12 +8,18 @@ import DetailCustomer from "./Partials/DetailModalCostumer";
 import { router } from "@inertiajs/react";
 import AddModalCustomer from "./Partials/AddModalCustomer";
 
+const headers = {
+    title: "List Customer Data",
+    description: "Customer Yang Anda Masukan Sendiri Tidak Akan Bisa Diubah / Di hapus Data entry Lain",
+    open: true,
+};
+
 const IndexCustomer = ({ customers }) => {
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout headers={headers}>
             <AddModalCustomer customers={customers} />
             <div className="overflow-x-auto w-[100vw] lg:w-full ">
                 <table className="table">

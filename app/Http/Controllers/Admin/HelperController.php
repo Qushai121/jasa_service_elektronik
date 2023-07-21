@@ -6,6 +6,7 @@ use App\Enums\BarangStatusEnum;
 use App\Http\Controllers\Controller;
 use App\Models\UserBarangService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class HelperController extends Controller
 {
@@ -21,7 +22,9 @@ class HelperController extends Controller
         return redirect()->back();
     }
 
-    
+    public function stopHelp(UserBarangService $userBarangService,Request $request){
+
+    }
 
     public function addHelper(UserBarangService $userBarangService, Request $request)
     {
@@ -36,12 +39,13 @@ class HelperController extends Controller
             ['status' => BarangStatusEnum::HELPER->value],
         );
         UserBarangService::create($MergeRequestWithId);
-        return redirect()->back();
+            return to_route('userbarangservice.show',$userBarangService->barang_service_id);
+
     }
 
     public function givePekerjaanUtama(UserBarangService $userBarangService, Request $request)
     {
-        abort_if($userBarangService->user_id != auth()->user()->id,403);
+        abort_if($userBarangService->user_id != auth()->user()->id, 403);
         $MergeRequestWithStatus = array_merge(
             $request->except('helper_id'),
             ['status' => BarangStatusEnum::HELPER->value],
@@ -49,7 +53,7 @@ class HelperController extends Controller
             ['askhelp' => 0],
         );
         $res = $userBarangService->update($MergeRequestWithStatus);
-
+        
         if ($res) {
             $dataHelperRequest = [
                 'barang_service_id' => $request->post('barang_service_id'),
@@ -57,9 +61,24 @@ class HelperController extends Controller
             ];
             $data = UserBarangService::where($dataHelperRequest)->update([
                 'pekerja_utama' => 1,
+                'status' => BarangStatusEnum::BANTUAN->value,
                 'askhelp' => 0
             ]);
-            dd($data);
+            
+            return to_route('userbarangservice.show',$userBarangService->barang_service_id);
+            // return redirect()->to(route('userbarangservice.show', $userBarangService->barang_service_id));
         }
+        return to_route('userbarangservice.show',$userBarangService->barang_service_id);
+        // return redirect()->to(route('userbarangservice.show', $userBarangService->id));
     }
+
+    public function leaveJob(UserBarangService $userBarangService, Request $request)
+    {
+        abort_if($userBarangService->id != $request->id,404);
+        abort_if($userBarangService->user_id != auth()->user()->id,404);
+        $userBarangService->delete();
+        
+        return redirect()->to(route('userbarangservice.show',$userBarangService->barang_service_id));
+    }
+    
 }

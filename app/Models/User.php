@@ -72,6 +72,6 @@ class User extends Authenticatable
         // berarti masukin barang_service_id dan ganti parameter ke 1 jadi User::class [model]
         // 4. masukin pivot sibling table 
         return $this->belongsToMany(BarangService::class, 'user_barang_services','user_id','barang_service_id')
-               ->withPivot('status','id','askhelp');
+               ->withPivot('status','id','askhelp','pekerja_utama');
     }
 }

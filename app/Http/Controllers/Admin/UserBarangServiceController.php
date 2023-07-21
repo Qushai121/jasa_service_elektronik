@@ -10,19 +10,19 @@ use App\Http\Requests\UpdateUserBarangServiceRequest;
 use App\Models\BarangService;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class UserBarangServiceController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan Semua Pekerja Yang Saya Ambil Kemungkinan nanti ada filter 
+     * di mana pekerjan saya, yang jadi helper / pekerja utama
      */
     public function index(): Response
     {
-        // $userBarangService = UserBarangService::where('user_id',auth()->user()->id)->paginate(10);
         $userBarangService = User::where('id', auth()->user()->id)->with('barangservices')->paginate(10);
-        // $userBarangService = auth()->user()->barangservices()->paginate(10);
-        // dd($userBarangService);
+
 
         return inertia('Admin/UserBarangService/IndexuserBarangService', compact("userBarangService"));
     }
@@ -53,29 +53,35 @@ class UserBarangServiceController extends Controller
         return redirect()->to(route('barangservice.index'));
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show($userbarangservice)
     {
-        $userBarangServices = BarangService::where('id', $userbarangservice)->orderBy('updated_at', 'ASC')->with(['customersBelongToMany' => function ($q) {
-            $q->with('role');
-        }, 'customers'])->first();
+        if ($userbarangservice) {
 
-        // Mencari Apakah ini pekerja utamanya
-        // terpaks ubah karena nambah fitur lempar pekerja utama ke helper
-        $pekerjaUtama = [];
-        $helper = [];
-        for ($i = 0; $i < count($userBarangServices->customersBelongToMany); $i++) {
-            $pekerjaUtamas = $userBarangServices->customersBelongToMany[$i];
-            if ($pekerjaUtamas->pivot->pekerja_utama) {
-                $pekerjaUtama = $pekerjaUtamas;
-            } else {
-                $helper[] = $pekerjaUtamas;
+            try {
+                $userBarangServices = BarangService::where('id', $userbarangservice)->orderBy('updated_at', 'ASC')->with(['customersBelongToMany' => function ($q) {
+                    $q->with('role');
+                }, 'customers'])->first();
+                // Mencari Apakah ini pekerja utamanya
+                $pekerjaUtama = [];
+                $helper = [];
+                if ($userBarangServices != null) {
+                    $length = count($userBarangServices->customersBelongToMany);
+                    // nambahin question mark itu kaya js jaga jaga kalo dia nul kaga lanjut 
+                    for ($i = 0; $i < $length; $i++) {
+                        $pekerjaUtamas = $userBarangServices->customersBelongToMany[$i];
+                        if ($pekerjaUtamas->pivot->pekerja_utama) {
+                            $pekerjaUtama = $pekerjaUtamas;
+                        } else {
+                            $helper[] = $pekerjaUtamas;
+                        }
+                    }
+                    return Inertia::render('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices", "pekerjaUtama", "helper"));
+                }
+            } catch (\Throwable $th) {
+                throw $th;
             }
         }
-
-        return inertia('Admin/UserBarangService/DetailUserBarangService', compact("userBarangServices", "pekerjaUtama", "helper"));
     }
 
     /**
@@ -95,12 +101,9 @@ class UserBarangServiceController extends Controller
     }
 
     /**
-     * Tinggalkan pekerjaan lalu oper pangkat ke 
+     * Hapus seluruh helper dan pekerja utama Table user_barang_service yang berkaitan
      */
     public function destroy(UserBarangService $userBarangService)
     {
-        //
     }
-
-
 }

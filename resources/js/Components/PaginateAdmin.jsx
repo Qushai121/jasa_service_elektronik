@@ -18,17 +18,17 @@ export default function PaginateAdmin({ data }) {
     }
     return (
         <>
-            <div className="flex items-center justify-between border-t  border-gray-200 bg-white px-4 py-3 sm:px-6">
+            <div className="flex items-center justify-between border-t mt-6 border-gray-200 bg-gray-100 px-4 py-3 sm:px-6">
                 <div className="flex flex-1 justify-between sm:hidden">
                     <a
                         href={prev_page_url}
-                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="relative inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     >
                         Previous
                     </a>
                     <a
                         href={next_page_url}
-                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                     >
                         Next
                     </a>
@@ -43,7 +43,7 @@ export default function PaginateAdmin({ data }) {
                     </div>
                     <div>
                         <nav
-                            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
+                            className="isolate flex gap-3 -space-x-px rounded-md shadow-sm"
                             aria-label="Pagination"
                         >
                             <a
@@ -55,7 +55,7 @@ export default function PaginateAdmin({ data }) {
                                 <span className="sr-only">Previous</span>
                                 {"<"}
                             </a>
-                            {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
+                            
                             {links.map((link, key) => {
                                 return (
                                     <a
@@ -64,7 +64,7 @@ export default function PaginateAdmin({ data }) {
                                         aria-current="page"
                                         className={`relative ${
                                             !link.url ? "bg-red-200" : ""
-                                        } z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                                        } z-10 inline-flex items-center bg-blue-700 rounded-md px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                                     >
                                         {link.label.split(" ")[0] == "&laquo;"
                                             ? "Prev"

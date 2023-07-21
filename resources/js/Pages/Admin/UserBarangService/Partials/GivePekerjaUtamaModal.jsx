@@ -11,14 +11,6 @@ export default function GivePekerjaUtamaModal({
     const [tutup, setTutup] = useState(false);
     const [helperChosenOne, setHelperChosenOne] = useState("");
 
-    // [
-    // userBarangServices.id
-
-    // data pekerja utama
-    // dataPekerjaUtama.id
-    // dataPekerjaUtama.pivot.id
-
-    // dataHelper.id
     const { data, setData, post, processing, errors, reset } = useForm({
         id: dataPekerjaUtama.pivot.id,
         user_id: dataPekerjaUtama.pivot.user_id,
@@ -32,12 +24,14 @@ export default function GivePekerjaUtamaModal({
     };
 
     // console.log();
-    function askHelp(e) {
+    function givePekerjaanUtama(e) {
         router.post(route("givePekerjaanUtama", dataPekerjaUtama.pivot.id), {
             _method: "put",
             ...data,
+        },{
+            onSuccess:location.reload()
         });
-        console.log(data);
+        
     }
     
     // ]=
@@ -51,7 +45,8 @@ export default function GivePekerjaUtamaModal({
                 className="btn btn-sm m-2"
                 onClick={() => setTutup(!tutup)}
             >
-                Tinggalkan Pekerjaan
+            Ubah Pekerja Utama
+                
             </PrimaryButton>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="modal-box bg-gray-800 text-gray-200 ">
@@ -82,7 +77,7 @@ export default function GivePekerjaUtamaModal({
                     </select>
                     <div className="modal-action">
                         <PrimaryButton
-                            onClick={(e) => askHelp(e)}
+                            onClick={(e) => givePekerjaanUtama(e)}
                             className="btn btn-md"
                         >
                             Lanjut

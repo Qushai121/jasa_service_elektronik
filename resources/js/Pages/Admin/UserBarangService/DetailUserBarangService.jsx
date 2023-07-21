@@ -8,6 +8,9 @@ import Modal from "@/Components/Modal";
 import { router, useForm } from "@inertiajs/react";
 import { AddHelperModal } from "./Partials/AddHelperModal";
 import GivePekerjaUtamaModal from "./Partials/GivePekerjaUtamaModal";
+import LeaveJob from "./Partials/LeaveJob";
+import { Disclosure } from "@headlessui/react";
+import { Inertia } from "@inertiajs/inertia";
 
 const DetailUserBarangService = ({
     userBarangServices,
@@ -17,15 +20,14 @@ const DetailUserBarangService = ({
 }) => {
     const [tutup, setTutup] = useState(false);
 
-    // console.log(helper);
-    // console.log(pekerjaUtama);
-    const [oneHelperHelpOnlyOnce, setOneHelperHelpOnlyOnce] = useState();
+    // kalo data ini terisi berarrti orang yang login adalah helper
+    const [checkIfIamHelper, setCheckIfIamHelper] = useState();
 
     function onlyOneHelp() {
         for (let i = 0; i < helper.length; i++) {
             const element = helper[i];
             if (element.id == auth.user.id) {
-                setOneHelperHelpOnlyOnce(helper[i]);
+                setCheckIfIamHelper(helper[i]);
             }
         }
     }
@@ -33,7 +35,6 @@ const DetailUserBarangService = ({
     useEffect(() => {
         onlyOneHelp();
     }, []);
-
 
     const { data, setData, post, processing, errors, reset } = useForm({
         user_id: pekerjaUtama.id,
@@ -65,11 +66,7 @@ const DetailUserBarangService = ({
                                 <div className="px-2 pb-1">
                                     <p className="bg-green-500 rounded-md p-2">
                                         {" "}
-                                        {
-                                            userBarangServices
-                                                ?.customers_belong_to_many[0]
-                                                .pivot.status
-                                        }
+                                        {pekerjaUtama.pivot.status}
                                     </p>
                                 </div>
                                 {pekerjaUtama.id == auth.user.id && (
@@ -80,9 +77,21 @@ const DetailUserBarangService = ({
                                         >
                                             Minta Bantuan
                                         </PrimaryButton>
-                                        <GivePekerjaUtamaModal userBarangServices={userBarangServices} dataHelper={helper} dataPekerjaUtama={pekerjaUtama} />
+                                        <GivePekerjaUtamaModal
+                                            userBarangServices={
+                                                userBarangServices
+                                            }
+                                            dataHelper={helper}
+                                            dataPekerjaUtama={pekerjaUtama}
+                                        />
                                     </>
                                 )}
+                                {/* khusu helper kalo mau tinggalkan pekerjaan */}
+                                {/* dan kalo pekerja utama mau tinggal kan pekerjan harus pindahin dulu status pekerja utama ke helper  */}
+                                {checkIfIamHelper && (
+                                    <LeaveJob dataHelper={checkIfIamHelper} />
+                                )}
+
                                 <Modal
                                     show={tutup}
                                     onClose={() => setTutup(!tutup)}
@@ -113,7 +122,7 @@ const DetailUserBarangService = ({
                                 {helper.map((data, key) => {
                                     return pekerjaUtama.pivot.pekerja_utama ==
                                         1 &&
-                                        !oneHelperHelpOnlyOnce &&
+                                        !checkIfIamHelper &&
                                         pekerjaUtama.id != auth.user.id ? (
                                         <>
                                             <div key={key}>
@@ -127,31 +136,40 @@ const DetailUserBarangService = ({
                                         <></>
                                     );
                                 })}
-                                {/* {pekerja.map((data, key) => {
-                                    return(
-                                    pekerja[0].pivot.status == "Perlu Bantuan" &&
-                                    pekerja[0].id != auth.user.id && 
-                                    data.pivot.user_id != auth.user.id ? (
-                                        <AddHelperModal
-                                            datas={datas}
-                                            auth={auth}
-                                        />
-                                    ) : (
-                                        <></>
-                                    )
-                                )})} */}
-
-                                {/* {pekerja[0].pivot.status == "Perlu Bantuan" &&
-                                pekerja[0].id != auth.user.id ? (
-                                    <AddHelperModal datas={datas} auth={auth} />
-                                ) : (
-                                    <></>
-                                )} */}
                                 <div className="bg-red-100 w-full my-1 h-[1px]"></div>
+                                {pekerjaUtama.id == auth.user.id && (
+                                    <Disclosure>
+                                        <Disclosure.Button className="py-2 px-3 rounded-sm flex gap-2">
+                                            <div>Cara Keluar Pekerjaan Ini</div>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="w-6 h-6"
+                                            >
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                                                    clipRule="evenodd"
+                                                />
+                                            </svg>
+                                        </Disclosure.Button>
+                                        <Disclosure.Panel className="text-gray-500">
+                                            <p>
+                                                Jika Ingin Meninggalkan
+                                                Pekerjaan Berikan Posisi pekerja
+                                                utama kepada helper dahulu, atau
+                                                Dengan cara Batalkan pekerjaan
+                                                Ini dengan begitu akan menghapus semua
+                                                yang berkaitan dengan barang ini
+                                            </p>
+                                        </Disclosure.Panel>
+                                    </Disclosure>
+                                )}
                             </div>
                         </div>
 
-                        <div className="w-full flex flex-wrap lg:gap-2 ">
+                        <div className="w-full flex flex-wrap gap-4 ">
                             <div className="w-full lg:w-fit">
                                 <div className="p-4 sm:p-8 bg-gray-800 h-fit gap-2 shadow w-full overflow-x-auto sm:rounded-lg ">
                                     <PekerjaForm

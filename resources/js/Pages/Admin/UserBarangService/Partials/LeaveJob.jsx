@@ -1,32 +1,42 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { useForm } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia";
+import { router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
-export const AddHelperModal = ({datas,auth}) => {
-    console.log(datas);
-    if(auth.user.role_id == 1) return <></>
-    const [tutup,setTutup] = useState(false)
-    
+export default function LeaveJob({ dataHelper }) {
+    const { pekerja_utama, barang_service_id, user_id, id } = dataHelper.pivot;
+    if (pekerja_utama >= 1) return <></>;
+
+    const [tutup, setTutup] = useState(false);
+
+    // console.log(dataHelper.pivot);
     const { data, setData, post, processing, errors, reset } = useForm({
-        user_id: auth.user.id,
-        barang_service_id: datas.pivot.barang_service_id,
+        id: id,
+        user_id: user_id,
+        barang_service_id: barang_service_id,
+        pekerja_utama: pekerja_utama,
     });
 
-    
-
-    function helpThisGuy(e) {
-        post(route("addHelper", datas.pivot.id),{
-            onSuccess:location.reload()
-        });
+    function changePekerjaUtama(e) {
+        router.post(
+            route("leaveJob", id),
+            {
+                ...data,
+            },{
+                onSuccess:location.reload()
+            }
+           
+        );
     }
+
     return (
         <>
             <PrimaryButton
                 className="btn btn-sm m-2"
                 onClick={() => setTutup(!tutup)}
             >
-                Bantu Pekerja !!
+                Tinggalkan Pekerjaan
             </PrimaryButton>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="modal-box bg-gray-800 text-gray-200 ">
@@ -37,19 +47,22 @@ export const AddHelperModal = ({datas,auth}) => {
                         ✕
                     </button>
                     <h3 className="font-bold text-lg">
-                        Konfirmasi Membantu Sebagai Helper
+                        Form Pelepasan Tugas Pekerja Utama Ke Helper
                     </h3>
-                    <p className="py-4">Klik Bantu Untuk Konfirmasi Bantuan Anda </p>
+                    <p className="py-4">
+                        Pilih helper yang mau dijadikan pekerja utama
+                    </p>
+
                     <div className="modal-action">
                         <PrimaryButton
-                            onClick={(e) => helpThisGuy(e)}
+                            onClick={(e) => changePekerjaUtama(e)}
                             className="btn btn-md"
                         >
-                            Bantu
+                            Lanjut
                         </PrimaryButton>
                     </div>
                 </div>
             </Modal>
         </>
     );
-};
+}
