@@ -19,7 +19,6 @@ const headers = {
 const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
 
-    console.log(barangServices);
     function deleteBarang(id) {
         destroy(route("barangservice.destroy", id));
     }

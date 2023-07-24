@@ -36,7 +36,6 @@ Route::get('/', function () {
     // ]);
 });
 
-Route::get('send-info/{barangService}',[CustomerEmailInfoController::class,'index']);
 
 Route::get('dashboard', function () {
     if (auth()->user()->role_id <= 0) {
@@ -54,13 +53,19 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(function () {
-    Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry');
-    Route::resource('barangservice', BarangServiceController::class);
-    Route::resource('userbarangservice', UserBarangServiceController::class);
+    Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry')->except('create', 'edit');
+    // Route::post('send-info/{barangService}', [CustomerEmailInfoController::class, 'index'])->middleware('CheckRole:all_staff');
+    // ------------------------------------------------------------------------
+    Route::resource('barangservice', BarangServiceController::class)->only('create', 'show', 'edit', 'index');
+    // ------------------------------------------------------------------------
+    Route::resource('userbarangservice', UserBarangServiceController::class)->except('create');
+    Route::post('selesaipekerjaan/{userBarangService}', [UserBarangServiceController::class, 'selesai'])->name('selesaipekerjaan');
+    // ------------------------------------------------------------------------
     Route::put('askhelp/{userBarangService}', [HelperController::class, 'askHelp'])->name('askHelp');
     Route::post('addhelper/{userBarangService}', [HelperController::class, 'addHelper'])->name('addHelper');
     Route::put('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
     Route::post('leavejob/{userBarangService}', [HelperController::class, 'leaveJob'])->name('leaveJob');
+    // ------------------------------------------------------------------------
 });
 
 

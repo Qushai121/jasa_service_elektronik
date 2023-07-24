@@ -11,6 +11,8 @@ import GivePekerjaUtamaModal from "./Partials/GivePekerjaUtamaModal";
 import LeaveJob from "./Partials/LeaveJob";
 import { Disclosure } from "@headlessui/react";
 import { Inertia } from "@inertiajs/inertia";
+import { SelasaiPekerjaan } from "./Partials/SelasaiPekerjaan";
+import { HeaderStatus } from "@/Components/HeaderStatus";
 
 const DetailUserBarangService = ({
     userBarangServices,
@@ -32,6 +34,8 @@ const DetailUserBarangService = ({
         }
     }
 
+    console.log(pekerjaUtama.pivot.status);
+
     useEffect(() => {
         onlyOneHelp();
     }, []);
@@ -52,7 +56,8 @@ const DetailUserBarangService = ({
     // askhelp
     return (
         <AuthenticatedLayout>
-            <div className="py-12 w-[100vw] lg:w-full">
+            <HeaderStatus status={pekerjaUtama.pivot.status} />
+            <div className="py-12 h-screen">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                     <div className="flex lg:flex-row gap-4 flex-col">
                         <div className="text-gray-100 p-4 sm:p-8 lg:w-[40%] w-full overflow-x-auto bg-gray-800 shadow sm:rounded-lg">
@@ -60,32 +65,32 @@ const DetailUserBarangService = ({
                                 customers={userBarangServices?.customers}
                             />
                             <div className="mx-3 ">
-                                <h3 className="font-bold text-lg">
-                                    Status Pengerjaan
-                                </h3>
-                                <div className="px-2 pb-1">
-                                    <p className="bg-green-500 rounded-md p-2">
-                                        {" "}
-                                        {pekerjaUtama.pivot.status}
-                                    </p>
-                                </div>
-                                {pekerjaUtama.id == auth.user.id && (
-                                    <>
-                                        <PrimaryButton
-                                            className="btn btn-sm m-2"
-                                            onClick={() => setTutup(!tutup)}
-                                        >
-                                            Minta Bantuan
-                                        </PrimaryButton>
-                                        <GivePekerjaUtamaModal
-                                            userBarangServices={
-                                                userBarangServices
+                                {pekerjaUtama.id == auth.user.id &&
+                                    pekerjaUtama.pivot.status != "Selesai" && (
+                                        <>
+                                            <PrimaryButton
+                                                className="btn btn-sm m-2"
+                                                onClick={() => setTutup(!tutup)}
+                                            >
+                                                Minta Bantuan
+                                            </PrimaryButton>
+                                            <GivePekerjaUtamaModal
+                                                userBarangServices={
+                                                    userBarangServices
+                                                }
+                                                dataHelper={helper}
+                                                dataPekerjaUtama={pekerjaUtama}
+                                            />
+                                            {
+                                                <SelasaiPekerjaan
+                                                    auth={auth}
+                                                    dataPekerjaUtama={
+                                                        pekerjaUtama
+                                                    }
+                                                />
                                             }
-                                            dataHelper={helper}
-                                            dataPekerjaUtama={pekerjaUtama}
-                                        />
-                                    </>
-                                )}
+                                        </>
+                                    )}
                                 {/* khusu helper kalo mau tinggalkan pekerjaan */}
                                 {/* dan kalo pekerja utama mau tinggal kan pekerjan harus pindahin dulu status pekerja utama ke helper  */}
                                 {checkIfIamHelper && (
@@ -119,53 +124,59 @@ const DetailUserBarangService = ({
                                         </div>
                                     </div>
                                 </Modal>
-                                {helper.map((data, key) => {
-                                    return pekerjaUtama.pivot.pekerja_utama ==
-                                        1 &&
-                                        !checkIfIamHelper &&
-                                        pekerjaUtama.id != auth.user.id ? (
-                                        <>
-                                            <div key={key}>
-                                                <AddHelperModal
-                                                    datas={pekerjaUtama}
-                                                    auth={auth}
-                                                />
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <></>
-                                    );
-                                })}
-                                <div className="bg-red-100 w-full my-1 h-[1px]"></div>
-                                {pekerjaUtama.id == auth.user.id && (
-                                    <Disclosure>
-                                        <Disclosure.Button className="py-2 px-3 rounded-sm flex gap-2">
-                                            <div>Cara Keluar Pekerjaan Ini</div>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="currentColor"
-                                                className="w-6 h-6"
-                                            >
-                                                <path
-                                                    fillRule="evenodd"
-                                                    d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
-                                                    clipRule="evenodd"
-                                                />
-                                            </svg>
-                                        </Disclosure.Button>
-                                        <Disclosure.Panel className="text-gray-500">
-                                            <p>
-                                                Jika Ingin Meninggalkan
-                                                Pekerjaan Berikan Posisi pekerja
-                                                utama kepada helper dahulu, atau
-                                                Dengan cara Batalkan pekerjaan
-                                                Ini dengan begitu akan menghapus semua
-                                                yang berkaitan dengan barang ini
-                                            </p>
-                                        </Disclosure.Panel>
-                                    </Disclosure>
+                                {pekerjaUtama.pivot.pekerja_utama == 1 &&
+                                !checkIfIamHelper &&
+                                pekerjaUtama.id != auth.user.id ? (
+                                    <>
+                                        <div key={key}>
+                                            <AddHelperModal
+                                                datas={pekerjaUtama}
+                                                auth={auth}
+                                            />
+                                        </div>
+                                    </>
+                                ) : (
+                                    <></>
                                 )}
+                                {pekerjaUtama.id == auth.user.id &&
+                                    pekerjaUtama.pivot.status != "Selesai" && (
+                                        <>
+                                            <div className="bg-red-100 w-full my-1 h-[1px]"></div>
+                                            <Disclosure>
+                                                <Disclosure.Button className="py-2 px-3 rounded-sm flex gap-2">
+                                                    <div>
+                                                        Cara Keluar Pekerjaan
+                                                        Ini
+                                                    </div>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        className="w-6 h-6"
+                                                    >
+                                                        <path
+                                                            fillRule="evenodd"
+                                                            d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
+                                                            clipRule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </Disclosure.Button>
+                                                <Disclosure.Panel className="text-gray-500">
+                                                    <p>
+                                                        Jika Ingin Meninggalkan
+                                                        Pekerjaan Berikan Posisi
+                                                        pekerja utama kepada
+                                                        helper dahulu, atau
+                                                        Dengan cara Batalkan
+                                                        pekerjaan Ini dengan
+                                                        begitu akan menghapus
+                                                        semua yang berkaitan
+                                                        dengan barang ini
+                                                    </p>
+                                                </Disclosure.Panel>
+                                            </Disclosure>
+                                        </>
+                                    )}
                             </div>
                         </div>
 

@@ -10,7 +10,6 @@ export default function AuthenticatedLayout({ user, children, headers }) {
     const openSidebar = () => {
         setSidebar(!getsidebar);
     };
-    console.log(headers);
     return (
         <div className="min-h-screen bg-gray-900  md:w-full w-fit ">
             <div className="drawer lg:drawer-open">

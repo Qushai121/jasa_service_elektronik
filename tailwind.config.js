@@ -9,16 +9,23 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
     ],
-    
+
 
     theme: {
         extend: {
+            keyframes: {
+                translateX: {
+                    '0%': { transform: 'translateX(-900px)' },
+                    '100%': { transform: 'translateX(900px)' },
+                },
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             animation: {
-        'spin-slow': 'spin 50s linear infinite',
-      }
+                'spin-slow': 'spin 50s linear infinite',
+                'translateX-status': 'translateX 15s linear infinite',
+            }
         },
     },
 

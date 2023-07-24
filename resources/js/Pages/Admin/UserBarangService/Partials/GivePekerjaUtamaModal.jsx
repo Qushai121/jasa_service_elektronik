@@ -68,7 +68,6 @@ export default function GivePekerjaUtamaModal({
                     >
                        <option  defaultChecked >Pilih Helper :</option>
                         {dataHelper.map((data, key) =>{
-                            console.log(data.id)
                              return(
                             <option key={key} value={data.id}>
                                 {data.name}

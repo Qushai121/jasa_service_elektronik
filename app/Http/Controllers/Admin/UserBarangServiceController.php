@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\BarangStatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CustomerEmailInfoController;
 use App\Models\UserBarangService;
 use App\Http\Requests\StoreUserBarangServiceRequest;
 use App\Http\Requests\UpdateUserBarangServiceRequest;
@@ -27,12 +28,12 @@ class UserBarangServiceController extends Controller
         return inertia('Admin/UserBarangService/IndexuserBarangService', compact("userBarangService"));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  */
+    // public function create()
+    // {
+    // }
 
     /**
      * METHOD INI MENGURUS AMBIL JOB 
@@ -87,23 +88,39 @@ class UserBarangServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserBarangService $userBarangService)
-    {
-        //
-    }
+    // public function edit(UserBarangService $userBarangService)
+    // {
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUserBarangServiceRequest $request, UserBarangService $userbarangservice)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  */
+    // public function update(UpdateUserBarangServiceRequest $request, UserBarangService $userbarangservice)
+    // {
+    //     //
+    // }
 
     /**
      * Hapus seluruh helper dan pekerja utama Table user_barang_service yang berkaitan
      */
     public function destroy(UserBarangService $userBarangService)
     {
+    }
+
+    public function selesai(UserBarangService $userBarangService, Request $request)
+    {
+        $userBarangService->status = BarangStatusEnum::SELESAI->value;
+
+        if ($userBarangService->save()) {
+            if (CustomerEmailInfoController::index($userBarangService->barang_service_id)) {
+                return redirect()->route('userbarangservice.show', $userBarangService->id);
+            } else {
+                abort(404);
+            };
+        } else {
+            abort(403);
+        }
+        abort(403);
     }
 }
