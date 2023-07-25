@@ -12,7 +12,28 @@ export default {
 
 
     theme: {
+        fontFamily: {
+            'sans': 'Helvetica Neue',
+            'serif': 'Georgia',
+            'mono': 'Monaco',
+            'montserrat': ['Montserrat','sans-serif']
+        },
         extend: {
+            colors: {
+                // untuk bg
+                whiteMain: '#f3f3f3',
+                // untuk text
+                blackMain: '#222222',
+                // untuk hover
+                blackSecondary: '#222628',
+                // untuk bg-itme yang item
+                blackThird: '#323332',
+                // untuk text higlight kecil
+                blueMain: '#488cb9',
+                // untuk button
+                blueSecondary: '#2980b9',
+
+            },
             keyframes: {
                 translateX: {
                     '0%': { transform: 'translateX(-900px)' },

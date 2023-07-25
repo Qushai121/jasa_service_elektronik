@@ -15,6 +15,7 @@ const headers = {
 };
 
 const IndexCustomer = ({ customers }) => {
+   
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }

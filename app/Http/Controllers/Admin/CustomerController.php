@@ -12,7 +12,7 @@ use Inertia\Inertia;
 class CustomerController extends Controller
 {
 
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -51,10 +51,12 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        // ini bisa pakai policy
-        // $this->authorize('view', $customer);
-        $customers = $customer;
-        $customer->barangservices;
+        
+        $customers = Customer::with(['barangservices'=>function($e) {
+            $e->with(['customersBelongToMany'=> function($e){
+                $e->where('pekerja_utama',1)->select('status');
+            }]);
+        }])->where('id',$customer->id)->first();
 
         return Inertia::render('Admin/Customer/DetailBarangServiceCustomer', compact('customers'));
     }

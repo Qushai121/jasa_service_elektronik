@@ -98,7 +98,7 @@ class BarangServiceController extends Controller
 
         return redirect()->route('barangservice.index');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
@@ -107,5 +107,6 @@ class BarangServiceController extends Controller
         $this->authorize('view', $barangservice);
         Storage::disk('public')->delete($barangservice->gambar_barang);
         $barangservice->delete();
+        return redirect()->route('customer.show',$barangservice->customer_id);
     }
 }

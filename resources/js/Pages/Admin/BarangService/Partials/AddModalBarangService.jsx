@@ -61,25 +61,6 @@ export default function AddModalBarangService({ children, customers }) {
                             className="space-y-6"
                             encType="multipart/form-data"
                         >
-                            {/* <div>
-                                <InputLabel htmlFor="nama_customer" value="Nama Customer" />
-                                <TextInput
-                                    id="nama_customer"
-                                    type="text"
-                                    name="nama_customer"
-                                    // value={data.nama_customer}
-                                    className="mt-1 block w-full"
-                                    autoComplete="username"
-                                    isFocused={true}
-                                    // onChange={(e) =>
-                                    //     setData("nama_customer", e.target.value)
-                                    // }
-                                />
-                                <InputError
-                                    // message={errors.nama_customer}
-                                    className="mt-2"
-                                />
-                            </div> */}
                             <div>
                                 <InputLabel
                                     htmlFor="nama_barang"
@@ -89,7 +70,6 @@ export default function AddModalBarangService({ children, customers }) {
                                     id="nama_barang"
                                     type="text"
                                     name="nama_barang"
-                                    // value={data.nama_barang}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
@@ -111,7 +91,6 @@ export default function AddModalBarangService({ children, customers }) {
                                     id="gambar_barang"
                                     type="file"
                                     name="gambar_barang"
-                                    // value={data.gambar_barang}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}

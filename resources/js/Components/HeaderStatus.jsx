@@ -28,8 +28,8 @@ const HeaderStatusView = ({ bgColor,status }) => {
                 className={`${bgColor} py-1 rounded-md w-full overflow-hidden`}
             >
                 <div className="text-white text-[30px] text-center gap-[80vw] flex animate-translateX-status ">
-                   <p>{status}</p>
-                   <p>{status}</p>
+                   <p className='whitespace-nowrap'>{status}</p>
+                   <p className='whitespace-nowrap'>{status}</p>
                 </div>
             </div>
         </div>

@@ -34,7 +34,6 @@ const DetailUserBarangService = ({
         }
     }
 
-    console.log(pekerjaUtama.pivot.status);
 
     useEffect(() => {
         onlyOneHelp();
@@ -125,10 +124,10 @@ const DetailUserBarangService = ({
                                     </div>
                                 </Modal>
                                 {pekerjaUtama.pivot.pekerja_utama == 1 &&
-                                !checkIfIamHelper &&
+                                !checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
                                 pekerjaUtama.id != auth.user.id ? (
                                     <>
-                                        <div key={key}>
+                                        <div>
                                             <AddHelperModal
                                                 datas={pekerjaUtama}
                                                 auth={auth}

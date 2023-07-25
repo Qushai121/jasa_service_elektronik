@@ -4,8 +4,8 @@ import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
 
 export const AddHelperModal = ({datas,auth}) => {
-    console.log(datas);
     if(auth.user.role_id == 1) return <></>
+    
     const [tutup,setTutup] = useState(false)
     
     const { data, setData, post, processing, errors, reset } = useForm({

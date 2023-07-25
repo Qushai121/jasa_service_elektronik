@@ -27,15 +27,11 @@ use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 */
 
 Route::get('/', function () {
-    return redirect()->to(route('login'));
-    // return Inertia::render('Welcome', [
-    //     'canLogin' => Route::has('login'),
-    //     'canRegister' => Route::has('register'),
-    //     'laravelVersion' => Application::VERSION,
-    //     'phpVersion' => PHP_VERSION,
-    // ]);
+    return redirect()->to(route('home'));
 });
 
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
 
 Route::get('dashboard', function () {
     if (auth()->user()->role_id <= 0) {
@@ -56,7 +52,7 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     Route::resource('customer', CustomerController::class)->middleware('CheckRole:admin__data_entry')->except('create', 'edit');
     // Route::post('send-info/{barangService}', [CustomerEmailInfoController::class, 'index'])->middleware('CheckRole:all_staff');
     // ------------------------------------------------------------------------
-    Route::resource('barangservice', BarangServiceController::class)->only('create', 'show', 'edit', 'index');
+    Route::resource('barangservice', BarangServiceController::class)->only('index', 'store', 'update', 'destroy');
     // ------------------------------------------------------------------------
     Route::resource('userbarangservice', UserBarangServiceController::class)->except('create');
     Route::post('selesaipekerjaan/{userBarangService}', [UserBarangServiceController::class, 'selesai'])->name('selesaipekerjaan');
@@ -68,10 +64,9 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     // ------------------------------------------------------------------------
 });
 
+Route::prefix('')->group(function() {
+    Route::get('/home',[HomeController::class,'index'])->name('home');
+});
 
-Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
-Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
-
-Route::get('home', [HomeController::class, 'index']);
 
 require __DIR__ . '/auth.php';

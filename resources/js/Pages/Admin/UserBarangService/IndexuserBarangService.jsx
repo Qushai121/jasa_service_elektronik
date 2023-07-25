@@ -15,7 +15,7 @@ const IndexuserBarangService = ({ userBarangService,auth }) => {
     };
     return (
         <AuthenticatedLayout headers={headers}>
-            <div className="mx-6 my-4 ">
+            <div className=" my-4 ">
                 <div className="overflow-x-auto ">
                     <table className="table overflow-x-hidden">
                         <thead>

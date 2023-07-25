@@ -2,13 +2,15 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React, { useEffect, useState } from "react";
 import DetailBarangService from "../BarangService/Partials/DetailModalBarangService";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import AddModalBarangService from "../BarangService/Partials/AddModalBarangService";
 import { CustomerCard } from "@/Components/CustomerCard";
+import { BadgeStatus } from "@/Components/BadgeStatus";
+import { AmbilJob } from "../BarangService/Partials/AmbilJob";
 
 export default function DetailBarangServiceCustomer({ customers, auth }) {
     const [authorized, setAuthorized] = useState(false);
-
+    console.log(customers);
     useEffect(() => {
         if (
             customers.user_id == auth.user.id &&
@@ -55,18 +57,42 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
                                 </th>
                                 <th>
                                     <div className="flex flex-col gap-2">
-                                        <PrimaryButton>Detail</PrimaryButton>
-                                        {/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
-                                        {/* <p className="badge badge-error whitespace-nowrap">
-                                        Belum Di Proses
-                                    </p> */}
-                                        <p className="badge badge-info whitespace-nowrap">
-                                            Di Proses
-                                        </p>
-                                        <p className="badge badge-warning whitespace-nowrap">
-                                            Perlu Bantuan
-                                        </p>
-                                        {/* <p className="badge badge-success whitespace-nowrap" >Selesai</p> */}
+                                        {data?.customers_belong_to_many[0]
+                                            ?.pivot.barang_service_id ? (
+                                            <>
+                                                <div>
+                                                    <Link
+                                                        className="btn btn-sm "
+                                                        href={route(
+                                                            "userbarangservice.show",
+                                                            data
+                                                                ?.customers_belong_to_many[0]
+                                                                ?.pivot
+                                                                .barang_service_id
+                                                        )}
+                                                    >
+                                                        Detail
+                                                    </Link>
+                                                </div>
+                                                <BadgeStatus
+                                                    status={
+                                                        data
+                                                            ?.customers_belong_to_many[0]
+                                                            ?.status
+                                                    }
+                                                />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <AmbilJob
+                                                    auth={auth.user}
+                                                    barangId={data.id}
+                                                />
+                                                <p className="badge badge-error whitespace-nowrap">
+                                                    Belum Di Proses
+                                                </p>
+                                            </>
+                                        )}
                                     </div>
                                 </th>
 

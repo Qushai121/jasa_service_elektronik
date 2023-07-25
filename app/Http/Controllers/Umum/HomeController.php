@@ -15,6 +15,6 @@ class HomeController extends Controller
             'nama' => 'Qushai',
             'kelas' => '15210110',
         ];
-        return Inertia::render('Umum/Home/Index',$data);
+        return Inertia::render('Umum/Home/Home',$data);
     }
 }
