@@ -3,7 +3,7 @@ import React from "react";
 
 export const FacebookLink = ({ children }) => {
     return (
-        <div className="tooltip " data-tip='servicesir' >
+        <div className="tooltip tooltip-bottom " data-tip='servicesir' >
         <a>
             <svg
             fill="#488cb9"

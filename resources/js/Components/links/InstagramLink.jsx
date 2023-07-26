@@ -2,7 +2,7 @@ import React from "react";
 
 export const InstagramLink = () => {
     return (
-        <div className="tooltip" data-tip='servicesir.ig'>
+        <div className="tooltip tooltip-bottom " data-tip='servicesir.ig'>
             <svg
             fill="#488cb9"
                 xmlns="http://www.w3.org/2000/svg"

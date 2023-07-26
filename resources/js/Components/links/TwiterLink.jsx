@@ -2,7 +2,7 @@ import React from "react";
 
 export const TwiterLink = () => {
     return (
-        <div className="tooltip" data-tip='twiter.servicesir' >
+        <div className="tooltip tooltip-bottom " data-tip='twiter.servicesir' >
             <svg
             fill="#488cb9"
                 xmlns="http://www.w3.org/2000/svg"

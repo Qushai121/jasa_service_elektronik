@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { UmumNavbar } from "./partials/UmumNavbar";
 import { TopBar } from "./partials/TopBar";
+import { FooterUmum } from "./partials/FooterUmum";
 
 export const UmumLayout = ({ children }) => {
-    const [drawer,setDrawer] = useState(false)
+    const [drawer, setDrawer] = useState(false);
 
     const handleDrawer = () => {
-        setDrawer(!drawer)
-    }
+        setDrawer(!drawer);
+    };
     return (
-        <div>
+        <div className="overflow-x-hidden h-full bg-whiteMain">
             <TopBar />
             <UmumNavbar handleDrawer={handleDrawer} drawer={drawer} />
-            <main>{children}</main>
+            <main  >{children}</main>
+            <FooterUmum/>
         </div>
     );
 };

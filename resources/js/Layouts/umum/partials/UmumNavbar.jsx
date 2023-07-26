@@ -1,10 +1,11 @@
+import Divider from "@/Components/Divider";
 import { BigMxWrapper } from "@/Layouts/wrapper/BigMxWrapper";
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 
 const NavMenus = [
     { route: "asdasd", keterangan: "Home" },
-    { route: "asdasd", keterangan: "Cara Pemesan Service" },
+    { route: "asdasd", keterangan: "Cara Pemesanan Service" },
     { route: "asdasd", keterangan: "Harga Parts & Item" },
     { route: "asdasd", keterangan: "Lokasi" },
     { route: "asdasd", keterangan: "Bantuan" },
@@ -13,10 +14,10 @@ const NavMenus = [
 
 export const UmumNavbar = ({ handleDrawer, drawer }) => {
     return (
-        <nav className="lg:py-3 bg-whiteMain">
+        <nav className="lg:py-1 lg:pb-4 shadow-2xl shadow-slate-600 ">
             <BigMxWrapper>
                 <div className=" flex items-center py-4 lg:py-2 px-4">
-                    <div className="text-2xl flex-[3] w-2 font-montserrat font-bold">
+                    <div className="text-2xl flex-[17] w-2 font-montserrat font-bold">
                         {/* logo */}
                         Service Sir
                     </div>
@@ -35,7 +36,7 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                                 />
                             </svg>
                             <div>
-                                <h1 className="text-2xl font-montserrat font-semibold ">
+                                <h1 className="text-[18px] font-montserrat font-semibold ">
                                     Hubungi Kami
                                 </h1>
                                 <p className="font-montserrat font-light">
@@ -61,22 +62,22 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                                     <path
                                         d="M5 5L3 7"
                                         stroke="#488cb9"
-                                        stroke-linecap="round"
+                                        strokeLinecap="round"
                                     />
                                     <path
                                         d="M19 5L21 7"
                                         stroke="#488cb9"
-                                        stroke-linecap="round"
+                                        strokeLinecap="round"
                                     />
                                     <path
                                         d="M9 11L11.8093 12.8729C11.9172 12.9448 12.0622 12.9223 12.1432 12.821L14 10.5"
                                         stroke="#488cb9"
-                                        stroke-linecap="round"
+                                        strokeLinecap="round"
                                     />
                                 </svg>
 
                                 <div>
-                                    <h1 className="text-2xl font-montserrat font-semibold ">
+                                    <h1 className="text-[18px] font-montserrat font-semibold ">
                                         Waktu Buka
                                     </h1>
                                     <p className="font-montserrat font-light">
@@ -102,11 +103,11 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                         </button>
                     </div>
                 </div>
-                <hr className="mb-3 h-1 hidden lg:block rounded-lg border-t-0 w-[90%] bg-blueMain opacity-100 dark:opacity-50" />
+                <Divider margin="mt-2 mb-4" />
                 <div
                     className={`${
-                        !drawer ? "h-[0.1px] " : "h-[14.4rem]"
-                    }   w-full duration-500 lg:h-fit lg:flex lg:gap-3 `}
+                        !drawer ? "h-[0.1px] " : "h-[15rem]"
+                    }   w-full duration-500 lg:h-fit lg:flex lg:gap-3 pb-2`}
                 >
                     {NavMenus.map((data, key) => (
                         <div
