@@ -44,6 +44,10 @@ class UserBarangServiceController extends Controller
         // 👇
         $userBarangService =  UserBarangService::where('barang_service_id', $request->post('barang_service_id'))->first();
         // disini benar benar mencari apakah barang ini udah ada pekerja utamanya agar tidak tersingkir 
+        if ($userBarangService) {
+            return back()->with(['message' => 'Pekerja lain sudah mengambil ini']);
+            abort('sdsdsd');
+        }
 
         $MergeRequestWithId = array_merge(
             $request->post(),

@@ -7,15 +7,16 @@ import { TitleTwoXl } from "@/Components/TitleTwoXl";
 import Divider from "@/Components/Divider";
 import { ServiceTersedia } from "./sections/ServiceTersedia";
 import { SelematDatang } from "./sections/SelematDatang";
+import { Parts } from "./sections/Parts";
 
 const Index = () => {
     return (
         <UmumLayout>
             <BigetronMain />
-            <SelematDatang/>
+            <SelematDatang />
             <KenapaKita />
             <ServiceTersedia />
-            <div className="h-[40vh]"></div>
+           <Parts/>
         </UmumLayout>
     );
 };

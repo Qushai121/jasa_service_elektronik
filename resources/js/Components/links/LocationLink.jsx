@@ -1,6 +1,6 @@
 import React from "react";
 
-export const LocationLink = () => {
+export const LocationLink = ({textColor = 'text-blackMain'}) => {
     return (
         <div className="flex gap-1 items-center ">
             <svg
@@ -23,7 +23,7 @@ export const LocationLink = () => {
                     />
                 </g>
             </svg>
-            <span className="font-sans font-semibold text-sm text-blackMain">
+            <span className={`${textColor} font-sans font-semibold text-sm `}>
             Jl. Sunset Road No. 100, 80361Jakarta,Indonesia
             </span>
         </div>

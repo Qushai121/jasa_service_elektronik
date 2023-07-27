@@ -12,7 +12,7 @@ const BigetronMenus = [
         image: "/images/bg-second.jpg",
         keterangan: "Memiliki Pekerja Bersertif",
     },
-    { image: "/images/bg-second.jpg", keterangan: "iya" },
+    { image: "/parts/bg-arduino.jpg", keterangan: "iya" },
     { image: "/images/bg-main.jpg", keterangan: "turu" },
 ];
 
@@ -32,7 +32,7 @@ export const BigetronMain = () => {
                 onSlideChange={(swiper) => {
                     // const animatedText = document.querySelector(".animated-text");
                     // animatedText.classList.remove("active");
-                    const currentSlide = swiper?.slides[swiper?.activeIndex];
+                    // const currentSlide = swiper?.slides[swiper?.activeIndex];
                     // const animatedTextInSlide = currentSlide.querySelector(".animated-text");
                     setSwiperBerubah(swiper?.activeIndex);
                     // animatedTextInSlide.classList.add("active");

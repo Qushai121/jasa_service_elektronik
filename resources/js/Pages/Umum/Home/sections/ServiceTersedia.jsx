@@ -1,6 +1,7 @@
 import Divider from "@/Components/Divider";
 import { TitleTwoXl } from "@/Components/TitleTwoXl";
 import { BigMxWrapper } from "@/Layouts/wrapper/BigMxWrapper";
+import { Link } from "@inertiajs/react";
 import React from "react";
 
 const ServiceTersediaMenus = [
@@ -35,7 +36,7 @@ export const ServiceTersedia = () => {
                 backgroundImage: `url(${`/images/bg-fixed.png`})`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                backgroundAttachment:"fixed",
+                backgroundAttachment: "fixed",
                 backgroundPosition: "center",
             }}
         >
@@ -43,7 +44,11 @@ export const ServiceTersedia = () => {
                 <div className="">
                     <div className="flex flex-col h-full gap-3">
                         <div className="pt-4 mx-2 lg:mx-auto flex flex-col items-center lg:w-[50%]">
-                            <TitleTwoXl className={'text-whiteMain text-[25px] text-center'}>
+                            <TitleTwoXl
+                                className={
+                                    "text-whiteMain text-[25px] text-center"
+                                }
+                            >
                                 Pelayanan Service Yang Tersedia
                             </TitleTwoXl>
                             <Divider width="lg:w-[7%]" />
@@ -61,7 +66,7 @@ export const ServiceTersedia = () => {
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
-                                class="bg-stone-200 row-span-4 col-span-2 rounded-sm"
+                                class="bg-stone-200 row-span-2 lg:row-span-4 col-span-2 rounded-sm"
                             ></div>
 
                             {ServiceTersediaMenus.map((data, key) => (

@@ -4,19 +4,19 @@ import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 
 const NavMenus = [
-    { route: "asdasd", keterangan: "Home" },
-    { route: "asdasd", keterangan: "Cara Pemesanan Service" },
-    { route: "asdasd", keterangan: "Harga Parts & Item" },
-    { route: "asdasd", keterangan: "Lokasi" },
-    { route: "asdasd", keterangan: "Bantuan" },
-    { route: "asdasd", keterangan: "Detail Kontak" },
+    { route: "home", keterangan: "Home" },
+    { route: "CaraPemesanan", keterangan: "Cara Pemesanan Service" },
+    { route: "makanmas", keterangan: "Harga Parts & Item" },
+    { route: 'makanmas', keterangan: "Lokasi" },
+    { route: "makanmas", keterangan: "Bantuan" },
+    { route: "makanmas", keterangan: "Detail Kontak" },
 ];
 
 export const UmumNavbar = ({ handleDrawer, drawer }) => {
     return (
-        <nav className="lg:py-1 lg:pb-4 shadow-2xl shadow-slate-600 ">
+        <nav className="lg:py-1 lg:pb-4 z-50  ">
             <BigMxWrapper>
-                <div className=" flex items-center py-4 lg:py-2 px-4">
+                <div className=" flex items-center py-4 lg:py-2 px-4 ">
                     <div className="text-2xl flex-[17] w-2 font-montserrat font-bold">
                         {/* logo */}
                         Service Sir
@@ -116,8 +116,8 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                                 !drawer && "opacity-0 lg:opacity-100  "
                             } duration-300 `}
                         >
-                            <Link>
-                                <div className="py-2 px-3 w-full bg-stone-200 font-sans font-light rounded-md hover:bg-blueMain duration-300 hover:text-whiteMain">
+                            <Link   href={route(data?.route)} >
+                                <div className={` ${route().current(data.route)  ? 'bg-whiteMain': 'shadow-sm shadow-blueMain'} py-2 px-3 w-full font-sans font-light hover:shadow-none  rounded-md hover:bg-blueMain duration-300 hover:text-whiteMain`}>
                                     <p className="mx-2">{data.keterangan}</p>
                                 </div>
                             </Link>

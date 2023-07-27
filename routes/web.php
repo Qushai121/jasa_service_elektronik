@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CustomerEmailInfoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Umum\CaraPemesananController;
 use App\Http\Controllers\Umum\HomeController;
 use App\Models\UserBarangService;
 use Illuminate\Foundation\Application;
@@ -66,6 +67,8 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
 
 Route::prefix('')->group(function() {
     Route::get('/home',[HomeController::class,'index'])->name('home');
+    Route::get('/pemesanan',[CaraPemesananController::class,'index'])->name('CaraPemesanan');
+    Route::get('/yonglek',[CaraPemesananController::class,'index'])->name('makanmas');
 });
 
 

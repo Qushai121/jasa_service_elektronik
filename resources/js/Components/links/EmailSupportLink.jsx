@@ -1,6 +1,6 @@
 import React from "react";
 
-export const EmailSupportLink = () => {
+export const EmailSupportLink = ({textColor= "text-blackMain"}) => {
     return (
         <div className="flex items-center gap-1" >
             <svg
@@ -25,7 +25,7 @@ export const EmailSupportLink = () => {
                     strokeWidth="2"
                 />
             </svg>
-            <span className="font-sans font-semibold text-sm text-blackMain">support@servicesir.com</span>
+            <span className={`${textColor} font-sans font-semibold text-sm `}>support@servicesir.com</span>
         </div>
     );
 };

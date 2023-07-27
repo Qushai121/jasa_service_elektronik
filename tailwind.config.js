@@ -13,9 +13,6 @@ export default {
 
     theme: {
         fontFamily: {
-            'sans': 'Helvetica Neue',
-            'serif': 'Georgia',
-            'mono': 'Monaco',
             'montserrat': ['Montserrat','sans-serif']
         },
         extend: {
@@ -53,6 +50,6 @@ export default {
     plugins: [
         forms,
         require("daisyui"),
-        require('tailwind-scrollbar'),
+        require('tailwind-scrollbar')({ nocompatible: true }),
     ],
 };

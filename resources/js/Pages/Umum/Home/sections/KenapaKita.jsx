@@ -83,7 +83,7 @@ const KenapaKita = () => {
                 </div>
                 <div className="flex flex-wrap flex-row gap-4 justify-center ">
                     {KenapaKitaMenus.map((data, key) => (
-                        <div className="shadow-md flex flex-col  justify-center py-2 gap-2 w-fit px-4">
+                        <div key={key} className="flex flex-col  justify-center py-2 gap-2 w-fit px-4">
                             {data.images}
                             <p>{data.keterangan}</p>
                         </div>

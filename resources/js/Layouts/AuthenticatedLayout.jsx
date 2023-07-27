@@ -4,8 +4,9 @@ import NavbarAdmin from "./NavbarAdmin";
 import SidebarAdminMenu from "./Partials/SidebarAdminMenu";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Header from "@/Pages/Admin/BarangService/Partials/Header";
+import { FlashMessage } from "@/Components/FlashMessage";
 
-export default function AuthenticatedLayout({ user, children, headers }) {
+export default function AuthenticatedLayout({ user, children, headers,message}) {
     const [getsidebar, setSidebar] = useState(false);
     const openSidebar = () => {
         setSidebar(!getsidebar);
@@ -20,7 +21,15 @@ export default function AuthenticatedLayout({ user, children, headers }) {
                 />
                 <div className="drawer-content h-[100vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-100">
                     <NavbarAdmin openSidebar={openSidebar} />
-                    {headers?.open && <Header title={headers?.title} description={headers?.description} />}
+                    {headers?.open && (
+                        <Header
+                            title={headers?.title}
+                            description={headers?.description}
+                        />
+                    )}
+                    {message && (
+                        <FlashMessage message={message} />
+                    )}
                     <main className="h-[100vh] lg:w-full">
                         <div className="mx-6 my-4">{children}</div>
                     </main>

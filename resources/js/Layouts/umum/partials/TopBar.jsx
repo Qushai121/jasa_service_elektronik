@@ -15,7 +15,7 @@ export const TopBar = () => {
                     <LocationLink />
                     <EmailSupportLink />
                 </div>
-                    <div className="flex flex-col lg:flex-row  gap-2 mt-1 items-center">
+                    <div className="flex flex-col lg:flex-row gap-3 mt-1 items-center">
                         <FacebookLink />
                         <InstagramLink />
                         <TwiterLink />
