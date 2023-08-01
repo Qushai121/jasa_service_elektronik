@@ -7,8 +7,11 @@ use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CustomerEmailInfoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Umum\BantuanController;
 use App\Http\Controllers\Umum\CaraPemesananController;
 use App\Http\Controllers\Umum\HomeController;
+use App\Http\Controllers\Umum\LokasiController;
+use App\Http\Controllers\Umum\PartsUmumController;
 use App\Models\UserBarangService;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -68,7 +71,9 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
 Route::prefix('')->group(function() {
     Route::get('/home',[HomeController::class,'index'])->name('home');
     Route::get('/pemesanan',[CaraPemesananController::class,'index'])->name('CaraPemesanan');
-    Route::get('/yonglek',[CaraPemesananController::class,'index'])->name('makanmas');
+    Route::get('/partsShop',[PartsUmumController::class,'index'])->name('parts');
+    Route::get('/lokasi',[LokasiController::class,'index'])->name('lokasi');
+    Route::get('/bantuan',[BantuanController::class,'index'])->name('bantuan');
 });
 
 

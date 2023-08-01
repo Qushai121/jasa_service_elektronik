@@ -9,7 +9,7 @@ import { ServiceTersedia } from "./sections/ServiceTersedia";
 import { SelematDatang } from "./sections/SelematDatang";
 import { Parts } from "./sections/Parts";
 
-const Index = () => {
+const Home = () => {
     return (
         <UmumLayout>
             <BigetronMain />
@@ -21,4 +21,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default Home;

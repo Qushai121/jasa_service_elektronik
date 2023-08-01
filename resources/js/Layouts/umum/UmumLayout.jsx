@@ -12,11 +12,11 @@ export const UmumLayout = ({ children }) => {
     return (
         <div className="overflow-x-hidden font-montserrat h-fit scrollbar-none bg-whiteMain ">
             <TopBar />
-            <UmumNavbar handleDrawer={handleDrawer} drawer={drawer} />
-            <main className="h-fit" >{children}</main>
-            <FooterUmum/>
-            <div className="bg-blackMain text-whiteMain text-center py-2 font-light font-montserrat" >
-            &copy; uhuy.ltd
+            <UmumNavbar handleDrawer={handleDrawer} drawer={drawer}  />
+            <main className="h-fit">{children}</main>
+            <FooterUmum />
+            <div className="bg-blackMain text-whiteMain text-center py-2 font-light font-montserrat">
+                &copy; uhuy.ltd
             </div>
         </div>
     );

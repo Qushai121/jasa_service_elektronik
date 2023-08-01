@@ -123,8 +123,11 @@ const DetailUserBarangService = ({
                                         </div>
                                     </div>
                                 </Modal>
+                                {
+                                    console.log(pekerjaUtama.pivot.status != "Selesai")
+                                }
                                 {pekerjaUtama.pivot.pekerja_utama == 1 &&
-                                !checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
+                                checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
                                 pekerjaUtama.id != auth.user.id ? (
                                     <>
                                         <div>

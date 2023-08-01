@@ -123,6 +123,7 @@ const IndexuserBarangService = ({ userBarangService,auth }) => {
                     </table>
                 </div>
             </div>
+            <PaginateAdmin data={userBarangService} />
         </AuthenticatedLayout>
     );
 };

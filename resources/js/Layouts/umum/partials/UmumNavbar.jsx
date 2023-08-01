@@ -5,16 +5,18 @@ import React, { useState } from "react";
 
 const NavMenus = [
     { route: "home", keterangan: "Home" },
+    { route: "CaraPemesanan", keterangan: "Jenis Service" },
     { route: "CaraPemesanan", keterangan: "Cara Pemesanan Service" },
-    { route: "makanmas", keterangan: "Harga Parts & Item" },
-    { route: 'makanmas', keterangan: "Lokasi" },
-    { route: "makanmas", keterangan: "Bantuan" },
-    { route: "makanmas", keterangan: "Detail Kontak" },
+    { route: "parts", keterangan: "Harga Parts & Item" },
+    { route: "lokasi", keterangan: "Lokasi" },
+    { route: "bantuan", keterangan: "Bantuan" },
+    { route: "bantuan", keterangan: "Pesan Service" },
 ];
 
 export const UmumNavbar = ({ handleDrawer, drawer }) => {
+    const [close, setClose] = useState(false);
     return (
-        <nav className="lg:py-1 lg:pb-4 z-50  ">
+        <nav className="lg:py-1 lg:pb-4 z-50 relative shadow-lg  ">
             <BigMxWrapper>
                 <div className=" flex items-center py-4 lg:py-2 px-4 ">
                     <div className="text-2xl flex-[17] w-2 font-montserrat font-bold">
@@ -91,6 +93,9 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                         <button
                             onClick={() => {
                                 handleDrawer();
+                                setTimeout(() => {
+                                    setClose(!close);
+                                }, [300]);
                             }}
                         >
                             <svg
@@ -106,7 +111,7 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                 <Divider margin="mt-2 mb-4" />
                 <div
                     className={`${
-                        !drawer ? "h-[0.1px] " : "h-[15rem]"
+                        !drawer ? "h-[0.1px] " : "h-[21rem]"
                     }   w-full duration-500 lg:h-fit lg:flex lg:gap-3 pb-2`}
                 >
                     {NavMenus.map((data, key) => (
@@ -114,13 +119,39 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                             key={key}
                             className={`${
                                 !drawer && "opacity-0 lg:opacity-100  "
-                            } duration-300 `}
+                            } ${
+                                !close && "hidden lg:block"
+                            } duration-200 my-2 `}
                         >
-                            <Link   href={route(data?.route)} >
-                                <div className={` ${route().current(data.route)  ? 'bg-whiteMain': 'shadow-sm shadow-blueMain'} py-2 px-3 w-full font-sans font-light hover:shadow-none  rounded-md hover:bg-blueMain duration-300 hover:text-whiteMain`}>
-                                    <p className="mx-2">{data.keterangan}</p>
-                                </div>
-                            </Link>
+                            {data.keterangan == "Pesan Service" ? (
+                                <Link href={route(data?.route)}>
+                                    <div
+                                        className={` ${
+                                            route().current(data.route)
+                                                ? "shadow-none animate-none"
+                                                : "shadow-sm shadow-blueMain"
+                                        }  bg-blueSecondary text-whiteMain animate-pulse shadow-md shadow-blackThird py-2 px-3 w-full font-sans  font-light hover:shadow-none  rounded-md hover:bg-blueMain duration-300 hover:text-whiteMain`}
+                                    >
+                                        <p className="mx-2">
+                                            {data.keterangan}
+                                        </p>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <Link href={route(data?.route)}>
+                                    <div
+                                        className={` ${
+                                            route().current(data.route)
+                                                ? "bg-whiteMain "
+                                                : "shadow-sm shadow-blueMain"
+                                        } py-2 px-3 w-full font-sans  font-light hover:shadow-none  rounded-md hover:bg-blueMain duration-300 hover:text-whiteMain`}
+                                    >
+                                        <p className="mx-2">
+                                            {data.keterangan}
+                                        </p>
+                                    </div>
+                                </Link>
+                            )}
                         </div>
                     ))}
                 </div>
