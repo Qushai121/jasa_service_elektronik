@@ -6,29 +6,37 @@ import TextInput from "@/Components/TextInput";
 import InputError from "@/Components/InputError";
 import { useForm, usePage } from "@inertiajs/react";
 
-export default function AddModalCustomer({}) {
+export default function AddModalJenisService({}) {
     const [tutup, setTutup] = useState(false);
     // console.log(customers.id);
     const { data, setData, post, processing, errors, reset } = useForm({
-        nama: "",
-        nomor_kontak: "",
-        email: "",
-        alamat: "",
+        judul: "",
+        sub_judul: "",
+        background_foto: "",
+        keterangan: "",
+        icon: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("customer.store"), {
+        post(route("JenisService.store"), {
             onSuccess: () => {
-                reset("nomor_kontak", "email", "nama", "alamat");
-            },
-        });
-    };
+                reset(
+                    "judul",
+                    "sub_judul",
+                    "background_foto",
+                    "keterangan",
+                    "icon"
+                    );
+                },
+            });
+        };
+        
 
     return (
         <>
             <button className="btn btn-sm m-2" onClick={() => setTutup(!tutup)}>
-                Tambah Customer
+                Tambah Jenis Wisata
             </button>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -62,92 +70,110 @@ export default function AddModalCustomer({}) {
                         >
                             <div>
                                 <InputLabel
-                                    htmlFor="nama"
-                                    value="Nama Customer"
+                                    htmlFor="judul"
+                                    value="judul Jenis Service"
                                 />
                                 <TextInput
-                                    id="nama"
+                                    id="judul"
                                     type="text"
-                                    name="nama"
-                                    // value={data.nama}
+                                    name="judul"
+                                    // value={data.judul}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("nama", e.target.value)
+                                        setData("judul", e.target.value)
                                     }
                                 />
                                 <InputError
-                                    message={errors.nama}
+                                    message={errors.judul}
                                     className="mt-2"
                                 />
                             </div>
+
                             <div>
                                 <InputLabel
-                                    htmlFor="alamat"
-                                    value="alamat Customer"
+                                    htmlFor="sub_judul"
+                                    value="Sub Judul Jenis Service"
                                 />
                                 <TextInput
-                                    id="alamat"
+                                    id="sub_judul"
                                     type="text"
-                                    name="alamat"
-                                    // value={data.alamat}
+                                    name="sub_judul"
+                                    // value={data.sub_judul}
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("alamat", e.target.value)
+                                        setData("sub_judul", e.target.value)
                                     }
                                 />
                                 <InputError
-                                    message={errors.alamat}
+                                    message={errors.sub_judul}
+                                    className="mt-2"
+                                />
+                            </div>
+
+                            <div>
+                                <InputLabel
+                                    htmlFor="background_foto"
+                                    value="Background Foto Jenis Service"
+                                />
+                                <TextInput
+                                    id="background_foto"
+                                    type="file"
+                                    name="background_foto"
+                                    className="mt-1 block w-full"
+                                    autoComplete="username"
+                                    isFocused={true}
+                                    onChange={(e) =>
+                                        setData(
+                                            "background_foto",
+                                            e.target.files[0]
+                                        )
+                                    }
+                                />
+                                <InputError
+                                    message={errors.background_foto}
                                     className="mt-2"
                                 />
                             </div>
                             <div>
                                 <InputLabel
-                                    htmlFor="nomor_kontak"
-                                    value="Nomor Kontak"
+                                    htmlFor="icon"
+                                    value="Icon Jenis Service"
                                 />
                                 <TextInput
-                                    id="nomor_kontak"
-                                    type="number"
-                                    name="nomor_kontak"
-                                    // value={data.nomor_kontak}
+                                    id="icon"
+                                    type="file"
+                                    name="icon"
                                     className="mt-1 block w-full"
                                     autoComplete="username"
                                     isFocused={true}
                                     onChange={(e) =>
-                                        setData("nomor_kontak", e.target.value)
+                                        setData("icon", e.target.files[0])
                                     }
                                 />
                                 <InputError
-                                    message={errors.nomor_kontak}
+                                    message={errors.icon}
                                     className="mt-2"
                                 />
                             </div>
                             <div>
                                 <InputLabel
-                                    htmlFor="email"
-                                    value="Email Customer"
+                                    htmlFor="keterangan"
+                                    value="keterangan"
                                 />
-                                <TextInput
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    value={data.email}
-                                    className="mt-1 block w-full"
-                                    autoComplete="username"
-                                    isFocused={true}
+                                <textarea
+                                    id="keterangan"
+                                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm "
                                     onChange={(e) =>
-                                        setData("email", e.target.value)
+                                        setData("keterangan", e.target.value)
                                     }
-                                />
-                                <InputError
-                                    message={errors.email}
-                                    className="mt-2"
-                                />
+                                ></textarea>
+                                <InputError className="mt-2" message={""} />
                             </div>
+
                             <button className="btn">Tambah</button>
                         </form>
                     </div>

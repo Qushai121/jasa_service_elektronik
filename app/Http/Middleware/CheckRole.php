@@ -16,10 +16,10 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         $roles = [
-            'user_biasa' => 1,
-            'admin' => 2,
-            'data_entry' => 3,
-            'pekerja' => 4,
+            'user_biasa' => [1],
+            'admin' => [2],
+            'data_entry' => [3],
+            'pekerja' => [4],
             'all_staff' => [2,3,4],
             'admin__data_entry' => [2,3],
         ];

@@ -15,12 +15,3 @@ enum BarangStatusEnum : string
 }
 
 ?>
-<!-- 
-{/* <p className="badge badge-error whitespace-nowrap" >Tidak Bisa Diperbaiki</p> */}
- {/* <p className="badge badge-error whitespace-nowrap">
- Belum Di Proses </p> */}
- 
- {/* <p className="badge badge-warning whitespace-nowrap">
-     Perlu Bantuan
- </p> */}
- {/* <p className="badge badge-success whitespace-nowrap" >Selesai</p> */} -->

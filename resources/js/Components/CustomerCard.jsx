@@ -13,6 +13,9 @@ export const CustomerCard = ({ customers }) => {
                     <p>Nomor : {customers?.nomor_kontak}</p>
                 </div>
                 <div className="bg-red-100 w-full my-1 h-[1px]"></div>
+                <h3 className="font-bold text-lg">Alamat</h3>
+                <p>{customers?.alamat}</p>
+                <div className="bg-red-100 w-full my-1 h-[1px]"></div>
                 {customers?.barangservices && (
                     <>
                         <h3 className="font-bold text-lg">

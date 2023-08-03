@@ -7,43 +7,19 @@ import InputError from "@/Components/InputError";
 import { router, useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 
-export default function DetailModalCustomer({ customer, children, barangServices }) {
+export default function DetailModalCustomer({
+    customer,
+    children,
+    barangServices,
+}) {
     const [tutup, setTutup] = useState(false);
     const user = usePage().props?.auth?.user;
 
     const { data, setData, put, processing, errors, reset } = useForm({});
 
-    const idDariCustomer = usePage().props.flash.message;
 
     function submit(e) {
         e.preventDefault();
-        // jaga jaga kalo g sengaja apus user_id di db
-        if (!customer) {
-            try {
-                post(
-                    route("customer.store"),
-                    {
-                        ...data,
-                    },
-                    {
-                        onSuccess: () => {
-                            reset("nomor_kontak", "email", "nama");
-                        },
-                    }
-                );
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        if (idDariCustomer) {
-            router.post(route("barangservice.update", barangServices.id), {
-                _method: "put",
-                customer_id: idDariCustomer,
-            });
-        }
-        // jaga jaga kalo g sengaja apus customer di db
-
         put(route("customer.update", customer?.id), {
             _method: "put",
             ...data,
@@ -117,6 +93,28 @@ export default function DetailModalCustomer({ customer, children, barangServices
                                 />
                                 <InputError
                                     message={errors.nama}
+                                    className="mt-2"
+                                />
+                            </div>
+                            <div>
+                                <InputLabel
+                                    htmlFor="nama"
+                                    value="Nama Customer"
+                                />
+                                <TextInput
+                                    id="alamat"
+                                    type="text"
+                                    name="alamat"
+                                    defaultValue={customer?.alamat}
+                                    className="mt-1 block w-full"
+                                    autoComplete="username"
+                                    isFocused={true}
+                                    onChange={(e) =>
+                                        setData("alamat", e.target.value)
+                                    }
+                                />
+                                <InputError
+                                    message={errors.alamat}
                                     className="mt-2"
                                 />
                             </div>

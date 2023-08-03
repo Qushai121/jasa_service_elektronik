@@ -25,7 +25,7 @@ class UserBarangServiceController extends Controller
         $userBarangService = User::where('id', auth()->user()->id)->with('barangservices')->paginate(10);
 
 
-        return inertia('Admin/UserBarangService/IndexuserBarangService', compact("userBarangService"));
+        return inertia('Admin/UserBarangService/IndexUserBarangService', compact("userBarangService"));
     }
 
     // /**

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nomor_kontak');
             $table->string('email');
-            // ini sambungan biar satu akun role data_entry punya tanggung jawab dengan data yang dia masuki
-            // dan juga pastinya berfungsi sebagai pemisah tanggung jawab setiap data yang di masukan
-            // mungkin nanti ada fitur oper operan penanggung jawab data_entry 🙏
+            $table->text('alamat');
             $table->foreignId('user_id')->constarined();
         });
 

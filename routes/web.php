@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\HelperController;
+use App\Http\Controllers\Admin\JenisServiceController;
 use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CustomerEmailInfoController;
@@ -66,7 +67,10 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     Route::put('givepekerjaanutama/{userBarangService}', [HelperController::class, 'givePekerjaanUtama'])->name('givePekerjaanUtama');
     Route::post('leavejob/{userBarangService}', [HelperController::class, 'leaveJob'])->name('leaveJob');
     // ------------------------------------------------------------------------
+    Route::resource('JenisService',JenisServiceController::class)->middleware(['CheckRole:admin']);
 });
+
+
 
 Route::prefix('')->group(function() {
     Route::get('/home',[HomeController::class,'index'])->name('home');

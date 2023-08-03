@@ -10,12 +10,12 @@ import AddModalCustomer from "./Partials/AddModalCustomer";
 
 const headers = {
     title: "List Customer Data",
-    description: "Customer Yang Anda Masukan Sendiri Tidak Akan Bisa Diubah / Di hapus Data entry Lain",
+    description:
+        "Customer Yang Anda Masukan Sendiri Tidak Akan Bisa Diubah / Di hapus Data entry Lain",
     open: true,
 };
 
 const IndexCustomer = ({ customers }) => {
-   
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }
@@ -28,6 +28,7 @@ const IndexCustomer = ({ customers }) => {
                         <tr className="text-gray-100">
                             <th>Nama Customer</th>
                             <th>Kontak Customer</th>
+                            <th>Alamat Customer</th>
                             {/* <th>Di Kerjakan Oleh</th>
                                 <th>Harga Reparasi</th>
                                 <th>Tanggal Barang Masuk</th>*/}
@@ -43,10 +44,16 @@ const IndexCustomer = ({ customers }) => {
                                         <p>{data.nama}</p>
                                     </div>
                                 </th>
+
                                 <th>
                                     <div className="flex flex-col gap-2 w-fit">
                                         <p>{data.email}</p>
                                         <p>{data.nomor_kontak}</p>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div className="flex flex-col ">
+                                        <p>{data.alamat}</p>
                                     </div>
                                 </th>
                                 <th>

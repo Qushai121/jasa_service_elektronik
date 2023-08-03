@@ -3,11 +3,8 @@ import React, { useEffect, useState } from "react";
 import { MethodPemesanan } from "../partial/MethodPemesanan";
 import { BigMxWrapper } from "@/Layouts/wrapper/BigMxWrapper";
 
-
 const OfflinePesanMenus = [
-    
     {
-        urutan: "1",
         judul: "Penjadwalan Kunjungan:",
         keterangan: [
             "a. Customer menghubungi toko melalui telepon atau datang langsung ke toko untuk membuat janji temu.",
@@ -15,7 +12,6 @@ const OfflinePesanMenus = [
         ],
     },
     {
-        urutan: "2",
         judul: "Konfirmasi Janji Temu:",
         keterangan: [
             "a. Toko mengkonfirmasi janji temu melalui telepon atau pesan teks.",
@@ -23,16 +19,16 @@ const OfflinePesanMenus = [
         ],
     },
     {
-        urutan: "3",
         judul: "Kunjungan ke Toko:",
         keterangan: [
             " a. Customer datang ke toko sesuai dengan jadwal yang telah ditetapkan.",
             "b. Customer membawa barang yang akan diperbaiki dan informasi tentang masalah yang dialami.",
-            <a href="ddd" className="text-blue-500 underline" >Klik Disini Untuk Lihat Alamat Toko</a>
+            <a href="ddd" className="text-blue-500 underline">
+                Klik Disini Untuk Lihat Alamat Toko
+            </a>,
         ],
     },
     {
-        urutan: "4",
         judul: "Konsultasi dengan Teknisi:",
         keterangan: [
             "a. Customer berbicara dengan teknisi atau pihak yang bertanggung jawab tentang perbaikan yang diperlukan.",
@@ -40,16 +36,13 @@ const OfflinePesanMenus = [
         ],
     },
     {
-        urutan: "5",
         judul: "Estimasi Biaya dan Waktu:",
         keterangan: [
             "a. Setelah menganalisis masalah barang, teknisi memberikan estimasi biaya perbaikan kepada customer.",
             "b. Teknisi juga memberitahukan perkiraan waktu yang dibutuhkan untuk menyelesaikan perbaikan.",
-            
         ],
     },
     {
-        urutan: "6",
         judul: "Persetujuan Perbaikan:",
         keterangan: [
             " a. Jika customer setuju dengan estimasi biaya dan waktu, mereka memberikan persetujuan untuk memulai perbaikan.",
@@ -57,7 +50,6 @@ const OfflinePesanMenus = [
         ],
     },
     {
-        urutan: "7",
         judul: "Perbaikan Barang:",
         keterangan: [
             "a. Teknisi melakukan perbaikan sesuai dengan kesepakatan.",
@@ -65,7 +57,7 @@ const OfflinePesanMenus = [
         ],
     },
     {
-        urutan: "8",
+       
         judul: "Pengambilan Barang:",
         keterangan: [
             "a. Setelah perbaikan selesai, customer diinformasikan untuk mengambil barang mereka.",
@@ -75,17 +67,13 @@ const OfflinePesanMenus = [
 ];
 
 const OnlinePesanMenus = [
-    
     {
-        urutan: "1",
         judul: "Pengajuan Permintaan Perbaikan:",
         keterangan: [
             "a. Customer mengunjungi situs web toko atau menggunakan aplikasi seluler untuk mengajukan permintaan perbaikan.",
-            "b. Customer memberikan informasi tentang barang yang akan diperbaiki dan deskripsi masalah yang dihadapi.",
         ],
     },
     {
-        urutan: "2",
         judul: "Konsultasi Online:",
         keterangan: [
             "a. Toko menghubungi customer melalui email atau pesan dalam aplikasi untuk memberikan konsultasi awal tentang perbaikan yang diperlukan.",
@@ -93,7 +81,16 @@ const OnlinePesanMenus = [
         ],
     },
     {
-        urutan: "3",
+        judul: "Pengiriman Barang ke Toko:",
+        keterangan: [
+            "a. Jika customer setuju dengan estimasi, mereka harus mengirimkan barang yang akan diperbaiki ke alamat yang ditentukan oleh toko.",
+            "b. Customer bertanggung jawab atas biaya pengiriman.",
+            <a href="ddd" className="text-blue-500 underline">
+                Klik Disini Untuk Lihat Alamat Toko
+            </a>,
+        ],
+    },
+    {
         judul: "Estimasi Biaya dan Waktu:",
         keterangan: [
             " a. Berdasarkan informasi yang diberikan oleh customer, toko memberikan estimasi biaya perbaikan dan perkiraan waktu penyelesaian.",
@@ -101,25 +98,13 @@ const OnlinePesanMenus = [
         ],
     },
     {
-        urutan: "4",
-        judul: "Pengiriman Barang ke Toko:",
-        keterangan: [
-            "a. Jika customer setuju dengan estimasi, mereka harus mengirimkan barang yang akan diperbaiki ke alamat yang ditentukan oleh toko.",
-            "b. Customer bertanggung jawab atas biaya pengiriman.",
-            <a href="ddd" className="text-blue-500 underline" >Klik Disini Untuk Lihat Alamat Toko</a>
-        ],
-    },
-    {
-        urutan: "5",
         judul: "Perbaikan Barang:",
         keterangan: [
             "a. Setelah toko menerima barang, teknisi akan melakukan perbaikan sesuai dengan kesepakatan.",
             "b. Jika ditemukan masalah tambahan yang memerlukan biaya tambahan, toko akan menghubungi customer terlebih dahulu untuk mendapatkan persetujuan.",
-            
         ],
     },
     {
-        urutan: "6",
         judul: "Konfirmasi Selesai dan Pembayaran:",
         keterangan: [
             "a. Setelah perbaikan selesai, toko menginformasikan customer melalui email atau pesan dalam aplikasi.",
@@ -127,7 +112,6 @@ const OnlinePesanMenus = [
         ],
     },
     {
-        urutan: "7",
         judul: "Pengiriman Kembali Barang:",
         keterangan: [
             "a. Setelah pembayaran diterima, toko mengirimkan barang yang telah diperbaiki kembali ke customer.",
@@ -135,7 +119,6 @@ const OnlinePesanMenus = [
         ],
     },
 ];
-
 
 export const PilihCaraPemesanan = () => {
     const [open, setOpen] = useState("offline");
@@ -162,9 +145,17 @@ export const PilihCaraPemesanan = () => {
                         Online
                     </button>
                 </div>
-                <div className="my-6 h-fit" >
-                    <MethodPemesanan datas={OfflinePesanMenus} open={open == "offline"} method={"DI TEMPAT / OFFLINE"} />
-                    <MethodPemesanan datas={OnlinePesanMenus} open={open == "online"} method={"ONLINE"} />
+                <div className="my-6 h-fit">
+                    <MethodPemesanan
+                        datas={OfflinePesanMenus}
+                        open={open == "offline"}
+                        method={"DI TEMPAT / OFFLINE"}
+                    />
+                    <MethodPemesanan
+                        datas={OnlinePesanMenus}
+                        open={open == "online"}
+                        method={"ONLINE"}
+                    />
                 </div>
             </BigMxWrapper>
         </section>

@@ -10,7 +10,6 @@ import { AmbilJob } from "../BarangService/Partials/AmbilJob";
 
 export default function DetailBarangServiceCustomer({ customers, auth }) {
     const [authorized, setAuthorized] = useState(false);
-    console.log(customers);
     useEffect(() => {
         if (
             customers.user_id == auth.user.id &&
@@ -35,9 +34,6 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
                     <thead>
                         <tr className="text-gray-100">
                             <th>Detail Barang</th>
-                            {/* <th>Di Kerjakan Oleh</th>
-                                <th>Harga Reparasi</th>
-                                <th>Tanggal Barang Masuk</th>*/}
                             <th>Status Proses</th>
                             {authorized && <th>Aksi</th>}
                         </tr>

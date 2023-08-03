@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCustomerRequest extends FormRequest
+class UpdateJenisServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->user()->role_id == 2 || auth()->user()->role_id == 3;
+        return true;
     }
 
     /**
@@ -22,10 +22,9 @@ class StoreCustomerRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => ['required', 'string', 'max:255'],
-            'nomor_kontak' => ['sometimes', 'required', 'integer'],
-            'alamat' => ['sometimes', 'required'],
-            'email' => ['required','email'],
+            'judul' => ['sometimes', 'required', 'string', 'max:255'],
+            'sub_judul' => ['sometimes', 'required', 'string', 'max:255'],
+            'keterangan' => ['sometimes', 'required', 'string'],
         ];
     }
 }

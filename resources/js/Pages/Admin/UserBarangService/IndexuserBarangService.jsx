@@ -7,7 +7,7 @@ import PaginateAdmin from "@/Components/PaginateAdmin";
 import ModalImage from "@/Components/ModalImage";
 import Modal from "@/Components/Modal";
 
-const IndexuserBarangService = ({ userBarangService,auth }) => {
+const IndexUserBarangService = ({ userBarangService,auth }) => {
     const headers = {
         title: `List Pekerjan ${auth.user.name} `,
         description: "Selesai Kan Pekerjaan Yang Sudah Di Ambil",
@@ -128,4 +128,4 @@ const IndexuserBarangService = ({ userBarangService,auth }) => {
     );
 };
 
-export default IndexuserBarangService;
+export default IndexUserBarangService;

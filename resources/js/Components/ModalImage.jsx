@@ -9,7 +9,7 @@ const ModalImage = ({children}) => {
         <>
         
             <PrimaryButton
-                className="btn btn-sm m-2"
+                className="btn btn-sm m-2 "
                 onClick={() => setTutupModalFoto(!tutupModalFoto)}
             >
                 Lihat Gambar

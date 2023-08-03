@@ -3,6 +3,7 @@ import { UmumNavbar } from "./partials/UmumNavbar";
 import { TopBar } from "./partials/TopBar";
 import { FooterUmum } from "./partials/FooterUmum";
 
+
 export const UmumLayout = ({ children }) => {
     const [drawer, setDrawer] = useState(false);
 

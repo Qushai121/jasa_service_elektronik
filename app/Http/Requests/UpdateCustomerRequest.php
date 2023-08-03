@@ -24,6 +24,7 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'nama' => ['sometimes','required', 'string', 'max:255'],
             'nomor_kontak' => ['sometimes', 'required', 'integer'],
+            'alamat' => ['sometimes','required'],
             'email' => ['sometimes','required','email'],
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helper\ImageHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBarangServiceRequest;
 use App\Http\Requests\UpdateBarangServiceRequest;
@@ -60,7 +61,7 @@ class BarangServiceController extends Controller
         // insertGetId ini kita bakal dapet return id yang baru diinput
         $data = BarangService::insertGetId($MergeRequestWithId);
         if ($request->file('gambar_barang')) {
-            $gambar_barang = Storage::disk('public')->put('gambar_barang', $request->file('gambar_barang'));
+            $gambar_barang = ImageHelper::ImagePut('gambar_barang', $request->file('gambar_barang'));
             BarangService::find($data)->update(['gambar_barang' => $gambar_barang]);
         }
 
@@ -91,8 +92,8 @@ class BarangServiceController extends Controller
         $this->authorize('view', $barangservice);
         $barangservice->update($request->except('gambar_barang'));
         if ($request->file('gambar_barang')) {
-            Storage::disk('public')->delete($barangservice['gambar_barang']);
-            $gambar = Storage::disk('public')->put('gambar_barang', $request->file('gambar_barang'));
+            ImageHelper::ImageDelete($barangservice['gambar_barang']);
+            $gambar = ImageHelper::ImagePut('gambar_barang', $request->file('gambar_barang'));
             $barangservice->update(['gambar_barang' => $gambar]);
         };
 
@@ -105,7 +106,7 @@ class BarangServiceController extends Controller
     public function destroy(BarangService $barangservice)
     {
         $this->authorize('view', $barangservice);
-        Storage::disk('public')->delete($barangservice->gambar_barang);
+        ImageHelper::ImageDelete($barangservice->gambar_barang);
         $barangservice->delete();
         return redirect()->route('customer.show',$barangservice->customer_id);
     }

@@ -23,7 +23,7 @@ class StoreBarangServiceRequest extends FormRequest
     {
         return [
             'nama_barang' => ['sometimes', 'required', 'string', 'max:255'],
-            'gambar_barang' => ['sometimes', 'required', 'mimes:png,jpg,webp,jpeg,pdf'],
+            'gambar_barang' => ['sometimes', 'required', 'mimes:png,jpg,webp,jpeg'],
             'keluhan_barang' => ['sometimes', 'required', 'string'],
             'customer_id' => ['required'],
         ];
