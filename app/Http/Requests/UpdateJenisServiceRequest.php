@@ -24,7 +24,7 @@ class UpdateJenisServiceRequest extends FormRequest
         return [
             'judul' => ['sometimes', 'required', 'string', 'max:255'],
             'sub_judul' => ['sometimes', 'required', 'string', 'max:255'],
-            'keterangan' => ['sometimes', 'required', 'string'],
+            'blog' => ['sometimes', 'required', 'string'],
         ];
     }
 }

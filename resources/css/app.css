@@ -1,5 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+    font-size: 32px; /* Replace 32px with your desired size */
+}
+
+h2 {
+    font-size: 24px; /* Replace 24px with your desired size */
+}
+
+h3 {
+    font-size: 20px; /* Replace 20px with your desired size */
+}
+
+h4 {
+    font-size: 18px; /* Replace 18px with your desired size */
+}
+
+h5 {
+    font-size: 16px; /* Replace 16px with your desired size */
+}
+
+h6 {
+    font-size: 14px; /* Replace 14px with your desired size */
+}

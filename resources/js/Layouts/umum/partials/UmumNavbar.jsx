@@ -5,8 +5,8 @@ import React, { useState } from "react";
 
 const NavMenus = [
     { route: "home", keterangan: "Home" },
-    { route: "CaraPemesanan", keterangan: "Jenis Service" },
-    { route: "CaraPemesanan", keterangan: "Cara Pemesanan Service" },
+    { route: "jenisServiceUmum.index", keterangan: "Jenis Service" },
+    { route: "caraPemesanan", keterangan: "Cara Pemesanan Service" },
     { route: "parts", keterangan: "Harga Parts & Item" },
     { route: "lokasi", keterangan: "Lokasi" },
     { route: "bantuan", keterangan: "Bantuan" },

@@ -25,7 +25,7 @@ class StoreJenisServiceRequest extends FormRequest
             'judul' => ['required', 'string', 'max:255'],
             'sub_judul' => ['required', 'string', 'max:255'],
             'background_foto' => ['required', 'mimes:png,jpg,webp,jpeg'],
-            'keterangan' => ['required', 'string'],
+            'blog' => ['required', 'string'],
             'icon' => ['required', 'mimes:png,jpg,webp,jpeg,svg'],
         ];
     }

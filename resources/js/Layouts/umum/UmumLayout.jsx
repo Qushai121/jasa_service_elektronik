@@ -11,7 +11,7 @@ export const UmumLayout = ({ children }) => {
         setDrawer(!drawer);
     };
     return (
-        <div className="overflow-x-hidden font-montserrat h-fit scrollbar-none bg-whiteMain ">
+        <div className="overflow-x-hidden font-montserrat h-fit scrollbar-none bg-stone-100 ">
             <TopBar />
             <UmumNavbar handleDrawer={handleDrawer} drawer={drawer}  />
             <main className="h-fit">{children}</main>

@@ -34,12 +34,13 @@ const BigetronMenus = [
     },
 ];
 
-export const BigetronMain = () => {
+export const BigetronMain = ({JenisServices}) => {
     const [swiperBerubah, setSwiperBerubah] = useState(0);
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     // console.log(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
 
+    console.log(JenisServices.length);
     return (
         <section className="relative lg:pb-36">
             <Swiper
@@ -60,13 +61,13 @@ export const BigetronMain = () => {
                 }}
                 modules={[Navigation, Autoplay, Thumbs]}
             >
-                {BigetronMenus.map((data, key) => {
+                {JenisServices.map((data, key) => {
                     return (
                         <SwiperSlide key={key}>
                             <div
                                 className="w-[100vw] duration-300 swiper-slide-sini even:items-end"
                                 style={{
-                                    backgroundImage: `url(${data.image})`,
+                                    backgroundImage: `url(http://127.0.0.1:8000/storage/${data.background_foto})`,
                                     backgroundRepeat: "no-repeat",
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
@@ -86,18 +87,14 @@ export const BigetronMain = () => {
                                             <h1
                                                 className={` duration-1000 lg:text-[2rem] font-bold text-whiteMain font-montserrat my-1`}
                                             >
-                                                {data.subTitle}
+                                                {data.judul}
                                             </h1>
                                         </div>
                                         <div className="bg-white w-fit px-2 rounded-sm bg-opacity-70 overflow-hidden">
                                             <h1
                                                 className={`lg:text-xl font-semibold text-blackMain font-montserrat`}
                                             >
-                                                Pekerja Memilik Skill Mempuni.
-                                            </h1>
-                                            <h1 className="lg:text-xl font-semibold text-blackMain font-montserrat">
-                                                Cepat Dalam Melaksanakan
-                                                Pekerjaan.
+                                                {data.sub_judul}
                                             </h1>
                                         </div>
                                         <div className="mt-5">
@@ -117,13 +114,13 @@ export const BigetronMain = () => {
                     <Swiper
                         onSwiper={setThumbsSwiper}
                         spaceBetween={10}
-                        slidesPerView={4}
+                        slidesPerView={JenisServices.length}
                         freeMode={true}
                         watchSlidesProgress={true}
                         modules={[Navigation, Thumbs]}
                         className="mySwiper"
                     >
-                        {BigetronMenus.map((data, key) => {
+                        {JenisServices.map((data, key) => {
                             return (
                                 <SwiperSlide key={key}>
                                     <div
@@ -133,13 +130,13 @@ export const BigetronMain = () => {
                                         } bg-blackThird bg-opacity-70 backdrop-blur-sm h-56 text-whiteMain py-2 px-4 rounded-lg flex flex-col items-center`}
                                     >
                                         <img
-                                            className="h-20 invert"
-                                            src={data.icons}
+                                            className="h-20"
+                                            src={'http://127.0.0.1:8000/storage/'+ data.icon}
                                         />
                                         <div>
-                                            <h1 className="text-center mt-4">
-                                                {data.subTitle}
-                                            </h1>
+                                            <h5 className="text-center mt-4">
+                                                {data.sub_judul}
+                                            </h5>
                                         </div>
                                     </div>
                                 </SwiperSlide>

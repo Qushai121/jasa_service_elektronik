@@ -20,7 +20,7 @@ class JenisServiceController extends Controller
     public function index()
     {
         $JenisServices = JenisService::paginate(10);
-        return Inertia::render('Admin/JenisService/IndexJenisService',compact('JenisServices'));
+        return Inertia::render('Admin/JenisService/IndexJenisService', compact('JenisServices'));
     }
 
     /**
@@ -28,6 +28,7 @@ class JenisServiceController extends Controller
      */
     public function create()
     {
+        return Inertia::render('Admin/JenisService/AddJenisService');
     }
 
     /**
@@ -35,10 +36,11 @@ class JenisServiceController extends Controller
      */
     public function store(StoreJenisServiceRequest $request)
     {
+        // dd($request);
         DB::transaction(function () use ($request) {
             $data = JenisService::insertGetId($request->validated(),);
             if ($request->file('background_foto')) {
-                $background_foto = ImageHelper::ImagePut('background_foto',$request->file('background_foto'));
+                $background_foto = ImageHelper::ImagePut('background_foto', $request->file('background_foto'));
                 JenisService::find($data)->update(['background_foto' => $background_foto]);
             }
             if ($request->file('icon')) {
@@ -63,27 +65,29 @@ class JenisServiceController extends Controller
      */
     public function edit(JenisService $JenisService)
     {
-        //
+        return Inertia::render('Admin/JenisService/EditJenisService',compact('JenisService'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JenisService $JenisService)
+    public function update(UpdateJenisServiceRequest $request, JenisService $JenisService)
     {
-      
+
+        DB::transaction(function () use ($request, $JenisService) {
+
             $JenisService->update($request->except('background_foto', 'icon'));
             if ($request->file('background_foto')) {
-                Storage::disk('public')->delete($JenisService['background_foto']);
-                $background_foto = Storage::disk('public')->put('background_foto', $request->file('background_foto'));
+                ImageHelper::ImageDelete($JenisService['background_foto']);
+                $background_foto = ImageHelper::ImagePut('background_foto', $request->file('background_foto'));
                 $JenisService->update(['background_foto' => $background_foto]);
             };
             if ($request->file('icon')) {
-                Storage::disk('public')->delete($JenisService['icon']);
-                $icon = Storage::disk('public')->put('icon', $request->file('icon'));
+                ImageHelper::ImageDelete($JenisService['icon']);
+                $icon = ImageHelper::ImagePut('icon', $request->file('icon'));
                 $JenisService->update(['icon' => $icon]);
             };
-
+        });
         return redirect()->route('JenisService.index');
     }
 
@@ -95,5 +99,12 @@ class JenisServiceController extends Controller
         ImageHelper::ImageDelete($JenisService->icon);
         ImageHelper::ImageDelete($JenisService->background_foto);
         $JenisService->delete();
+    }
+
+    public function imageblog(Request $request)
+    {
+        // masih blm sempurna karena kalau img di apus tetep ke kirim ke file public storage
+        $data = ImageHelper::ImagePut('JenisService/blog', $request->file('value'));
+        return redirect()->back()->with(['message' => 'http://127.0.0.1:8000/storage/' . $data]);
     }
 }

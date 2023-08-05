@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul');
             $table->string('sub_judul');
             $table->text('background_foto');
-            $table->text('keterangan');
+            $table->text('blog');
             $table->text('icon');
         });
     }

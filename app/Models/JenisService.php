@@ -14,7 +14,7 @@ class JenisService extends Model
         'judul',
         'sub_judul',
         'background_foto',
-        'keterangan',
+        'blog',
         'icon',
     ];
 }

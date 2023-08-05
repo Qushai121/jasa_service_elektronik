@@ -9,10 +9,10 @@ import { ServiceTersedia } from "./sections/ServiceTersedia";
 import { SelematDatang } from "./sections/SelematDatang";
 import { Parts } from "./sections/Parts";
 
-const Home = () => {
+const Home = ({JenisServices}) => {
     return (
         <UmumLayout>
-            <BigetronMain />
+            <BigetronMain JenisServices={JenisServices} />
             <SelematDatang />
             <KenapaKita />
             <ServiceTersedia />
