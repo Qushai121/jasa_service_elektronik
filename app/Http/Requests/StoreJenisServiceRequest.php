@@ -22,8 +22,8 @@ class StoreJenisServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'judul' => ['required', 'string', 'max:255'],
-            'sub_judul' => ['required', 'string', 'max:255'],
+            'judul' => ['required', 'string', 'max:50'],
+            'sub_judul' => ['required', 'string', 'max:100'],
             'background_foto' => ['required', 'mimes:png,jpg,webp,jpeg'],
             'blog' => ['required', 'string'],
             'icon' => ['required', 'mimes:png,jpg,webp,jpeg,svg'],

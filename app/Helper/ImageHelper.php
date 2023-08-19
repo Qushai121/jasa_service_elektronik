@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
 class ImageHelper
 {
 
-    // Kaga bisa overload method kaya java 
     public static function ImagePut($path,$data, $disk = 'public')
     {
         return Storage::disk($disk)->put($path, $data);

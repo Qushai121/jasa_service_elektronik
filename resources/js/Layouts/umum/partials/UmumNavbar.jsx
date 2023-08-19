@@ -9,8 +9,8 @@ const NavMenus = [
     { route: "caraPemesanan", keterangan: "Cara Pemesanan Service" },
     { route: "parts", keterangan: "Harga Parts & Item" },
     { route: "lokasi", keterangan: "Lokasi" },
-    { route: "bantuan", keterangan: "Bantuan" },
-    { route: "bantuan", keterangan: "Pesan Service" },
+    { route: "bantuan.index", keterangan: "Bantuan" },
+    { route: "bantuan.index", keterangan: "Pesan Service" },
 ];
 
 export const UmumNavbar = ({ handleDrawer, drawer }) => {

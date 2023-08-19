@@ -31,7 +31,7 @@ export const Parts = () => {
                         </p>
                         <div className=" mt-4 flex lg:gap-2 flex-col lg:flex-row lg:flex-wrap overflow-hidden  ">
                             {PartsMenus.map((data, key) => (
-                                <div className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
+                                <div key={key} className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
                                     <svg
                                         className="fill-blueMain"
                                         xmlns="http://www.w3.org/2000/svg"

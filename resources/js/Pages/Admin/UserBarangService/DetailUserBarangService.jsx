@@ -53,6 +53,7 @@ const DetailUserBarangService = ({
     }
 
     // askhelp
+    console.log(pekerjaUtama.pivot.status);
     return (
         <AuthenticatedLayout>
             <HeaderStatus status={pekerjaUtama.pivot.status} />

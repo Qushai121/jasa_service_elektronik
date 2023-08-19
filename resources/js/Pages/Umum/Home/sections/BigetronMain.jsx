@@ -34,13 +34,11 @@ const BigetronMenus = [
     },
 ];
 
-export const BigetronMain = ({JenisServices}) => {
+export const BigetronMain = ({ JenisServices }) => {
     const [swiperBerubah, setSwiperBerubah] = useState(0);
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     // console.log(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
-
-    console.log(JenisServices.length);
     return (
         <section className="relative lg:pb-36">
             <Swiper
@@ -90,15 +88,21 @@ export const BigetronMain = ({JenisServices}) => {
                                                 {data.judul}
                                             </h1>
                                         </div>
-                                        <div className="bg-white w-fit px-2 rounded-sm bg-opacity-70 overflow-hidden">
+                                        <div className="w-[45vw] px-2 rounded-sm bg-opacity-70 overflow-hidden">
                                             <h1
-                                                className={`lg:text-xl font-semibold text-blackMain font-montserrat`}
+                                                className={`lg:text-xl px-3 bg-white w-fit font-semibold text-blackMain font-montserrat`}
                                             >
                                                 {data.sub_judul}
                                             </h1>
                                         </div>
                                         <div className="mt-5">
-                                            <Link className="btn btn-sm bg-opacity-70  ">
+                                            <Link
+                                                href={route(
+                                                    "jenisServiceUmum.show",
+                                                    data.id
+                                                )}
+                                                className="btn btn-sm bg-opacity-70  "
+                                            >
                                                 Kunjungi
                                             </Link>
                                         </div>
@@ -131,10 +135,13 @@ export const BigetronMain = ({JenisServices}) => {
                                     >
                                         <img
                                             className="h-20"
-                                            src={'http://127.0.0.1:8000/storage/'+ data.icon}
+                                            src={
+                                                "http://127.0.0.1:8000/storage/" +
+                                                data.icon
+                                            }
                                         />
                                         <div>
-                                            <h5 className="text-center mt-4">
+                                            <h5 className="text-center mt-4 line-clamp-4">
                                                 {data.sub_judul}
                                             </h5>
                                         </div>

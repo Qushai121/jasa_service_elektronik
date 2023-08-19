@@ -1,29 +1,58 @@
-import Divider from "@/Components/Divider";
+import { FlashMessage } from "@/Components/FlashMessage";
 import { HeaderTitleUmum } from "@/Components/HeaderTitleUmum";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
-import { TitleTwoXl } from "@/Components/TitleTwoXl";
 import { UmumLayout } from "@/Layouts/umum/UmumLayout";
 import { BigMxWrapper } from "@/Layouts/wrapper/BigMxWrapper";
-import { Head } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import Swal from "sweetalert2";
+
+const content = "Kami di sini untuk membantu! Temukan panduan lengkap dan informasi kontak untuk mendapatkan bantuan seputar layanan elektronik kami. Tim dukungan kami siap menjawab pertanyaan Anda, memberikan solusi atas masalah Anda, dan memberikan panduan untuk pengalaman penggunaan perangkat yang lebih baik. Hubungi kami atau jelajahi sumber daya bantuan kami untuk mendapatkan informasi yang Anda butuhkan."
 
 const Bantuan = () => {
+
+    const { data, setData, post, processing, errors, reset } = useForm({
+        nama: "",
+        nomortelp: "",
+        pesan: "",
+        
+    });
+
+    // console.log(usePage().props.flash)
+    console.log(processing);
+    const submit = (e) => {
+        e.preventDefault();
+        post(route("bantuan.store"), {
+            onSuccess: (e) => {
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: e.props.flash.success,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                  })
+                reset('nama','nomortelp','pesan')
+            },
+        });
+    };
+
     return (
         <UmumLayout>
-            <Head title="Bantuan" />
+            <Head>
+  <title>Bantuan</title>
+  <meta name="description" content={content} />
+</Head>
+            <ToastContainer />
             <HeaderTitleUmum images={'images/bg-bantuan.jpg'} title={'Form Bantuan Customer'} subTitle={'kirimkan pesan minta bantuan anda '} />
             <BigMxWrapper className={"h-fit py-8 "}>
                 <BigMxWrapper className="h-fit">
-                    <form>
+                    <form onSubmit={submit} >
                         <div className="mt-4">
                             <label htmlFor="nama" value="nama">
                                 Nama Anda :
                             </label>
                             <input
                                 id="nama"
-                                required
                                 type="text"
                                 name="nama"
                                 className="mt-1 block w-full bg-gray-100"
@@ -36,47 +65,45 @@ const Bantuan = () => {
                         </div>
                         <div className="mt-4">
                             <label
-                                htmlFor="nomor_telepon"
-                                value="nomor_telepon"
+                                htmlFor="nomortelp"
+                                value="nomortelp"
                             >
                                 Nomor telepon yang bisa dihubungi kami :
                             </label>
                             <input
-                                id="nomor_telepon"
-                                required
+                                id="nomortelp"
                                 type="number"
-                                name="nomor_telepon"
+                                name="nomortelp"
                                 className="mt-1 block w-full bg-gray-100"
                                 autoComplete="username"
                                 onChange={(e) =>
-                                    setData("nomor_telepon", e.target.value)
+                                    setData("nomortelp", e.target.value)
                                 }
                             />
                             {/* <InputError message={errors.nama} className="mt-2" /> */}
                         </div>
                         <div className="mt-4">
                             <label
-                                htmlFor="pesan_bantuan"
-                                value="pesan_bantuan"
+                                htmlFor="pesan"
+                                value="pesan"
                             >
                                 Pesan Bantuan Anda :
                             </label>
                             <textarea
-                                required
-                                id="pesan_bantuan"
+                                id="pesan"
                                 type="text"
-                                name="pesan_bantuan"
+                                name="pesan"
                                 className="mt-1 h-[20vh] block w-full bg-gray-100"
-                                autoComplete="current-pesan_bantuan"
+                                autoComplete="current-pesan"
                                 onChange={(e) =>
-                                    setData("pesan_bantuan", e.target.value)
+                                    setData("pesan", e.target.value)
                                 }
                             />
 
                             {/* <InputError message={errors.password} className="mt-2" /> */}
                         </div>
                         <div className="flex items-center justify-end mt-4">
-                            <PrimaryButton className="ml-4">
+                            <PrimaryButton disabled={processing} type={'submit'} className="ml-4">
                                 Kirim
                             </PrimaryButton>
                         </div>

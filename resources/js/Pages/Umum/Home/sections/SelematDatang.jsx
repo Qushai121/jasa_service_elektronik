@@ -28,7 +28,7 @@ export const SelematDatang = () => {
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                         }}
-                        class="bg-stone-200 w-[26rem] h-[35rem] relative"
+                        className="bg-stone-200 w-[26rem] h-[35rem] relative"
                     >
                         <div className="h-fit w-64 py-4 px-6 text-whiteMain shadow-lg shadow-blackMain bg-blackThird absolute duration-300 lg:-left-28 left-0">
                             <TitleTwoXl>7 Tahun Pengalaman </TitleTwoXl>
@@ -63,7 +63,7 @@ export const SelematDatang = () => {
                         <div className=" pb-7 overflow-y-scroll scrollbar-none">
                             <div className=" mt-4 flex lg:gap-2 flex-col lg:flex-row lg:flex-wrap overflow-hidden  ">
                                 {SelematDatangMenus.map((data, key) => (
-                                    <div className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
+                                    <div key={key} className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
                                         <svg
                                             className="fill-blueMain"
                                             xmlns="http://www.w3.org/2000/svg"

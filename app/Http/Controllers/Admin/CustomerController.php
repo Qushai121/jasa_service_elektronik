@@ -51,12 +51,12 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        
-        $customers = Customer::with(['barangservices'=>function($e) {
-            $e->with(['customersBelongToMany'=> function($e){
-                $e->where('pekerja_utama',1)->select('status');
+
+        $customers = Customer::with(['barangservices' => function ($e) {
+            $e->with(['customersBelongToMany' => function ($e) {
+                $e->where('pekerja_utama', 1)->select('status');
             }]);
-        }])->where('id',$customer->id)->first();
+        }])->where('id', $customer->id)->first();
 
         return Inertia::render('Admin/Customer/DetailBarangServiceCustomer', compact('customers'));
     }
@@ -88,6 +88,10 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+        if ($customer->barangservices()->count() >= 1) {
+            return redirect()->back()->with('message', "Hapus dahulu barang yang bersangkutan dengan customer $customer->nama ");
+        };
+
         $this->authorize('view', $customer);
         $customer->delete();
     }

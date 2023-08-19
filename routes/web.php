@@ -82,8 +82,9 @@ Route::prefix('')->group(function () {
     Route::get('/pemesanan', [CaraPemesananController::class, 'index'])->name('caraPemesanan');
     Route::get('/partsShop', [PartsUmumController::class, 'index'])->name('parts');
     Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');
-    Route::get('/bantuan', [BantuanController::class, 'index'])->name('bantuan');
+    Route::resource('/bantuan', BantuanController::class)->only('index', 'store');
 });
 
+// Route::get('coba', [CobaController::class, 'coba'])->name('coba');
 
 require __DIR__ . '/auth.php';

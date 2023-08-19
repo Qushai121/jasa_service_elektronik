@@ -4,12 +4,18 @@ import { UmumLayout } from "@/Layouts/umum/UmumLayout";
 import { BigMxWrapper } from "@/Layouts/wrapper/BigMxWrapper";
 import React from "react";
 import { Filter } from "./partials/Filter";
-import { Link } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
+
+const content = "Temukan beragam layanan perbaikan dan perawatan elektronik unggulan kami. Mulai dari perbaikan hardware hingga pemulihan data, kami memiliki solusi lengkap untuk kebutuhan perangkat elektronik Anda. Dapatkan pelayanan handal dan profesional dari tim ahli kami untuk menjaga perangkat Anda tetap berfungsi secara optimal."
 
 const JenisService = ({ JenisServices }) => {
     console.log(JenisServices);
     return (
         <UmumLayout>
+            <Head>
+  <title>Jenis Service</title>
+  <meta name="description" content={content} />
+</Head>
             <HeaderTitleUmum
                 images={"images/hello-mrgeorge.jpg"}
                 title={"Jenis Jenis Service Yang Kami Sediakan"}
@@ -17,35 +23,34 @@ const JenisService = ({ JenisServices }) => {
                     "Silahkan Melihat Apa Saja Barang Yang Bisa Kami Service"
                 }
             />
-            <div className="bg-stone-200">
-                <div className="mx-36">
-                    <div className="flex flex-row gap-10 mx h-[100vh] ">
+            <div>
+                <div className=" mx-2 lg:mx-36">
+                    <div className="flex lg:flex-row flex-col gap-10 ">
                         <Filter JenisServices={JenisServices} />
-                        <div className=" h-full flex  py-5 flex-wrap gap-2 text-whiteMain">
+                        <div className=" h-full flex py-5 flex-wrap  gap-5 text-whiteMain">
                             {JenisServices?.data?.map((data, key) => (
                                 <Link
                                 href={route('jenisServiceUmum.show',data.id)}
                                     key={key}
-                                    className="w-[27%] bg-whiteMain text-blackMain py-2 shadow-lg hover:shadow-none duration-300"
+                                    className="lg:w-[20%] bg-whiteMain text-blackMain py-2 lg:pb-6 shadow-lg hover:shadow-none duration-300"
                                 >
                                     <div className="my-4 mx-5">
                                         <p className="text-sm ">Laptop</p>
                                     </div>
-                                    <div className="h-[54%] ">
+                                    <div className=" lg:h-[54%] ">
                                         <img
                                             src={
                                                 "/storage/" +
                                                 data.background_foto
                                             }
-                                            width={"1000"}
-                                            height={"300"}
+                                            className="w-full h-44 object-cover"
                                         />
                                     </div>
                                     <div className="px-4 py-3">
                                         <h5 className="text-bold break-words text-lg line-clamp-1">
                                             {data.judul}
                                         </h5>
-                                        <h4 className="mt-8 h-full break-words text-sm line-clamp-3">
+                                        <h4 className="mt-3 h-full break-words text-sm line-clamp-3">
                                             {data.sub_judul}
                                         </h4>
                                     </div>

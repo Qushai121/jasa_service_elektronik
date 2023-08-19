@@ -8,7 +8,7 @@ use App\Mail\CustomerMail;
 use App\Models\BarangService;
 use App\Models\Customer;
 
-class CustomerEmailInfoController extends Controller
+class EmailController extends Controller
 {
     static function index(int $id)
     {
@@ -21,4 +21,6 @@ class CustomerEmailInfoController extends Controller
             return false;
         };
     }
+
+  
 }

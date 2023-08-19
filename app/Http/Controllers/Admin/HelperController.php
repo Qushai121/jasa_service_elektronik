@@ -66,10 +66,8 @@ class HelperController extends Controller
             ]);
             
             return to_route('userbarangservice.show',$userBarangService->barang_service_id);
-            // return redirect()->to(route('userbarangservice.show', $userBarangService->barang_service_id));
         }
         return to_route('userbarangservice.show',$userBarangService->barang_service_id);
-        // return redirect()->to(route('userbarangservice.show', $userBarangService->id));
     }
 
     public function leaveJob(UserBarangService $userBarangService, Request $request)

@@ -5,7 +5,7 @@ import Header from "../BarangService/Partials/Header";
 import PrimaryButton from "@/Components/PrimaryButton";
 import NavLink from "@/Components/NavLink";
 import DetailCustomer from "./Partials/DetailModalCostumer";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import AddModalCustomer from "./Partials/AddModalCustomer";
 
 const headers = {
@@ -16,11 +16,13 @@ const headers = {
 };
 
 const IndexCustomer = ({ customers }) => {
+    const flash = usePage().props.flash.message
+    console.log(flash);
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }
     return (
-        <AuthenticatedLayout headers={headers}>
+        <AuthenticatedLayout headers={headers} message={flash} >
             <AddModalCustomer customers={customers} />
             <div className="overflow-x-auto w-[100vw] lg:w-full ">
                 <table className="table">
@@ -29,9 +31,6 @@ const IndexCustomer = ({ customers }) => {
                             <th>Nama Customer</th>
                             <th>Kontak Customer</th>
                             <th>Alamat Customer</th>
-                            {/* <th>Di Kerjakan Oleh</th>
-                                <th>Harga Reparasi</th>
-                                <th>Tanggal Barang Masuk</th>*/}
                             <th>Barang Yang Dimiliki</th>
                             <th>Aksi</th>
                         </tr>

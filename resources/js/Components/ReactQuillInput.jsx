@@ -38,7 +38,7 @@ export const ReactQuillInput = ({ theme, ...props }) => {
     const imageHandler = async (e) => {
         const editor = quillRef.current.getEditor();
 
-        // console.log(editor);
+        
         const input = document.createElement("input");
         input.setAttribute("type", "file");
         input.setAttribute("accept", "image/*");

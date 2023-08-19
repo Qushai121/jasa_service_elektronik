@@ -27,9 +27,9 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
                             description={headers?.description}
                         />
                     )}
-                    {message && (
+                    
                         <FlashMessage message={message} />
-                    )}
+                    
                     <main className="h-[100vh] lg:w-full">
                         <div className="mx-6 my-4">{children}</div>
                     </main>

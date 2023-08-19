@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\BarangStatusEnum;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\CustomerEmailInfoController;
+use App\Http\Controllers\EmailController;
 use App\Models\UserBarangService;
 use App\Http\Requests\StoreUserBarangServiceRequest;
-use App\Http\Requests\UpdateUserBarangServiceRequest;
 use App\Models\BarangService;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -55,7 +54,7 @@ class UserBarangServiceController extends Controller
             !$userBarangService ? ['pekerja_utama' => 1] : ['pekerja_utama' => 0],
         );
         userBarangService::create($MergeRequestWithId);
-        return redirect()->to(route('barangservice.index'));
+        return redirect()->back();
     }
 
 
@@ -117,7 +116,7 @@ class UserBarangServiceController extends Controller
         $userBarangService->status = BarangStatusEnum::SELESAI->value;
 
         if ($userBarangService->save()) {
-            if (CustomerEmailInfoController::index($userBarangService->barang_service_id)) {
+            if (EmailController::index($userBarangService->barang_service_id)) {
                 return redirect()->route('userbarangservice.show', $userBarangService->id);
             } else {
                 abort(404);

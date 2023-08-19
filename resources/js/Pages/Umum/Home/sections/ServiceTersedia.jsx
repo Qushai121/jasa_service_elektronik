@@ -58,7 +58,7 @@ export const ServiceTersedia = () => {
                                 pelanggan.
                             </p>
                         </div>
-                        <div class="grid grid-cols-2 lg:grid-cols-4 grid-rows-4 gap-8 lg:h-[50vh] px-6 py-4">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-4 gap-8 lg:h-[50vh] px-6 py-4">
                             <div
                                 style={{
                                     backgroundImage: `url(${`/images/bg-main.jpg`})`,
@@ -66,11 +66,11 @@ export const ServiceTersedia = () => {
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
-                                class="bg-stone-200 row-span-2 lg:row-span-4 col-span-2 rounded-sm"
+                                className="bg-stone-200 row-span-2 lg:row-span-4 col-span-2 rounded-sm"
                             ></div>
 
                             {ServiceTersediaMenus.map((data, key) => (
-                                <div class=" bg-stone-200 rounded-lg p-4 row-span-2 col-span-2 lg:col-span-1 hover:bg-blueSecondary duration-300 group ">
+                                <div key={key} className=" bg-stone-200 rounded-lg p-4 row-span-2 col-span-2 lg:col-span-1 hover:bg-blueSecondary duration-300 group ">
                                     <img
                                         className="w-16 h-16 rounded-lg object-cover group-hover:invert duration-300"
                                         src={data.image}
