@@ -43,7 +43,7 @@ export const ServiceTersedia = () => {
             <BigMxWrapper>
                 <div className="">
                     <div className="flex flex-col h-full gap-3">
-                        <div className="pt-4 mx-2 lg:mx-auto flex flex-col items-center lg:w-[50%]">
+                        <div className="pt-4 mx-2 xl:mx-auto flex flex-col items-center xl:w-[50%]">
                             <TitleTwoXl
                                 className={
                                     "text-whiteMain text-[25px] text-center"
@@ -51,14 +51,14 @@ export const ServiceTersedia = () => {
                             >
                                 Pelayanan Service Yang Tersedia
                             </TitleTwoXl>
-                            <Divider width="lg:w-[7%]" />
+                            <Divider width="xl:w-[7%]" />
                             <p className="text-center text-whiteMain ">
                                 Kami Memilik Beberapa Metode - metode service
                                 yang efisin dan juga tepat sesuai permintaan
                                 pelanggan.
                             </p>
                         </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 grid-rows-4 gap-8 lg:h-[50vh] px-6 py-4">
+                        <div className="grid grid-cols-2 xl:grid-cols-4 grid-rows-4 gap-8 xl:h-[50vh] px-6 py-4">
                             <div
                                 style={{
                                     backgroundImage: `url(${`/images/bg-main.jpg`})`,
@@ -66,11 +66,11 @@ export const ServiceTersedia = () => {
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
                                 }}
-                                className="bg-stone-200 row-span-2 lg:row-span-4 col-span-2 rounded-sm"
+                                className="bg-stone-200 row-span-2 xl:row-span-4 col-span-2 rounded-sm"
                             ></div>
 
                             {ServiceTersediaMenus.map((data, key) => (
-                                <div key={key} className=" bg-stone-200 rounded-lg p-4 row-span-2 col-span-2 lg:col-span-1 hover:bg-blueSecondary duration-300 group ">
+                                <div key={key} className=" bg-stone-200 rounded-lg p-4 row-span-2 col-span-2 xl:col-span-1 hover:bg-blueSecondary duration-300 group ">
                                     <img
                                         className="w-16 h-16 rounded-lg object-cover group-hover:invert duration-300"
                                         src={data.image}

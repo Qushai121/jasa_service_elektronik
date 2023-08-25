@@ -17,14 +17,14 @@ const headers = {
 
 const IndexCustomer = ({ customers }) => {
     const flash = usePage().props.flash.message
-    console.log(flash);
+  
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }
     return (
         <AuthenticatedLayout headers={headers} message={flash} >
             <AddModalCustomer customers={customers} />
-            <div className="overflow-x-auto w-[100vw] lg:w-full ">
+            <div className="overflow-x-auto w-[100vw] xl:w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">

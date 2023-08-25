@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('background_foto');
             $table->text('blog');
             $table->text('icon');
+            $table->jsonb('kategori');
         });
     }
 

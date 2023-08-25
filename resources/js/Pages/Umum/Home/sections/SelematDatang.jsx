@@ -20,7 +20,7 @@ export const SelematDatang = () => {
     return (
         <section className="py-12 ">
             <BigMxWrapper>
-                <div className="flex flex-col lg:flex-row gap-6 px-2 lg:px-40">
+                <div className="flex flex-col xl:flex-row gap-6 px-2 xl:px-40">
                     <div
                         style={{
                             backgroundImage: `url(${`/images/bg-masjohn.jpg`})`,
@@ -30,13 +30,13 @@ export const SelematDatang = () => {
                         }}
                         className="bg-stone-200 w-[26rem] h-[35rem] relative"
                     >
-                        <div className="h-fit w-64 py-4 px-6 text-whiteMain shadow-lg shadow-blackMain bg-blackThird absolute duration-300 lg:-left-28 left-0">
+                        <div className="h-fit w-64 py-4 px-6 text-whiteMain shadow-lg shadow-blackMain bg-blackThird absolute duration-300 xl:-left-28 left-0">
                             <TitleTwoXl>7 Tahun Pengalaman </TitleTwoXl>
                             <p className="mt-2 text-sm">
                                 Pengalaman Elctronika yang sangat baik.
                             </p>
                         </div>
-                        <div className="h-fit w-72 py-4 px-6 text-whiteMain shadow-lg shadow-blackMain bg-blueMain absolute lg:-left-32 top-52">
+                        <div className="h-fit w-72 py-4 px-6 text-whiteMain shadow-lg shadow-blackMain bg-blueMain absolute xl:-left-32 top-52">
                             <TitleTwoXl>Tim Profesional </TitleTwoXl>
                             <p className="mt-2 text-sm">
                                 Memiliki Team profesional Yang sudah di latih
@@ -61,9 +61,9 @@ export const SelematDatang = () => {
                             pengalaman elektronik Anda.
                         </p>
                         <div className=" pb-7 overflow-y-scroll scrollbar-none">
-                            <div className=" mt-4 flex lg:gap-2 flex-col lg:flex-row lg:flex-wrap overflow-hidden  ">
+                            <div className=" mt-4 flex xl:gap-2 flex-col xl:flex-row xl:flex-wrap overflow-hidden  ">
                                 {SelematDatangMenus.map((data, key) => (
-                                    <div key={key} className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
+                                    <div key={key} className=" h-8 p-2 flex items-center gap-4 xl:w-[45%]">
                                         <svg
                                             className="fill-blueMain"
                                             xmlns="http://www.w3.org/2000/svg"

@@ -16,7 +16,7 @@ export const HeaderTitleUmum = ({ title, subTitle,images }) => {
         
         }}>
             <BigMxWrapper>
-                <BigMxWrapper className={"flex flex-col gap-4 justify-between lg:flex-row text-whiteMain"}>
+                <BigMxWrapper className={"flex flex-col gap-4 justify-between xl:flex-row text-whiteMain"}>
                     <div>
                         <TitleTwoXl>
                             {title}
@@ -28,9 +28,9 @@ export const HeaderTitleUmum = ({ title, subTitle,images }) => {
                             className="h-2 -mt-[0.1px]"
                         />
                     </div>
-                    <div className="flex gap-1 justify-end lg:justify-start items-center">
+                    <div className="flex gap-1 justify-end xl:justify-start items-center">
                         <Link href="/home">home /</Link>
-                        <Link href={`${window.location.href}`}> {window.location.href.split('/')[3]}</Link>
+                        <Link href={`${window.location.href}`}> {window.location.href.split('/')[3]?.split('?')[0]}</Link>
                     </div>
                 </BigMxWrapper>
             </BigMxWrapper>

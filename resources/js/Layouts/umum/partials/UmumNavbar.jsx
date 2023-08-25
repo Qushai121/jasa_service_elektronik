@@ -10,20 +10,20 @@ const NavMenus = [
     { route: "parts", keterangan: "Harga Parts & Item" },
     { route: "lokasi", keterangan: "Lokasi" },
     { route: "bantuan.index", keterangan: "Bantuan" },
-    { route: "bantuan.index", keterangan: "Pesan Service" },
+    { route: "pesanService.index", keterangan: "Pesan Service" },
 ];
 
 export const UmumNavbar = ({ handleDrawer, drawer }) => {
     const [close, setClose] = useState(false);
     return (
-        <nav className="lg:py-1 lg:pb-4 z-50 relative shadow-lg  ">
+        <nav className="xl:py-1 xl:pb-4 z-50 relative shadow-lg  ">
             <BigMxWrapper>
-                <div className=" flex items-center py-4 lg:py-2 px-4 ">
+                <div className=" flex items-center py-4 xl:py-2 px-4 ">
                     <div className="text-2xl flex-[17] w-2 font-montserrat font-bold">
                         {/* logo */}
                         Service Sir
                     </div>
-                    <div className="flex-auto hidden lg:flex gap-6">
+                    <div className="flex-auto hidden xl:flex gap-6">
                         <div className="flex items-center">
                             <svg
                                 width="50"
@@ -89,7 +89,7 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="lg:hidden">
+                    <div className="xl:hidden">
                         <button
                             onClick={() => {
                                 handleDrawer();
@@ -112,15 +112,15 @@ export const UmumNavbar = ({ handleDrawer, drawer }) => {
                 <div
                     className={`${
                         !drawer ? "h-[0.1px] " : "h-[21rem]"
-                    }   w-full duration-500 lg:h-fit lg:flex lg:gap-3 pb-2`}
+                    }   w-full duration-500 xl:h-fit xl:flex xl:gap-3 pb-2`}
                 >
                     {NavMenus.map((data, key) => (
                         <div
                             key={key}
                             className={`${
-                                !drawer && "opacity-0 lg:opacity-100  "
+                                !drawer && "opacity-0 xl:opacity-100  "
                             } ${
-                                !close && "hidden lg:block"
+                                !close && "hidden xl:block"
                             } duration-200 my-2 `}
                         >
                             {data.keterangan == "Pesan Service" ? (

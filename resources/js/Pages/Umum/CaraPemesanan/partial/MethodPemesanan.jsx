@@ -8,8 +8,8 @@ export const MethodPemesanan = ({ open, datas, method }) => {
             <div className="my-7 flex flex-col gap-5  ">
                 {datas.map((data, key) => (
                     <div key={key} className="flex gap-4 items-center my-3 ">
-                        <div className="w-[20%] lg:w-[5%]">
-                            <p className="bg-blackMain bg-opacity-80 text-whiteMain text-xl rounded-full text-center py-2 lg:py-5">
+                        <div className="w-[20%] xl:w-[5%]">
+                            <p className="bg-blackMain bg-opacity-80 text-whiteMain text-xl rounded-full text-center py-2 xl:py-5">
                                 {++key}
                             </p>
                         </div>

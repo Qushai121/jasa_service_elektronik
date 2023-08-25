@@ -27,6 +27,7 @@ class StoreJenisServiceRequest extends FormRequest
             'background_foto' => ['required', 'mimes:png,jpg,webp,jpeg'],
             'blog' => ['required', 'string'],
             'icon' => ['required', 'mimes:png,jpg,webp,jpeg,svg'],
+            
         ];
     }
 }

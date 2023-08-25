@@ -38,7 +38,11 @@ class JenisServiceController extends Controller
     {
         // dd($request);
         DB::transaction(function () use ($request) {
-            $data = JenisService::insertGetId($request->validated(),);
+            $MergeRequestWithKategori = array_merge(
+                $request->validated(),
+                ['kategori' => json_encode(explode(',',$request->post('kategori')))]
+            );
+            $data = JenisService::insertGetId($MergeRequestWithKategori);
             if ($request->file('background_foto')) {
                 $background_foto = ImageHelper::ImagePut('background_foto', $request->file('background_foto'));
                 JenisService::find($data)->update(['background_foto' => $background_foto]);

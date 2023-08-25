@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\JenisService;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -28,7 +29,23 @@ class RoleSeeder extends Seeder
                 'role_name' => 'pekerja',
             ],
         ];
-       Role::insert($data);
-        
+        Role::insert($data);
+
+
+        $jenis = [
+
+            'judul' => '',
+            'sub_judul' => 'halasdaso',
+            'background_foto' => 'hasadsadsalo',
+            'blog' => 'halodasdasd',
+            'icon' => 'hasadasdasdsalo',
+            'kategori' => json_encode([
+                'asasdasdd',
+                'aas',
+            ])
+
+        ];
+
+        JenisService::insert($jenis);
     }
 }

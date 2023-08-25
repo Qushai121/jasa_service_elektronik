@@ -22,12 +22,13 @@ const IndexJenisService = ({ JenisServices }) => {
             <Link className="btn btn-sm" href={route("JenisService.create")}>
                 Add Jenis Service
             </Link>
-            <div className="overflow-x-auto w-[100vw] lg:w-full ">
+            <div className="overflow-x-auto w-[100vw] xl:w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
                             <th>Judul</th>
                             <th>Sub Judul</th>
+                            <th>Kategori</th>
                             <th>blog / Isi Blog</th>
                             <th>Icon</th>
                             <th>BG Foto</th>
@@ -46,6 +47,23 @@ const IndexJenisService = ({ JenisServices }) => {
                                 <th>
                                     <div className="flex flex-col">
                                         {data.sub_judul}
+                                    </div>
+                                </th>
+                                <th>
+                                    <div className="flex flex-col">
+                                        {data.kategori
+                                        ? 
+                                        <div className="flex gap-3">
+                                        {
+                                            data.kategori.map((kategoriD) => (
+                                                <div className="badge ">
+                                                {kategoriD}
+                                                </div>
+                                            ))
+                                        }
+                                        </div>
+                                        : null
+                                        }
                                     </div>
                                 </th>
                                 <th>

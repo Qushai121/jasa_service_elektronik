@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateBarangServiceRequest;
 use App\Models\BarangService;
 use App\Models\Customer;
 use App\Models\UserBarangService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
@@ -105,8 +106,10 @@ class BarangServiceController extends Controller
      */
     public function destroy(BarangService $barangservice)
     {
+
         $this->authorize('view', $barangservice);
         ImageHelper::ImageDelete($barangservice->gambar_barang);
+        // dd($barangservice);
         $barangservice->delete();
         return redirect()->route('customer.show',$barangservice->customer_id);
     }

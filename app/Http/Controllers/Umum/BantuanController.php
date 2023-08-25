@@ -20,6 +20,7 @@ class BantuanController extends Controller
     public function store(Request $request)
     {
 
+        // dd($request);
         $request->validate([
             'nama' => 'required',
             'nomortelp' => 'required',
@@ -28,7 +29,7 @@ class BantuanController extends Controller
 
 
         $datas = [
-            'subject' => null,
+            'subject' => $request->subject,
             'nama' => $request->nama,
             'nomortelp' => $request->nomortelp,
             'pesan' => $request->pesan,

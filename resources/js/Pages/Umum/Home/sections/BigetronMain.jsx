@@ -40,7 +40,7 @@ export const BigetronMain = ({ JenisServices }) => {
 
     // console.log(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
     return (
-        <section className="relative lg:pb-36">
+        <section className="relative xl:pb-36">
             <Swiper
                 className="mySwiper"
                 style={{
@@ -79,18 +79,18 @@ export const BigetronMain = ({ JenisServices }) => {
                                             key == swiperBerubah
                                                 ? "translate-y-0 "
                                                 : "translate-y-96"
-                                        }  duration-700 flex flex-col h-[40vh]  lg:h-[60vh]  py-[10%] px-10`}
+                                        }  duration-700 flex flex-col h-[40vh]  xl:h-[60vh]  py-[10%] px-10`}
                                     >
                                         <div className="bg-blueSecondary w-fit px-4 my-1 rounded-sm ">
                                             <h1
-                                                className={` duration-1000 lg:text-[2rem] font-bold text-whiteMain font-montserrat my-1`}
+                                                className={` duration-1000 xl:text-[2rem] font-bold text-whiteMain font-montserrat my-1`}
                                             >
                                                 {data.judul}
                                             </h1>
                                         </div>
                                         <div className="w-[45vw] px-2 rounded-sm bg-opacity-70 overflow-hidden">
                                             <h1
-                                                className={`lg:text-xl px-3 bg-white w-fit font-semibold text-blackMain font-montserrat`}
+                                                className={`xl:text-xl px-3 bg-white w-fit font-semibold text-blackMain font-montserrat`}
                                             >
                                                 {data.sub_judul}
                                             </h1>
@@ -113,7 +113,7 @@ export const BigetronMain = ({ JenisServices }) => {
                     );
                 })}
             </Swiper>
-            <div className="lg:flex hidden justify-center h-fit  ">
+            <div className="xl:flex hidden justify-center h-fit  ">
                 <div className="w-[40vw] absolute -bottom-2">
                     <Swiper
                         onSwiper={setThumbsSwiper}

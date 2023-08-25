@@ -74,12 +74,12 @@ const KenapaKitaMenus = [
 const KenapaKita = () => {
     return (
         <section className="bg-stone-200 h-fit pt-4 pb-8 my-11">
-            <BigMxWrapper className={"h-full  lg:px-14 py-2"}>
+            <BigMxWrapper className={"h-full  xl:px-14 py-2"}>
                 <div className="flex justify-center pb-4">
                     <TitleTwoXl>Kelebihan Yang Kita Tawarkan</TitleTwoXl>
                 </div>
                 <div className="flex justify-center -mt-2 mb-2">
-                    <Divider width="w-[10%] lg:w-[3%] " />
+                    <Divider width="w-[10%] xl:w-[3%] " />
                 </div>
                 <div className="flex flex-wrap flex-row gap-4 justify-center ">
                     {KenapaKitaMenus.map((data, key) => (

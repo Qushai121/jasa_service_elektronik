@@ -6,6 +6,7 @@ import NavLink from "@/Components/NavLink";
 import PaginateAdmin from "@/Components/PaginateAdmin";
 import ModalImage from "@/Components/ModalImage";
 import Modal from "@/Components/Modal";
+import { Role } from "@/lib/role";
 
 const IndexUserBarangService = ({ userBarangService,auth }) => {
     const headers = {
@@ -13,6 +14,8 @@ const IndexUserBarangService = ({ userBarangService,auth }) => {
         description: "Selesai Kan Pekerjaan Yang Sudah Di Ambil",
         open: true,
     };
+
+    console.log(Role.admin);
     return (
         <AuthenticatedLayout headers={headers}>
             <div className=" my-4 ">
@@ -90,7 +93,7 @@ const IndexUserBarangService = ({ userBarangService,auth }) => {
                                                 </p>
                                             </NavLink>
                                         </th>
-                                        {data.pivot.pekerja_utama >= 1 && (
+                                        {data.pivot.pekerja_utama >= Role.userBiasa && (
                                             <th>
                                                 <div className="flex items-center gap-2">
                                                     <PrimaryButton

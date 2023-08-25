@@ -7,6 +7,7 @@ import AddModalBarangService from "../BarangService/Partials/AddModalBarangServi
 import { CustomerCard } from "@/Components/CustomerCard";
 import { BadgeStatus } from "@/Components/BadgeStatus";
 import { AmbilJob } from "../BarangService/Partials/AmbilJob";
+import Swal from "sweetalert2";
 
 export default function DetailBarangServiceCustomer({ customers, auth }) {
     const [authorized, setAuthorized] = useState(false);
@@ -20,16 +21,44 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
         }
     }, []);
 
-    function deleteBarang(id) {
-        router.delete(route("barangservice.destroy", id));
-    }
+    function deleteBarang(id,status) {
+        if(status){
+
+            Swal.fire({
+                title: 'Ingin Menghapus Paksa Barang Ini ?',
+            
+                text: `barang dalam pekerjaan dan berstatus ${status}`,
+                showDenyButton: true,
+                confirmButtonText: 'Hapus',
+                denyButtonText: `Batal`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    router.delete(route("barangservice.destroy", id),{
+                        status:status
+                    });
+                    Swal.fire('Saved!', '', 'success')
+                    return
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                    return
+                }
+                return
+            })
+        }else{
+            router.delete(route("barangservice.destroy", id),{
+                status:status
+            });
+        }
+            
+        }
     return (
         <AuthenticatedLayout>
             {authorized && <AddModalBarangService customers={customers} />}
             <div className="text-white modal-box bg-gray-500 ">
                 <CustomerCard customers={customers} />
             </div>
-            <div className="overflow-x-auto w-[100vw] lg:w-full ">
+            <div className="overflow-x-auto w-[100vw] xl:w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
@@ -96,7 +125,9 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
                                     <th className="flex gap-3">
                                         <PrimaryButton
                                             onClick={() =>
-                                                deleteBarang(data.id)
+                                                deleteBarang(data.id, data
+                                                    ?.customers_belong_to_many[0]
+                                                    ?.status)
                                             }
                                         >
                                             <svg

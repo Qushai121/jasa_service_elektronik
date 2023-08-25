@@ -13,6 +13,7 @@ import { Disclosure } from "@headlessui/react";
 import { Inertia } from "@inertiajs/inertia";
 import { SelasaiPekerjaan } from "./Partials/SelasaiPekerjaan";
 import { HeaderStatus } from "@/Components/HeaderStatus";
+import { Role } from "@/lib/role";
 
 const DetailUserBarangService = ({
     userBarangServices,
@@ -33,7 +34,6 @@ const DetailUserBarangService = ({
             }
         }
     }
-
 
     useEffect(() => {
         onlyOneHelp();
@@ -58,22 +58,28 @@ const DetailUserBarangService = ({
         <AuthenticatedLayout>
             <HeaderStatus status={pekerjaUtama.pivot.status} />
             <div className="py-12 h-screen">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="flex lg:flex-row gap-4 flex-col">
-                        <div className="text-gray-100 p-4 sm:p-8 lg:w-[40%] w-full overflow-x-auto bg-gray-800 shadow sm:rounded-lg">
+                <div className="max-w-7xl mx-auto sm:px-6 xl:px-8 space-y-6">
+                    <div className="flex xl:flex-row gap-4 flex-col">
+                        <div className="text-gray-100 p-4 sm:p-8 xl:w-[40%] w-full overflow-x-auto bg-gray-800 shadow sm:rounded-lg">
                             <CustomerCard
                                 customers={userBarangServices?.customers}
                             />
                             <div className="mx-3 ">
                                 {pekerjaUtama.id == auth.user.id &&
-                                    pekerjaUtama.pivot.status != "Selesai" && (
+                                    pekerjaUtama.pivot.status != "Selesai" ?
+                                     (
                                         <>
+                                        { pekerjaUtama.pivot.status != "Perlu Bantuan" ?(
+
+                                            
                                             <PrimaryButton
-                                                className="btn btn-sm m-2"
-                                                onClick={() => setTutup(!tutup)}
+                                            className="btn btn-sm m-2"
+                                            onClick={() => setTutup(!tutup)}
                                             >
                                                 Minta Bantuan
                                             </PrimaryButton>
+                                            ):null
+                                            }
                                             <GivePekerjaUtamaModal
                                                 userBarangServices={
                                                     userBarangServices
@@ -90,12 +96,13 @@ const DetailUserBarangService = ({
                                                 />
                                             }
                                         </>
-                                    )}
+                                    ):null
+                                }
                                 {/* khusu helper kalo mau tinggalkan pekerjaan */}
                                 {/* dan kalo pekerja utama mau tinggal kan pekerjan harus pindahin dulu status pekerja utama ke helper  */}
-                                {checkIfIamHelper && (
+                                {checkIfIamHelper ? (
                                     <LeaveJob dataHelper={checkIfIamHelper} />
-                                )}
+                                ):null}
 
                                 <Modal
                                     show={tutup}
@@ -127,8 +134,7 @@ const DetailUserBarangService = ({
                                 {
                                     console.log(pekerjaUtama.pivot.status != "Selesai")
                                 }
-                                {pekerjaUtama.pivot.pekerja_utama == 1 &&
-                                checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
+                                {checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
                                 pekerjaUtama.id != auth.user.id ? (
                                     <>
                                         <div>
@@ -138,11 +144,9 @@ const DetailUserBarangService = ({
                                             />
                                         </div>
                                     </>
-                                ) : (
-                                    <></>
-                                )}
+                                ) : null}
                                 {pekerjaUtama.id == auth.user.id &&
-                                    pekerjaUtama.pivot.status != "Selesai" && (
+                                    pekerjaUtama.pivot.status != "Selesai" ? (
                                         <>
                                             <div className="bg-red-100 w-full my-1 h-[1px]"></div>
                                             <Disclosure>
@@ -179,12 +183,12 @@ const DetailUserBarangService = ({
                                                 </Disclosure.Panel>
                                             </Disclosure>
                                         </>
-                                    )}
+                                    ):null}
                             </div>
                         </div>
 
                         <div className="w-full flex flex-wrap gap-4 ">
-                            <div className="w-full lg:w-fit">
+                            <div className="w-full xl:w-fit">
                                 <div className="p-4 sm:p-8 bg-gray-800 h-fit gap-2 shadow w-full overflow-x-auto sm:rounded-lg ">
                                     <PekerjaForm
                                         pekerja={pekerjaUtama}
@@ -193,7 +197,7 @@ const DetailUserBarangService = ({
                                 </div>
                             </div>
                             {helper?.map((pekerjaData, key) => (
-                                <div key={key} className="w-full lg:w-fit">
+                                <div key={key} className="w-full xl:w-fit">
                                     <div className="p-4 sm:p-8 bg-gray-800 h-fit gap-2 shadow w-full overflow-x-auto sm:rounded-lg ">
                                         <PekerjaForm
                                             pekerja={pekerjaData}

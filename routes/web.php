@@ -1,13 +1,12 @@
 <?php
 
 use App\Http\Controllers\Admin\BarangServiceController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\HelperController;
 use App\Http\Controllers\Admin\JenisServiceController;
 use App\Http\Controllers\Admin\UserBarangServiceController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\CobaController;
-use App\Http\Controllers\CustomerEmailInfoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Umum\BantuanController;
 use App\Http\Controllers\Umum\CaraPemesananController;
@@ -15,12 +14,8 @@ use App\Http\Controllers\Umum\HomeController;
 use App\Http\Controllers\Umum\JenisServiceUmumController;
 use App\Http\Controllers\Umum\LokasiController;
 use App\Http\Controllers\Umum\PartsUmumController;
-use App\Models\UserBarangService;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use Laravel\Socialite\Facades\Socialite;
-use Symfony\Component\Mailer\Messenger\SendEmailMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +66,7 @@ Route::middleware(['auth', 'CheckRole:all_staff'])->prefix("/admin")->group(func
     // ------------------------------------------------------------------------
     Route::resource('JenisService', JenisServiceController::class)->middleware(['CheckRole:admin']);
     Route::post('imageblog', [JenisServiceController::class, 'imageblog'])->middleware(['CheckRole:admin'])->name('imageblog');
+    // ------------------------------------------------------------------------
 });
 
 
@@ -83,6 +79,7 @@ Route::prefix('')->group(function () {
     Route::get('/partsShop', [PartsUmumController::class, 'index'])->name('parts');
     Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');
     Route::resource('/bantuan', BantuanController::class)->only('index', 'store');
+    Route::get('/pesan',[CaraPemesananController::class,'index'])->name('pesanService.index');
 });
 
 // Route::get('coba', [CobaController::class, 'coba'])->name('coba');

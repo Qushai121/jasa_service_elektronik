@@ -13,7 +13,7 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
     };
     return (
         <div className="min-h-screen bg-gray-900  md:w-full w-fit ">
-            <div className="drawer lg:drawer-open">
+            <div className="drawer xl:drawer-open">
                 <input
                     id="my-drawer-2"
                     type="checkbox"
@@ -21,23 +21,25 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
                 />
                 <div className="drawer-content h-[100vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-100">
                     <NavbarAdmin openSidebar={openSidebar} />
-                    {headers?.open && (
+                    {headers?.open ? (
                         <Header
                             title={headers?.title}
                             description={headers?.description}
                         />
-                    )}
+                        )
+                        :null
+                }
                     
                         <FlashMessage message={message} />
                     
-                    <main className="h-[100vh] lg:w-full">
+                    <main className="h-[100vh] xl:w-full">
                         <div className="mx-6 my-4">{children}</div>
                     </main>
                 </div>
                 <div>
                     <div
                         className={`${
-                            getsidebar ? "w-0" : "w-40 lg:w-80"
+                            getsidebar ? "w-0" : "w-40 xl:w-80"
                         } duration-300 bg-gray-800 min-h-screen py-8 `}
                     >
                         <ul

@@ -22,16 +22,16 @@ export const Parts = () => {
     return (
         <section className="py-8 my-10">
             <BigMxWrapper>
-                <div className="flex gap-20 flex-col  mx-3 lg:flex-row justify-center">
+                <div className="flex gap-20 flex-col  mx-3 xl:flex-row justify-center">
                     <div>
                         <TitleTwoXl>Parts & Item</TitleTwoXl>
                         <p>
                             Selain Menyediakan Jasa Kami Juga Menyediakan Parts
                             Untuk Berbagai Macam Barang Elektronik
                         </p>
-                        <div className=" mt-4 flex lg:gap-2 flex-col lg:flex-row lg:flex-wrap overflow-hidden  ">
+                        <div className=" mt-4 flex xl:gap-2 flex-col xl:flex-row xl:flex-wrap overflow-hidden  ">
                             {PartsMenus.map((data, key) => (
-                                <div key={key} className=" h-8 p-2 flex items-center gap-4 lg:w-[45%]">
+                                <div key={key} className=" h-8 p-2 flex items-center gap-4 xl:w-[45%]">
                                     <svg
                                         className="fill-blueMain"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ export const Parts = () => {
                         </div>
                     </div>
                     <img
-                        className="w-96 h-80 hidden lg:block rounded-lg object-cover"
+                        className="w-96 h-80 hidden xl:block rounded-lg object-cover"
                         src={"/parts/parts-main.png"}
                     />
                 </div>

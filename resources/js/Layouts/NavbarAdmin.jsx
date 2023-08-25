@@ -70,7 +70,7 @@ const NavbarAdmin = ({ openSidebar }) => {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
-                                    <div className="mx-4 lg:hidden">
+                                    <div className="mx-4 xl:hidden">
                                         <div className="avatar">
                                             <div className="w-12 rounded">
                                                 <img

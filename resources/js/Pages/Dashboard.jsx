@@ -8,7 +8,7 @@ export default function Dashboard({auth}) {
             user={auth.user} >
             <Head title="Dashboard" />
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto sm:px-6 xl:px-8">
                 </div>
             </div>
         </AuthenticatedLayout>

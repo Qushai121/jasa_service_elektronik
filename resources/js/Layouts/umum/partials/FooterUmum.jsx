@@ -10,7 +10,7 @@ import React from "react";
 export const FooterUmum = () => {
     return (
         <footer className="bg-blackThird text-whiteMain h-fit">
-            <BigMxWrapper className={"py-6 flex flex-col lg:flex-row gap-6 justify-evenly px-4"}>
+            <BigMxWrapper className={"py-6 flex flex-col xl:flex-row gap-6 justify-evenly px-4"}>
                 <div  >
                     <TitleTwoXl className={'text-center'} >Daftar Service</TitleTwoXl>
                     <ul className="flex flex-col items-center gap-1 mt-4">

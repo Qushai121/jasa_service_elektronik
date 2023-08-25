@@ -20,6 +20,7 @@ export default function AddModalBarangService({ children, customers }) {
         e.preventDefault();
         post(route("barangservice.store"), {
             preserveScroll: true,
+            preserveState:false,
             onSuccess: () => {
                 reset("gambar_barang", "keluhan_barang", "nama_barang");
             },
@@ -52,7 +53,7 @@ export default function AddModalBarangService({ children, customers }) {
                             ></path>
                         </svg>
                     </button>
-                    <div className="px-6 py-6 lg:px-8">
+                    <div className="px-6 py-6 xl:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                             Tambah Barang Masuk
                         </h3>

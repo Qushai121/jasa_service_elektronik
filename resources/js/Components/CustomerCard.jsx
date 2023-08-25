@@ -16,7 +16,7 @@ export const CustomerCard = ({ customers }) => {
                 <h3 className="font-bold text-lg">Alamat</h3>
                 <p>{customers?.alamat}</p>
                 <div className="bg-red-100 w-full my-1 h-[1px]"></div>
-                {customers?.barangservices && (
+                {customers?.barangservices ? (
                     <>
                         <h3 className="font-bold text-lg">
                             Jumlah Barang Diservice
@@ -25,7 +25,8 @@ export const CustomerCard = ({ customers }) => {
                             <p>{customers.barangservices.length}</p>
                         </div>
                     </>
-                )}
+                ):null
+                }
             </div>
         </div>
     );

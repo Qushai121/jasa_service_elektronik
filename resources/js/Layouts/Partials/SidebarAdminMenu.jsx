@@ -1,33 +1,34 @@
 import NavLink from "@/Components/NavLink";
+import { Role } from "@/lib/role";
 import { usePage } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 const menus = [
-    { link: "dashboard", keterangan: "Dashboard", role: [2, 3, 4] },
+    { link: "dashboard", keterangan: "Dashboard", role: [Role.admin, Role.dataEntry, Role.pekerja] },
     {
         link: "profile.edit",
         keterangan: "Profile",
-        role: [1, 2, 3, 4],
+        role: [Role.userBiasa, Role.admin, Role.dataEntry, Role.pekerja],
     },
     {
         link: "JenisService.index",
         keterangan: "Jenis Service",
-        role: [2],
+        role: [Role.admin],
     },
     {
         link: "customer.index",
         keterangan: "List Customer",
-        role: [2, 3],
+        role: [Role.admin, Role.dataEntry],
     },
     {
         link: "barangservice.index",
         keterangan: "List Barang Service",
-        role: [2, 3, 4],
+        role: [Role.admin, Role.dataEntry, Role.pekerja],
     },
     {
         link: "userbarangservice.index",
         keterangan: "List Pekerjaan Saya",
-        role: [2, 3, 4],
+        role: [Role.admin, Role.dataEntry, Role.pekerja],
     },
 ];
 

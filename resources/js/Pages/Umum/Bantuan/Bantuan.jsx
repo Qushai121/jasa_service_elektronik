@@ -13,14 +13,13 @@ const content = "Kami di sini untuk membantu! Temukan panduan lengkap dan inform
 const Bantuan = () => {
 
     const { data, setData, post, processing, errors, reset } = useForm({
+        subject:'Bantuan',
         nama: "",
         nomortelp: "",
         pesan: "",
         
     });
 
-    // console.log(usePage().props.flash)
-    console.log(processing);
     const submit = (e) => {
         e.preventDefault();
         post(route("bantuan.store"), {
@@ -30,11 +29,13 @@ const Bantuan = () => {
                     text: e.props.flash.success,
                     icon: 'success',
                     confirmButtonText: 'Ok'
-                  })
-                reset('nama','nomortelp','pesan')
+                })
             },
+            preserveState:false,
         });
     };
+    
+    console.log(data)
 
     return (
         <UmumLayout>

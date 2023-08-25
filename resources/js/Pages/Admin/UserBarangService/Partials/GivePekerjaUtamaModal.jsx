@@ -25,13 +25,15 @@ export default function GivePekerjaUtamaModal({
 
     // console.log();
     function givePekerjaanUtama(e) {
-        router.post(route("givePekerjaanUtama", dataPekerjaUtama.pivot.id), {
-            _method: "put",
-            ...data,
-        },{
-            onSuccess:location.reload()
-        });
-        
+        if(data.helper_id){
+            router.post(route("givePekerjaanUtama", dataPekerjaUtama.pivot.id), {
+                _method: "put",
+                ...data,
+            },{
+                onSuccess:location.reload()
+            });
+        }
+            
     }
     
     // ]=

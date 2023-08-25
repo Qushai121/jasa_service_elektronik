@@ -25,6 +25,7 @@ export default function DetailModalBarangService({ barangServices, children }) {
             _method: "put",
             ...data,
             gambar_barang: gambar,
+            preserveState:false,
         });
     };
 
@@ -57,7 +58,7 @@ export default function DetailModalBarangService({ barangServices, children }) {
                             ></path>
                         </svg>
                     </button>
-                    <div className="px-6 py-6 lg:px-8">
+                    <div className="px-6 py-6 xl:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                             Detail Barang
                         </h3>

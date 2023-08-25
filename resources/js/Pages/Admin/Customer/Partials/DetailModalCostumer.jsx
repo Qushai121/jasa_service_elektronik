@@ -69,7 +69,7 @@ export default function DetailModalCustomer({
                             ></path>
                         </svg>
                     </button>
-                    <div className="px-6 py-6 lg:px-8">
+                    <div className="px-6 py-6 xl:px-8">
                         <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                             Detail Customer
                         </h3>

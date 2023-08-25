@@ -3,7 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Header from "./Partials/Header";
 import PrimaryButton from "@/Components/PrimaryButton";
 import PaginateAdmin from "@/Components/PaginateAdmin";
-import { useForm, usePage } from "@inertiajs/react";
+import { router, useForm, usePage } from "@inertiajs/react";
 import DetailModalBarangService from "./Partials/DetailModalBarangService";
 import DetailModalCustomer from "../Customer/Partials/DetailModalCostumer";
 import NavLink from "@/Components/NavLink";
@@ -20,14 +20,14 @@ const IndexBarangService = ({ barangServices, auth }) => {
     const { data, setData, delete: destroy, processing, errors } = useForm({});
 
     function deleteBarang(id) {
-        destroy(route("barangservice.destroy", id));
+        router.destroy(route("barangservice.destroy", id));
     }
 
     const pesanJobSudahDiambil = usePage().props.flash.message;
 
     return (
         <AuthenticatedLayout message={pesanJobSudahDiambil} headers={headers}>
-            <div className="overflow-x-auto w-[100vw] lg:w-full ">
+            <div className="overflow-x-auto w-[100vw] xl:w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
@@ -91,7 +91,7 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                             </>
                                         )}
                                         {data.customers_belong_to_many[0]?.pivot
-                                            ?.status && (
+                                            ?.status ? (
                                             <BadgeStatus
                                                 status={
                                                     data
@@ -99,7 +99,8 @@ const IndexBarangService = ({ barangServices, auth }) => {
                                                         ?.pivot?.status
                                                 }
                                             />
-                                        )}
+                                        ):null
+                                    }
                                     </div>
                                 </th>
 

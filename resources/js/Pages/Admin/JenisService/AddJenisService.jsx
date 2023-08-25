@@ -19,6 +19,7 @@ const AddJenisService = ({}) => {
         background_foto: "",
         blog: "",
         icon: "",
+        kategori: []
     });
 
     const submit = (e) => {
@@ -51,7 +52,7 @@ const AddJenisService = ({}) => {
                         ></path>
                     </svg>
                 </button>
-                <div className="px-6 py-6 lg:px-8">
+                <div className="px-6 py-6 xl:px-8">
                     <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                         Tambah Jenis Service
                     </h3>
@@ -100,6 +101,27 @@ const AddJenisService = ({}) => {
                             />
                             <InputError
                                 message={errors.sub_judul}
+                                className="mt-2"
+                            />
+                        </div>
+                        <div>
+                            <InputLabel
+                                htmlFor="kategori"
+                                value="Kategori"
+                            />
+                            <TextInput
+                                id="kategori"
+                                type="text"
+                                name="kategori"
+                                // value={data.kategori}
+                                className="mt-1 block w-full"
+                                autoComplete="username"
+                                onChange={(e) =>
+                                    setData("kategori", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.kategori}
                                 className="mt-2"
                             />
                         </div>

@@ -15,11 +15,12 @@ const ModalImage = ({children}) => {
                 Lihat Gambar
             </PrimaryButton>
             {
-                tutupModalFoto && <>
+                tutupModalFoto ? <>
                     <Modal show={tutupModalFoto} onClose={() => setTutupModalFoto(!tutupModalFoto)}>
                         {children}
                     </Modal>
                 </>
+                :null
             }
         </>
     );
