@@ -4,12 +4,14 @@ import React from 'react'
 // xl:w-[22vw]
 export const Filter = ({JenisServices,kategori,jumlahData}) => {
 
-    function handleSearch(e) {router.get(route('jenisServiceUmum.index'), {search: e}, {
+    function handleSearch(e) {
+        router.get(route('jenisServiceUmum.index'), {search: e}, 
+        {
         preserveState: true,
         preserveScroll:true,
         replace: true,
-        
-    });
+        }
+    );
 }
 
   return (

@@ -80,13 +80,13 @@ const DetailJenisService = ({ JenisService, otherJenisServices }) => {
                         </div>
                         <div>
                             <TitleTwoXl>Service Sekarang !!</TitleTwoXl>
-                            <Link className="btn bg-stone-200 w-full shadow-lg mt-2">
+                            <Link href={route('pesanService.index')} className="btn bg-stone-200 w-full shadow-lg mt-2">
                                 Service
                             </Link>
                         </div>
                         <div>
                             <TitleTwoXl>Bantuan</TitleTwoXl>
-                            <Link className="btn bg-stone-200 w-full shadow-lg mt-2 ">
+                            <Link href={route('bantuan.index')} className="btn bg-stone-200 w-full shadow-lg mt-2 ">
                                 Bantuan
                             </Link>
                         </div>

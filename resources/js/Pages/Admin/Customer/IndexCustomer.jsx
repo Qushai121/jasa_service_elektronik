@@ -1,7 +1,7 @@
 import PaginateAdmin from "@/Components/PaginateAdmin";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import React from "react";
-import Header from "../BarangService/Partials/Header";
+import Header from "../../../Layouts/Partials/Header";
 import PrimaryButton from "@/Components/PrimaryButton";
 import NavLink from "@/Components/NavLink";
 import DetailCustomer from "./Partials/DetailModalCostumer";
@@ -21,10 +21,11 @@ const IndexCustomer = ({ customers }) => {
     function deleteCustomer(id) {
         router.delete(route("customer.destroy", id));
     }
+    
     return (
         <AuthenticatedLayout headers={headers} message={flash} >
             <AddModalCustomer customers={customers} />
-            <div className="overflow-x-auto w-[100vw] xl:w-full ">
+            <div className="overflow-x-auto min-w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">

@@ -11,6 +11,6 @@ class PesanServiceController extends Controller
 {
     function index(): Response
     {
-        return Inertia::render('Umum/CaraPemesanan/CaraPemesanan');
+        return Inertia::render('Umum/PesanService/PesanService');
     }
 }

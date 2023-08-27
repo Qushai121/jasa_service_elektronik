@@ -7,11 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\UserBarangService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 class HelperController extends Controller
 {
     public function askHelp(UserBarangService $userBarangService, Request $request)
     {
+       
         $dataFromReq = $request->all();
         abort_if($userBarangService->user_id != $dataFromReq['user_id'], 403);
         abort_if($userBarangService->barang_service_id != $dataFromReq['barang_service'], 403);

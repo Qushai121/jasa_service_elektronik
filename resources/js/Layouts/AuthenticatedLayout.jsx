@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import NavbarAdmin from "./NavbarAdmin";
 import SidebarAdminMenu from "./Partials/SidebarAdminMenu";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import Header from "@/Pages/Admin/BarangService/Partials/Header";
+import Header from "@/Layouts/Partials/Header";
 import { FlashMessage } from "@/Components/FlashMessage";
 
 export default function AuthenticatedLayout({ user, children, headers,message}) {
@@ -12,7 +12,10 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
         setSidebar(!getsidebar);
     };
     return (
-        <div className="min-h-screen bg-gray-900  md:w-full w-fit ">
+        <div className="min-h-screen bg-gray-900  ">
+            <Head>
+  <title>{route().current().split('.')[0]}</title>
+</Head>
             <div className="drawer xl:drawer-open">
                 <input
                     id="my-drawer-2"
@@ -22,10 +25,13 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
                 <div className="drawer-content h-[100vh] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-100">
                     <NavbarAdmin openSidebar={openSidebar} />
                     {headers?.open ? (
+                        <>
+                            
                         <Header
                             title={headers?.title}
                             description={headers?.description}
-                        />
+                            />
+                            </>
                         )
                         :null
                 }
@@ -33,7 +39,7 @@ export default function AuthenticatedLayout({ user, children, headers,message}) 
                         <FlashMessage message={message} />
                     
                     <main className="h-[100vh] xl:w-full">
-                        <div className="mx-6 my-4">{children}</div>
+                        <div className="mx-6 my-8 ">{children}</div>
                     </main>
                 </div>
                 <div>

@@ -19,9 +19,10 @@ const AddJenisService = ({}) => {
         background_foto: "",
         blog: "",
         icon: "",
-        kategori: []
+        kategori: ""
     });
 
+    console.log(data);
     const submit = (e) => {
         e.preventDefault();
         post(route("JenisService.store"), {
@@ -109,10 +110,12 @@ const AddJenisService = ({}) => {
                                 htmlFor="kategori"
                                 value="Kategori"
                             />
+                            <span className="text-whiteMain" >Gunakan Coma Untuk Pisahkan satu kategori dengan yang lain</span>
                             <TextInput
                                 id="kategori"
                                 type="text"
                                 name="kategori"
+                                placeholder='kategori1,kategori2,'
                                 // value={data.kategori}
                                 className="mt-1 block w-full"
                                 autoComplete="username"

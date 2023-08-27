@@ -22,9 +22,9 @@ class UpdateJenisServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'judul' => ['sometimes', 'required', 'string', 'max:50'],
-            'sub_judul' => ['sometimes', 'required', 'string', 'max:100'],
-            'blog' => ['sometimes', 'required', 'string'],
+            'judul' => ['required', 'string', 'max:50'],
+            'sub_judul' => ['required', 'string', 'max:100'],
+            'blog' => ['required', 'string'],
         ];
     }
 }

@@ -11,6 +11,6 @@ class CaraPemesananController extends Controller
 {
     function index(): Response
     {
-        return Inertia::render('Umum/PesanService/PesanService');
+        return Inertia::render('Umum/CaraPemesanan/CaraPemesanan');
     }
 }

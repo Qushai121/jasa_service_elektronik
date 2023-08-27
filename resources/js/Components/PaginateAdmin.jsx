@@ -63,8 +63,9 @@ export default function PaginateAdmin({ data }) {
                                         href={link.url}
                                         aria-current="page"
                                         className={`relative ${
-                                            !link.url ? "bg-red-200" : ""
-                                        } z-10 inline-flex items-center bg-blue-700 rounded-md px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                                            !link.url ? "bg-stone-500" : ""
+                                        } ${link.url == window.location.href ? 'bg-blue-800' :''}
+                                        z-10 inline-flex items-center bg-blueMain rounded-md px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                                     >
                                         {link.label.split(" ")[0] == "&laquo;"
                                             ? "Prev"

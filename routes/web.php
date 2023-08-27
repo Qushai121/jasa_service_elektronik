@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BarangServiceController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\HelperController;
 use App\Http\Controllers\Admin\JenisServiceController;
 use App\Http\Controllers\Admin\UserBarangServiceController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Umum\HomeController;
 use App\Http\Controllers\Umum\JenisServiceUmumController;
 use App\Http\Controllers\Umum\LokasiController;
 use App\Http\Controllers\Umum\PartsUmumController;
+use App\Http\Controllers\Umum\PesanServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,12 +37,7 @@ Route::get('/', function () {
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']);
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback']);
 
-Route::get('dashboard', function () {
-    if (auth()->user()->role_id <= 0) {
-        return redirect()->to(route('profile.edit'));
-    }
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified','CheckRole:all_staff'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -79,7 +76,7 @@ Route::prefix('')->group(function () {
     Route::get('/partsShop', [PartsUmumController::class, 'index'])->name('parts');
     Route::get('/lokasi', [LokasiController::class, 'index'])->name('lokasi');
     Route::resource('/bantuan', BantuanController::class)->only('index', 'store');
-    Route::get('/pesan',[CaraPemesananController::class,'index'])->name('pesanService.index');
+    Route::get('/pesan', [PesanServiceController::class, 'index'])->name('pesanService.index');
 });
 
 // Route::get('coba', [CobaController::class, 'coba'])->name('coba');

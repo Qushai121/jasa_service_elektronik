@@ -14,11 +14,15 @@ export default function EditJenisService({ JenisService }) {
     const [tutup, setTutup] = useState(false);
     const [backgroundFoto, setBackgroundFoto] = useState("");
     const [icon, setIcon] = useState("");
+    const [kategori,setKategori] = useState(
+        JenisService.kategori
+    )
 
     const { data, setData, post, processing, errors, reset } = useForm({
         judul: JenisService.judul,
         sub_judul: JenisService.sub_judul,
         blog: JenisService.blog,
+        kategori: JenisService.kategori,
     });
 
     const submit = (e) => {
@@ -30,7 +34,6 @@ export default function EditJenisService({ JenisService }) {
             icon: icon,
         });
     };
-
     console.log(data);
     return (
         <AuthenticatedLayout>
@@ -105,6 +108,30 @@ export default function EditJenisService({ JenisService }) {
                             />
                             <InputError
                                 message={errors.sub_judul}
+                                className="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel
+                                htmlFor="kategori"
+                                value="Kategori"
+                            />
+                            <span className="text-whiteMain" >Gunakan Coma Untuk Pisahkan satu kategori dengan yang lain</span>
+                            <TextInput
+                                id="kategori"
+                                type="text"
+                                name="kategori"
+                                placeholder='kategori1,kategori2,'
+                                defaultValue={JenisService.kategori}
+                                className="mt-1 block w-full"
+                                autoComplete="username"
+                                onChange={(e) =>
+                                    setData("kategori", e.target.value)
+                                }
+                            />
+                            <InputError
+                                message={errors.kategori}
                                 className="mt-2"
                             />
                         </div>

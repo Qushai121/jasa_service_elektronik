@@ -16,13 +16,14 @@ const IndexJenisService = ({ JenisServices }) => {
     function delteJenisService(id) {
         router.delete(route("JenisService.destroy", id));
     }
-   
+    
+    console.log(JenisServices.data);
     return (
         <AuthenticatedLayout headers={headers}>
             <Link className="btn btn-sm" href={route("JenisService.create")}>
                 Add Jenis Service
             </Link>
-            <div className="overflow-x-auto w-[100vw] xl:w-full ">
+            <div className="overflow-x-auto min-w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
@@ -53,10 +54,10 @@ const IndexJenisService = ({ JenisServices }) => {
                                     <div className="flex flex-col">
                                         {data.kategori
                                         ? 
-                                        <div className="flex gap-3">
+                                        <div className="flex gap-3 scrollbar-thin pb-3 scrollbar-w-0 max-w-xs overflow-auto">
                                         {
-                                            data.kategori.map((kategoriD) => (
-                                                <div className="badge ">
+                                            data.kategori.map((kategoriD,key) => (
+                                                <div key={key} className="badge ">
                                                 {kategoriD}
                                                 </div>
                                             ))

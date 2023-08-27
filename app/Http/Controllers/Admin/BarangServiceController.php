@@ -8,9 +8,7 @@ use App\Http\Requests\StoreBarangServiceRequest;
 use App\Http\Requests\UpdateBarangServiceRequest;
 use App\Models\BarangService;
 use App\Models\Customer;
-use App\Models\UserBarangService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Response;
 
 class BarangServiceController extends Controller
@@ -18,15 +16,17 @@ class BarangServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(BarangService $barangService): Response
+    public function index(Request $request): Response
     {
-        // WADUH INI MAH 
+     
         $barangServices = BarangService::with([
             'customersBelongToMany' => function ($q) {
-                $q->where('pekerja_utama' ,1);
-            }, 'customers'
-        ])->paginate(10);
-
+                $q->where('pekerja_utama', 1);
+            },
+            'customers'
+        ])->when($search = $request->get('search'), function ($query) use ($search) {
+            return $query->where('nama_barang', 'like', "%$search%");
+        })->paginate($request->get('per_page', 10))->appends(['per_page' => $request->get('per_page', 10), 'search' => $search]);
 
         return inertia('Admin/BarangService/IndexBarangService', compact('barangServices'));
     }
@@ -90,17 +90,19 @@ class BarangServiceController extends Controller
      */
     public function update(UpdateBarangServiceRequest $request, BarangService $barangservice)
     {
-        $this->authorize('view', $barangservice);
-        $barangservice->update($request->except('gambar_barang'));
-        if ($request->file('gambar_barang')) {
-            ImageHelper::ImageDelete($barangservice['gambar_barang']);
-            $gambar = ImageHelper::ImagePut('gambar_barang', $request->file('gambar_barang'));
-            $barangservice->update(['gambar_barang' => $gambar]);
-        };
+        // $this->authorize('view', $barangservice);
+        // $barangservice->update($request->except('gambar_barang'));
+
+        // if ($request->file('gambar_barang')) {
+        //     ImageHelper::ImageDelete($barangservice['gambar_barang']);
+        //     $gambar = ImageHelper::ImagePut('gambar_barang', $request->file('gambar_barang'));
+        //     $barangservice->update(['gambar_barang' => $gambar]);
+        // };
+
 
         return redirect()->route('barangservice.index');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      */
@@ -111,6 +113,6 @@ class BarangServiceController extends Controller
         ImageHelper::ImageDelete($barangservice->gambar_barang);
         // dd($barangservice);
         $barangservice->delete();
-        return redirect()->route('customer.show',$barangservice->customer_id);
+        return redirect()->route('customer.show', $barangservice->customer_id);
     }
 }

@@ -8,14 +8,15 @@ import { CustomerCard } from "@/Components/CustomerCard";
 import { BadgeStatus } from "@/Components/BadgeStatus";
 import { AmbilJob } from "../BarangService/Partials/AmbilJob";
 import Swal from "sweetalert2";
+import { Role } from "@/lib/role";
 
 export default function DetailBarangServiceCustomer({ customers, auth }) {
     const [authorized, setAuthorized] = useState(false);
     useEffect(() => {
         if (
             customers.user_id == auth.user.id &&
-            auth.user.role_id != 4 &&
-            auth.user.role_id != 1
+            auth.user.role_id != Role.pekerja &&
+            auth.user.role_id != Role.userBiasa
         ) {
             setAuthorized(true);
         }
@@ -26,7 +27,6 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
 
             Swal.fire({
                 title: 'Ingin Menghapus Paksa Barang Ini ?',
-            
                 text: `barang dalam pekerjaan dan berstatus ${status}`,
                 showDenyButton: true,
                 confirmButtonText: 'Hapus',
@@ -54,11 +54,11 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
         }
     return (
         <AuthenticatedLayout>
-            {authorized && <AddModalBarangService customers={customers} />}
+            {authorized ? <AddModalBarangService customers={customers} /> : null}
             <div className="text-white modal-box bg-gray-500 ">
                 <CustomerCard customers={customers} />
             </div>
-            <div className="overflow-x-auto w-[100vw] xl:w-full ">
+            <div className="overflow-x-auto min-w-full ">
                 <table className="table">
                     <thead>
                         <tr className="text-gray-100">
@@ -121,7 +121,7 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
                                     </div>
                                 </th>
 
-                                {authorized && (
+                                {authorized ? (
                                     <th className="flex gap-3">
                                         <PrimaryButton
                                             onClick={() =>
@@ -140,7 +140,7 @@ export default function DetailBarangServiceCustomer({ customers, auth }) {
                                         </PrimaryButton>
                                         <PrimaryButton>Selesai</PrimaryButton>
                                     </th>
-                                )}
+                                ):null}
                             </tr>
                         ))}
                     </tbody>

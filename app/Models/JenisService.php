@@ -20,21 +20,18 @@ class JenisService extends Model
         'icon',
         'kategori',
     ];
+    
+    // suka error kalo update mending mutator daripada cast 
+    // protected $casts = [
+    //     'kategori' => AsArrayObject::class,
+    // ];
 
-    protected $casts = [
-        'kategori' => AsArrayObject::class,
-    ];
-    protected function judul(): Attribute
-    {
-        return Attribute::make(
-            set: fn ($value) => 'kontol',
-        );
-    }
+    // astagfirullah
+
     protected function kategori(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => json_decode($value, true),
-            set: fn ($value) => json_encode($value),
         );
     }
 }

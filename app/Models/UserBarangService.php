@@ -31,4 +31,8 @@ class UserBarangService extends Model
     {
         return $this->hasMany(BarangService::class, 'id', 'barang_service_id');
     }
+    // public function userBarangService() 
+    // {
+    //     return $this->
+    // }
 }

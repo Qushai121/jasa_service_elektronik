@@ -53,7 +53,6 @@ const DetailUserBarangService = ({
     }
 
     // askhelp
-    console.log(pekerjaUtama.pivot.status);
     return (
         <AuthenticatedLayout>
             <HeaderStatus status={pekerjaUtama.pivot.status} />
@@ -134,11 +133,12 @@ const DetailUserBarangService = ({
                                 {
                                     console.log(pekerjaUtama.pivot.status != "Selesai")
                                 }
-                                {checkIfIamHelper && pekerjaUtama.pivot.status != "Selesai" &&
+                                {pekerjaUtama.pivot.status != "Selesai" &&
                                 pekerjaUtama.id != auth.user.id ? (
                                     <>
                                         <div>
                                             <AddHelperModal
+                                            dataHelper={checkIfIamHelper}
                                                 datas={pekerjaUtama}
                                                 auth={auth}
                                             />

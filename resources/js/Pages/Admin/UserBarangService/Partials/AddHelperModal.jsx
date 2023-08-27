@@ -1,11 +1,12 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
+import { Role } from "@/lib/role";
 import { useForm } from "@inertiajs/react";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
-export const AddHelperModal = ({datas,auth}) => {
-    if(auth.user.role_id == 1) return <></>
-    
+export const AddHelperModal = ({datas,auth,dataHelper}) => {
+    if(auth.user.role_id == Role.userBiasa) return <></>
     const [tutup,setTutup] = useState(false)
     
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -14,11 +15,12 @@ export const AddHelperModal = ({datas,auth}) => {
     });
 
     
-
     function helpThisGuy(e) {
-        post(route("addHelper", datas.pivot.id),{
-            onSuccess:location.reload()
-        });
+        if(!dataHelper){
+            post(route("addHelper", datas.pivot.id),{
+                onSuccess:location.reload()
+            });
+        }
     }
     return (
         <>
@@ -28,6 +30,7 @@ export const AddHelperModal = ({datas,auth}) => {
             >
                 Bantu Pekerja !!
             </PrimaryButton>
+            <ToastContainer/>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
                 <div className="modal-box bg-gray-800 text-gray-200 ">
                     <button
@@ -39,9 +42,17 @@ export const AddHelperModal = ({datas,auth}) => {
                     <h3 className="font-bold text-lg">
                         Konfirmasi Membantu Sebagai Helper
                     </h3>
+                    {
+                        dataHelper ? 
+                        <p className="py-4 text-red-400">
+                            Kamu Sudah Menjadi Helper
+                        </p>
+                        :
                     <p className="py-4">Klik Bantu Untuk Konfirmasi Bantuan Anda </p>
+                    }
                     <div className="modal-action">
                         <PrimaryButton
+                            disabled={dataHelper}
                             onClick={(e) => helpThisGuy(e)}
                             className="btn btn-md"
                         >

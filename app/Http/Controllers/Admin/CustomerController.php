@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -16,11 +17,21 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(User $user)
+    public function index(Request $request)
     {
-        // Yang Ditampilkan Disini Hanya Customer Yang admin,data_entry Sudah Input
-        // di pisah pisah karena pengimput yang bertanggung jawab atas yang dia upload 
-        $customers = $user->WhereMyCustomers();
+        $customersQuery = Customer::where('user_id',auth()->user()->id);
+        if ($search = $request->get('search')) {
+            $customersQuery->where(
+                function ($q) use ($search) {
+                    $q->where('nama', 'like', "%$search%")
+                    ->orWhere('nomor_kontak','like',"$search%")
+                    ->orWhere('email','like',"%$search%");
+                }
+            );
+        }
+
+        $customers = $customersQuery->paginate($request->get('per_page',10))->appends('per_page',$request->get('per_page',10))->withQueryString();
+        
         return Inertia::render('Admin/Customer/IndexCustomer', compact('customers'));
     }
 
@@ -42,8 +53,8 @@ class CustomerController extends Controller
             ['user_Id' => auth()->user()->id]
         );
 
-        $id =  Customer::insertGetId($MergeRequestWithId);
-        return redirect()->back()->with('message', $id);
+        Customer::insert($MergeRequestWithId);
+        return redirect()->back();
     }
 
     /**

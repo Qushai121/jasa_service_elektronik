@@ -16,11 +16,11 @@ class JenisServiceUmumController extends Controller
         $data = [];
         foreach ($JenisServices as $key => $value) {
             if ($value->kategori) {
-                array_push($data, array_unique($value->kategori));
+                array_push($data, $value->kategori);
             }
         };
+        // dd($data);
         $combinedArray = [];
-
         foreach ($data as $subArray) {
             $combinedArray = array_merge($combinedArray, $subArray);
         }
@@ -38,16 +38,16 @@ class JenisServiceUmumController extends Controller
         $dataFromReq = $request->only('search');
         $JenisServices = [];
         if (!$dataFromReq) {
-            $JenisServices = JenisService::paginate();
+            $JenisServices = JenisService::paginate(10);
         } else {
             $search = $dataFromReq['search'];
             $JenisServices = JenisService::where(function ($query) use ($search) {
                 $query->where('judul', 'like', "%$search%")
-                ->orWhere('kategori', 'like', "%$search%");
-            })->paginate();
+                    ->orWhere('kategori', 'like', "%$search%");
+            })->paginate(10)->withQueryString();
         }
 
-        return Inertia::render('Umum/JenisService/JenisService', compact('JenisServices', 'kategori','jumlahData'));
+        return Inertia::render('Umum/JenisService/JenisService', compact('JenisServices', 'kategori', 'jumlahData'));
     }
 
     public function show(JenisService $JenisService)

@@ -2,13 +2,15 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import { router, useForm } from "@inertiajs/react";
 import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function GivePekerjaUtamaModal({
     userBarangServices,
     dataHelper,
     dataPekerjaUtama,
 }) {
-    const [tutup, setTutup] = useState(false);
+    const [tutup, setTutup] = useState(false);  
+    const [noHelper,setNoHelper ] = useState(false);  
     const [helperChosenOne, setHelperChosenOne] = useState("");
 
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -23,7 +25,6 @@ export default function GivePekerjaUtamaModal({
 
     };
 
-    // console.log();
     function givePekerjaanUtama(e) {
         if(data.helper_id){
             router.post(route("givePekerjaanUtama", dataPekerjaUtama.pivot.id), {
@@ -33,11 +34,10 @@ export default function GivePekerjaUtamaModal({
                 onSuccess:location.reload()
             });
         }
-            
+        setNoHelper('Tidak Ada Kandidat Pekerja Utama')
     }
     
     // ]=
-    
     
 
 
@@ -51,6 +51,7 @@ export default function GivePekerjaUtamaModal({
                 
             </PrimaryButton>
             <Modal show={tutup} onClose={() => setTutup(!tutup)}>
+              
                 <div className="modal-box bg-gray-800 text-gray-200 ">
                     <button
                         onClick={() => setTutup(!tutup)}
@@ -61,6 +62,7 @@ export default function GivePekerjaUtamaModal({
                     <h3 className="font-bold text-lg">
                         Form Pelepasan Tugas Pekerja Utama Ke Helper
                     </h3>
+                    
                     <p className="py-4">
                         Pilih helper yang mau dijadikan pekerja utama
                     </p>
@@ -76,11 +78,17 @@ export default function GivePekerjaUtamaModal({
                             </option>
                         )})}
                     </select>
-                    <div className="modal-action">
+                    {noHelper?
+                    <p className="text-red-400">
+                       Anda Tidak Memilki Kandidat Pekerja Utama
+                    </p>:null
+                    }
+
+                        <div className="modal-action">
                         <PrimaryButton
                             onClick={(e) => givePekerjaanUtama(e)}
                             className="btn btn-md"
-                        >
+                            >
                             Lanjut
                         </PrimaryButton>
                     </div>

@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
 
 
-    
+
     public function barangservices(): BelongsToMany
     {
         // Isian parameternya itu 
@@ -71,7 +71,7 @@ class User extends Authenticatable
         // 3. masukin table pivot user yang tersimpan di many to many table, kalo lu bikin ini methodnya nya di barangservice Model
         // berarti masukin barang_service_id dan ganti parameter ke 1 jadi User::class [model]
         // 4. masukin pivot sibling table 
-        return $this->belongsToMany(BarangService::class, 'user_barang_services','user_id','barang_service_id')
-               ->withPivot('status','id','askhelp','pekerja_utama');
+        return $this->belongsToMany(BarangService::class, 'user_barang_services', 'user_id', 'barang_service_id')
+            ->withPivot('status', 'id', 'askhelp', 'pekerja_utama');
     }
 }

@@ -17,9 +17,15 @@ class JenisServiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $JenisServices = JenisService::paginate(10);
+            $JenisServices = JenisService::when($search = $request->get('search'))
+            ->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%$search%")
+                    ->orWhere('sub_judul', 'like', "%$search%")
+                    ->orWhere('kategori', 'like', "%$search%");
+            })->paginate($request->get('per_page', 10))->appends('per_page', $request->get('per_page', 10))->withQueryString();
+
         return Inertia::render('Admin/JenisService/IndexJenisService', compact('JenisServices'));
     }
 
@@ -40,7 +46,7 @@ class JenisServiceController extends Controller
         DB::transaction(function () use ($request) {
             $MergeRequestWithKategori = array_merge(
                 $request->validated(),
-                ['kategori' => json_encode(explode(',',$request->post('kategori')))]
+                ['kategori' => json_encode(explode(',', $request->post('kategori')))]
             );
             $data = JenisService::insertGetId($MergeRequestWithKategori);
             if ($request->file('background_foto')) {
@@ -69,7 +75,7 @@ class JenisServiceController extends Controller
      */
     public function edit(JenisService $JenisService)
     {
-        return Inertia::render('Admin/JenisService/EditJenisService',compact('JenisService'));
+        return Inertia::render('Admin/JenisService/EditJenisService', compact('JenisService'));
     }
 
     /**
@@ -79,8 +85,11 @@ class JenisServiceController extends Controller
     {
 
         DB::transaction(function () use ($request, $JenisService) {
-
-            $JenisService->update($request->except('background_foto', 'icon'));
+            $MergeRequestWithKategori = array_merge(
+                $request->validated(),
+                ['kategori' => json_encode(explode(',', $request->post('kategori')))]
+            );
+            $JenisService->update($MergeRequestWithKategori);
             if ($request->file('background_foto')) {
                 ImageHelper::ImageDelete($JenisService['background_foto']);
                 $background_foto = ImageHelper::ImagePut('background_foto', $request->file('background_foto'));

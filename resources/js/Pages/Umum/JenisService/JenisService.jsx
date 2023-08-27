@@ -4,6 +4,7 @@ import { UmumLayout } from "@/Layouts/umum/UmumLayout";
 import React,{useEffect} from "react";
 import { Filter } from "./partials/Filter";
 import { Head, Link } from "@inertiajs/react";
+import PaginateAdmin from "@/Components/PaginateAdmin";
 
 const content = "Temukan beragam layanan perbaikan dan perawatan elektronik unggulan kami. Mulai dari perbaikan hardware hingga pemulihan data, kami memiliki solusi lengkap untuk kebutuhan perangkat elektronik Anda. Dapatkan pelayanan handal dan profesional dari tim ahli kami untuk menjaga perangkat Anda tetap berfungsi secara optimal."
 
@@ -36,9 +37,9 @@ const JenisService = ({ JenisServices,kategori,jumlahData }) => {
                                 <Link
                                 href={route('jenisServiceUmum.show',data.id)}
                                     key={key}
-                                    className="xl:w-[15vw] bg-whiteMain text-blackMain py-2 xl:pb-6 shadow-lg hover:shadow-none duration-300"
+                                    className="xl:w-[15vw] bg-whiteMain overflow-hidden text-blackMain py-2 xl:pb-6 shadow-lg hover:shadow-none duration-300"
                                 >
-                                    <div className="my-4 mx-5 flex gap-2">
+                                    <div className="my-4 mx-5 flex gap-2 overflow-hidden">
                                         {data.kategori.map((kate)=>(
 
                                             <p className="text-sm badge bg-stone-300 font-medium">{kate}</p>
@@ -66,6 +67,7 @@ const JenisService = ({ JenisServices,kategori,jumlahData }) => {
                             ))}
                         </div>
                     </div>
+            <PaginateAdmin data={JenisServices} />
                 </div>
             </div>
         </UmumLayout>
